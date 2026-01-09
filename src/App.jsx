@@ -1,6 +1,7 @@
 import './styles/App.css'
 import Header from './components/Header.jsx';
 import { Routes, Route } from 'react-router-dom';
+import Footer from './components/Footer.jsx';
 
 function App() {
 
@@ -15,8 +16,10 @@ function App() {
         <Route path='/sobre' element={<h2>Sobre</h2>}/>
       </Routes>
       <h1>Catálogo de filmes</h1>
+
+      <Footer />
     </>
   )
 }
 
-export default App
+export default App;
