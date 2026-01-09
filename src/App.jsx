@@ -6,19 +6,21 @@ import Footer from './components/Footer.jsx';
 function App() {
 
   return (
-    <>
+    <div className='app-layout'>
       <Header />
 
-      <Routes>
-        <Route path='/' element={<h2>Página Inicial</h2>}/>
-        <Route path='/categorias' element={<h2>Categorias</h2>}/>
-        <Route path='/favoritos' element={<h2>Favoritos</h2>}/>
-        <Route path='/sobre' element={<h2>Sobre</h2>}/>
-      </Routes>
-      <h1>Catálogo de filmes</h1>
+      <main className='content'>
+        <Routes>
+          <Route path='/' element={<h2>Página Inicial</h2>}/>
+          <Route path='/categorias' element={<h2>Categorias</h2>}/>
+          <Route path='/favoritos' element={<h2>Favoritos</h2>}/>
+          <Route path='/sobre' element={<h2>Sobre</h2>}/>
+        </Routes>
+        <h1>Catálogo de filmes</h1>
+      </main>
 
       <Footer />
-    </>
+    </div>
   )
 }
 
