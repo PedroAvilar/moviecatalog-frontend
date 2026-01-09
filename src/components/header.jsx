@@ -1,14 +1,15 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import './header.css';
 
 function Header() {
     return (
         <header>
             <nav>
                 <ul>
-                    <li><Link to={"/"}>Página inicial</Link></li>
-                    <li><Link to={"/categorias"}>Categorias</Link></li>
-                    <li><Link to={"/favoritos"}>Favoritos</Link></li>
-                    <li><Link to={"/sobre"}>Sobre</Link></li>
+                    <li><NavLink to={"/"}>Página inicial</NavLink></li>
+                    <li><NavLink to={"/categorias"}>Categorias</NavLink></li>
+                    <li><NavLink to={"/favoritos"}>Favoritos</NavLink></li>
+                    <li><NavLink to={"/sobre"}>Sobre</NavLink></li>
                 </ul>
             </nav>
         </header>
