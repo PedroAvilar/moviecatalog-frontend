@@ -2,6 +2,10 @@ import './styles/App.css'
 import Header from './components/Header.jsx';
 import { Routes, Route } from 'react-router-dom';
 import Footer from './components/Footer.jsx';
+import Home from './pages/Home.jsx';
+import Categories from './pages/Categories.jsx';
+import Favorites from './pages/Favorites.jsx';
+import About from './pages/About.jsx';
 
 function App() {
 
@@ -11,12 +15,11 @@ function App() {
 
       <main className='content'>
         <Routes>
-          <Route path='/' element={<h2>Página Inicial</h2>}/>
-          <Route path='/categorias' element={<h2>Categorias</h2>}/>
-          <Route path='/favoritos' element={<h2>Favoritos</h2>}/>
-          <Route path='/sobre' element={<h2>Sobre</h2>}/>
+          <Route path='/' element={<Home/>}/>
+          <Route path='/categorias' element={<Categories/>}/>
+          <Route path='/favoritos' element={<Favorites/>}/>
+          <Route path='/sobre' element={<About/>}/>
         </Routes>
-        <h1>Catálogo de filmes</h1>
       </main>
 
       <Footer />
