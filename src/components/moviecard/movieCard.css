@@ -1,0 +1,33 @@
+/* Estilos para o componente MovieCard */
+.movie-card {
+    margin: 1rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+/* Efeito de zoom ao passar o mouse */
+.movie-card:hover {
+    transform: scale(1.03);
+}
+
+/* Estilos para o pôster do filme */
+.movie-poster {
+    width: 100%;
+    border-radius: 0.5rem;
+    display: block;
+}
+
+/* Estilos para o título */
+.movie-title {
+    margin-top: 0.5rem;
+    font-size: 0.95rem;
+    color: #333;
+    
+}
+
+/* Estilos para a avaliação */
+.movie-rating {
+    margin-top: 0.25rem;
+    font-size: 0.9rem;
+    color: #222;
+}
