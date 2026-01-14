@@ -1,0 +1,57 @@
+/* Estilos para o componente Banner */
+.banner {
+    width: 100%;
+    height: 60vh;
+    min-height: 320px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    margin-bottom: 2rem;
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+/* Sobreposição */
+.banner-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0.7),
+        rgba(0, 0, 0, 0.2)
+    );
+    display: flex;
+    align-items: flex-end;
+}
+
+/* Conteúdo do banner */
+.banner-content {
+    color: white;
+    padding: 1rem 2rem;
+    max-width: 600px;
+    text-shadow: 3px 3px 6px rgb(0, 0, 0);
+}
+
+/* Título */
+.banner-content h2 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    
+}
+
+/* Texto */
+.banner-content p {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+/* Para dipositivos móveis */
+@media (max-width: 768px) {
+    .banner {
+        height: 50vh;
+    }
+
+    .banner-content h2 {
+        font-size: 1.5rem;
+    }
+}
