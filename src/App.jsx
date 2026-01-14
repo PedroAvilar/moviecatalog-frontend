@@ -1,7 +1,7 @@
 import './styles/App.css'
-import Header from './components/Header.jsx';
+import Header from './components/header/Header.jsx';
 import { Routes, Route } from 'react-router-dom';
-import Footer from './components/Footer.jsx';
+import Footer from './components/footer/Footer.jsx';
 import Home from './pages/Home.jsx';
 import Categories from './pages/Categories.jsx';
 import Favorites from './pages/Favorites.jsx';
