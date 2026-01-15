@@ -1,0 +1,18 @@
+/* Estilos para a seção de filmes */
+.movie-section {
+    margin-bottom: 2rem;
+}
+
+/* Título da seção */
+.section-title {
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+    color: #222;
+}
+
+/* Grade de filmes */
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 1rem;
+}

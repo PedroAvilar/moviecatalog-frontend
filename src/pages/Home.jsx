@@ -1,26 +1,29 @@
 // Página inicial do catálogo de filmes
 import Banner from '../components/banner/Banner';
 import MovieCard from '../components/moviecard/MovieCard';
+import MovieSection from '../components/movieSection/MovieSection';
 import { moviesMock } from '../data/moviesMock';
 
 function Home() {
+    const moviesWithComponent = moviesMock.map(movie => ({
+        id: movie.id,
+        component: (
+            <MovieCard 
+                title={movie.title}
+                poster={movie.poster}
+                rating={movie.rating}
+            />
+        )
+    }));
+
     return (
         <div>
             <Banner />
 
-            <section className='movie-section'>
-                <h2>Melhores avaliados</h2>
-
-                {/* Renderização dos cartões de filmes */}
-                {moviesMock.map((movie => (
-                    <MovieCard 
-                        key={movie.id}
-                        title={movie.title}
-                        poster={movie.poster}
-                        rating={movie.rating}
-                    />
-                )))}
-            </section>
+            <MovieSection 
+                title={'Melhores avaliados'}
+                movies={moviesWithComponent}
+            />
         </div>
     )
 }
