@@ -1,3 +1,4 @@
+import MovieCard from '../moviecard/MovieCard';
 import './movieSection.css';
 
 function MovieSection({ title, movies }) {
@@ -7,9 +8,12 @@ function MovieSection({ title, movies }) {
 
             <div className='movie-grid'>
                 {movies.map(movie => (
-                    <div key={movie.id}>
-                        {movie.component}
-                    </div>
+                    <MovieCard
+                        key={movie.id}
+                        title={movie.title}
+                        poster={movie.poster}
+                        rating={movie.rating}
+                    />
                 ))}
             </div>
         </section>
