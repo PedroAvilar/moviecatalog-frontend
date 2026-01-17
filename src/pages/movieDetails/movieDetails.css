@@ -9,7 +9,7 @@
 /* Estilos para a imagem do filme */
 .movie-details img {
     width: 300px;
-    border-radius: 0.5px;
+    border-radius: 1rem;
 }
 
 /* Estilos para as informações do filme */
@@ -24,6 +24,18 @@
 .movie-info p {
     margin-bottom: 0.5rem;
     font-size: 1rem;
+}
+
+/* Estilos para o botão de favorito */
+.favorite-btn {
+    background-color: #333;
+    color: white;
+    width: auto;
+    height: 1.8rem;
+    font-size: 0.95rem;
+    box-shadow: 3px 3px 6px rgb(0, 0, 0);
+    border-radius: 0.5rem;
+    cursor: pointer;
 }
 
 /* Estilos para dispositivos móveis */
