@@ -1,6 +1,5 @@
 /* Estilos para o componente MovieCard */
 .movie-card {
-    margin: 1rem;
     cursor: pointer;
     transition: transform 0.3s ease;
 }
