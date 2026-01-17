@@ -1,13 +1,16 @@
 import { useNavigate } from 'react-router-dom';
 import './movieCard.css';
+import { slugify } from '../../utils/slugify';
 
 function MovieCard ({ id, title, poster, rating }) {
     const navigate = useNavigate(); /* Hook para navegação programática */
+    
+    const titleSlug = slugify(title); /* Gera slug do título do filme */
 
     return (
         <article 
             className='movie-card'
-            onClick={() => navigate(`/filme/${id}/${title}`)} /* Navega para detalhes do filme */
+            onClick={() => navigate(`/filme/${id}/${titleSlug}`)} /* Navega para detalhes do filme */
         >
             <img 
                 src={poster} 
