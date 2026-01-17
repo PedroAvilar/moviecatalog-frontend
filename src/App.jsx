@@ -6,6 +6,7 @@ import Home from './pages/Home.jsx';
 import Categories from './pages/Categories.jsx';
 import Favorites from './pages/Favorites.jsx';
 import About from './pages/About.jsx';
+import MovieDetails from './pages/movieDetails/MovieDetails.jsx';
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
           <Route path='/categorias' element={<Categories/>}/>
           <Route path='/favoritos' element={<Favorites/>}/>
           <Route path='/sobre' element={<About/>}/>
+          <Route path='/filme/:id/:title' element={<MovieDetails />} />
         </Routes>
       </main>
 

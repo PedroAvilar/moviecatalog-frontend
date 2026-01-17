@@ -1,0 +1,40 @@
+.movie-details {
+    display: flex;
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1100px;
+    margin: 0 auto  ;
+}
+
+/* Estilos para a imagem do filme */
+.movie-details img {
+    width: 300px;
+    border-radius: 0.5px;
+}
+
+/* Estilos para as informações do filme */
+.movie-info {
+    color: black;
+}
+
+.movie-info h1 {
+    margin-bottom: 1rem;
+}
+
+.movie-info p {
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+}
+
+/* Estilos para dispositivos móveis */
+@media (max-width: 768px) {
+    .movie-details {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .movie-details img {
+        width: 80%;
+    }
+}
