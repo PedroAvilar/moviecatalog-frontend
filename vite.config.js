@@ -6,5 +6,5 @@ const repoName = 'moviecatalog-frontend'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: `/${repoName}`
+  base: `/${repoName}/`
 })
