@@ -1,18 +1,30 @@
 import { useParams } from "react-router-dom";
-import { moviesMock } from "../../data/moviesMock";
 import './movieDetails.css';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { isFavorite, removeFavorite, saveFavorite } from "../../services/favoritesService";
+import { getMovieDetails } from "../../services/tmdbService";
 
 function MovieDetails() {
+    // Obtém ID da URL
     const {id} = useParams();
 
-    const movie = moviesMock.find(m => m.id === Number(id));
+    // Estados para armazenar os dados do filme e status de favorito
+    const [movie, setMovie] = useState(null)
+    const [favorite, setFavorite] = useState(false);
 
-    const [favorite, setFavorite] = useState(isFavorite(movie?.id));
+    useEffect(() => {
+        // Buscar detalhes e verificar se é favorito
+        async function fetchMovie() {
+            const data = await getMovieDetails(id);
+            setMovie(data);
+            setFavorite(isFavorite(data.id));
+        }
+
+        fetchMovie();
+    }, [id]); // Reexecuta se o ID na URL mudar
 
     if (!movie) {
-        return <p>Ops! Filme não encontrado.</p>
+        return <p>Carregando filme...</p>
     }
 
     // Função para alternar o estado de favorito
@@ -27,12 +39,27 @@ function MovieDetails() {
 
     return (
         <section className="movie-details">
-            <img src={movie.poster} alt={movie.title} />
+            <img 
+                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                alt={movie.title} 
+            />
 
             <div className="movie-info">
+
                 <h1>{movie.title}</h1>
-                <p><strong>Nota: </strong>{movie.rating}</p>
-                <p><strong>Descrição: </strong></p>
+
+                <p><strong>Nota: ⭐</strong>
+                    {movie.vote_average > 0 
+                        ? movie.vote_average.toFixed(1)
+                        : 'Sem avaliação.'}
+                </p>
+
+                <p><strong>Descrição: </strong>
+                    {movie.overview && movie.overview.trim() !== ''
+                        ? movie.overview
+                        : 'Sem descrição disponível.'}
+                </p>
+
                 <p><strong>Favorito: </strong>
                     <button 
                         onClick={handleFavorite}
