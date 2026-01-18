@@ -12,8 +12,12 @@ function MovieSection({ title, movies }) {
                         key={movie.id}
                         id={movie.id}
                         title={movie.title}
-                        poster={movie.poster}
-                        rating={movie.rating}
+                        poster={
+                            movie.poster_path
+                                ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+                                : 'https://via.placeholder.com/300x450?text=Sem+Imagem'
+                        }
+                        rating={movie.vote_average?.toFixed(1)}
                     />
                 ))}
             </div>
