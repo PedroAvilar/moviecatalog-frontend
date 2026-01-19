@@ -18,12 +18,17 @@
     display: flex;
     align-items: flex-end;
     cursor: pointer;
+    background: linear-gradient(
+        to top,
+        rgba(0,0,0,0.7),
+        rgba(0,0,0,0.1)
+    );
 }
 
 /* Conteúdo do banner */
 .banner-content {
     color: white;
-    padding: 1rem 2rem;
+    padding: 2rem;
     max-width: 600px;
     text-shadow: 3px 3px 6px rgb(0, 0, 0);
 }
@@ -41,7 +46,7 @@
     margin-bottom: 1rem;
 }
 
-/* Para dipositivos móveis */
+/* Para dispositivos móveis */
 @media (max-width: 768px) {
     .banner {
         height: 50vh;
@@ -64,8 +69,8 @@
 }
 
 .dot {
-    width: 0.7rem;
-    height: 0.7rem;
+    width: 0.8rem;
+    height: 0.8rem;
     background: rgba(255, 255, 255, 0.5);
     border-radius: 50%;
     cursor: pointer;
