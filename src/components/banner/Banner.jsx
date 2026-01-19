@@ -15,7 +15,7 @@ function Banner({ movies }) {
         }, 8000); // Troca o índice a cada 8 segundos
 
         return () => clearInterval(interval); // Função de limpeza
-    }, [movies]); // Reinicia caso a lista mude
+    }, [movies, currentIndex]); // Reinicia caso a lista ou índice mude
 
     if (!movies || movies.length === 0) return null; // Caso vazia ou nula, não renderiza
     
@@ -43,6 +43,21 @@ function Banner({ movies }) {
                                 : movie.overview
                             : 'Sem descrição disponível.'}
                     </p>
+                </div>
+
+                {/* Dots para navegação do usuário */}
+                <div className='banner-dots'>
+                    {movies.map((_, index) => (
+                        <span
+                            key={index}
+                            className={`dot ${index === currentIndex ? 'active' : ''}`}
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                setCurrentIndex(index);
+                            }}
+                        />
+                    ))}
+
                 </div>
             </div>
         </section>
