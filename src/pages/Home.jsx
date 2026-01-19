@@ -26,7 +26,7 @@ function Home() {
 
     return (
         <div>
-            <Banner movie={bannerMovie} />
+            <Banner movies={popular.slice(0, 5)} />
 
             <MovieSection 
                 title={'Populares'}

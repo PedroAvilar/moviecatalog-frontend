@@ -1,12 +1,25 @@
 import './banner.css';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { slugify } from '../../utils/slugify';
 
-function Banner({ movie }) {
+function Banner({ movies }) {
     const navigate = useNavigate(); // Hook para navegação programática
+    const [currentIndex, setCurrentIndex] = useState(0); // Estado que controla qual filme está sendo exibido
 
-    if (!movie) return null;
+    useEffect(() => {
+        if (!movies || movies.length === 0) return; // Caso sem filmes, sem temporizador
+
+        const interval = setInterval(() => {
+            setCurrentIndex(prev => (prev + 1) % movies.length);
+        }, 8000); // Troca o índice a cada 8 segundos
+
+        return () => clearInterval(interval); // Função de limpeza
+    }, [movies]); // Reinicia caso a lista mude
+
+    if (!movies || movies.length === 0) return null; // Caso vazia ou nula, não renderiza
     
+    const movie = movies[currentIndex]; // Seleciona o filme com base no índice do estado
     const titleSlug = slugify(movie.title); // Gera slug do título do filme
 
     return (
