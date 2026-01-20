@@ -1,26 +1,67 @@
 import './banner.css';
 import { useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { slugify } from '../../utils/slugify';
 
 function Banner({ movies }) {
     const navigate = useNavigate(); // Hook para navegação programática
-    const [currentIndex, setCurrentIndex] = useState(0); // Estado que controla qual filme está sendo exibido
-    const [fade, setFade] = useState(true); // Estado que controla o fade
+    // Estados para controles
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [fade, setFade] = useState(true);
+    const [touchStartX, setTouchStartX] = useState(null);
+    const [touchEndX, setTouchEndX] = useState(null);
+
+    const intervalRef = useRef(null);
+
+    // Função central que troca o banner e reinicia o timer
+    function changeBanner(index) {
+        if (!movies || movies.length === 0) return;
+
+        setFade(false);
+
+        setTimeout(() => {
+            const newIndex = (index + movies.length) % movies.length;
+            setCurrentIndex(newIndex);
+            setFade(true);
+            startAutoSlide();
+        }, 300);
+    }
+
+    // Função para autoplay
+    function startAutoSlide() {
+        clearInterval(intervalRef.current);
+
+        intervalRef.current = setInterval(() => {
+            changeBanner(currentIndex + 1);
+        }, 8000)
+    }
+
+    // Handlers para suporte a touch (mobile)
+    function handleTouchStart(e) {setTouchStartX(e.touches[0].clientX);}
+    function handleTouchMove(e) {setTouchEndX(e.touches[0].clientX);}
+
+    function handleTouchEnd() {
+        if (!touchStartX || !touchEndX) return;
+
+        const distance = touchStartX - touchEndX;
+        const minSwipeDistance = 50;
+
+        if (distance > minSwipeDistance) {
+            changeBanner(currentIndex + 1); // Próximo
+        } else if (distance < -minSwipeDistance) {
+            changeBanner(currentIndex - 1); //Anterior
+        }
+
+        setTouchStartX(null);
+        setTouchEndX(null);
+    }
 
     useEffect(() => {
         if (!movies || movies.length === 0) return; // Caso sem filmes, sem temporizador
 
-        const interval = setInterval(() => {
-            setFade(false);
+        startAutoSlide();
 
-            setTimeout(() => {
-                setCurrentIndex(prev => (prev + 1) % movies.length);
-                setFade(true);
-            }, 300);
-        }, 8000); // Troca o índice a cada 8 segundos
-
-        return () => clearInterval(interval); // Função de limpeza
+        return () => clearInterval(intervalRef.current); // Função de limpeza
     }, [movies, currentIndex]); // Reinicia caso a lista ou índice mude
 
     if (!movies || movies.length === 0) return null; // Caso vazia ou nula, não renderiza
@@ -29,7 +70,13 @@ function Banner({ movies }) {
     const titleSlug = slugify(movie.title); // Gera slug do título do filme
 
     return (
-        <section className='banner' key={movie.id}>
+        <section 
+            className='banner'
+            key={movie.id}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+        >
             <div 
                 className={`banner-image ${fade? 'fade-in' : 'fade-out'}`}
                 // Define a imagem de fundo dinamicamente usando o backdrop (imagem horizontal) da API
@@ -61,12 +108,7 @@ function Banner({ movies }) {
                             className={`dot ${index === currentIndex ? 'active' : ''}`}
                             onClick={(e) => {
                                 e.stopPropagation();
-                                setFade(false);
-
-                                setTimeout(() => {
-                                    setCurrentIndex(index);
-                                    setFade(true);
-                                }, 300);
+                                changeBanner(index);
                             }}
                         />
                     ))}
