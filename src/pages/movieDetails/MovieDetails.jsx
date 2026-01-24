@@ -63,9 +63,9 @@ function MovieDetails() {
                 <p><strong>Favorito: </strong>
                     <button 
                         onClick={handleFavorite}
-                        className="favorite-btn"
+                        className={`favorite-btn ${favorite ? 'remove' : 'add'}`}
                     >
-                        {favorite ? '💔 Remover' : '❤️ Adicionar'}
+                        {favorite ? 'Remover' : 'Adicionar'}
                     </button>
                 </p>
             </div>
