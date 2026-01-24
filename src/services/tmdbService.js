@@ -20,3 +20,7 @@ export function getTopRatedMovies() {
 export function getMovieDetails(id) {
     return fetchFromTMDB(`/movie/${id}`);
 }
+
+export function getMoviesByGenre(genreId, page = 1) {
+    return fetchFromTMDB(`/discover/movie&with_genres=${genreId}&page=${page}`);
+}
