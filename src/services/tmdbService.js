@@ -24,3 +24,7 @@ export function getMovieDetails(id) {
 export function getMoviesByGenre(genreId, page = 1) {
     return fetchFromTMDB(`/discover/movie&with_genres=${genreId}&page=${page}`);
 }
+
+export function getGenres() {
+    return fetchFromTMDB('/genre/movie/list');
+}
