@@ -1,9 +1,41 @@
+/* Estilos para quando Favoritos estiver vazio */
 .no-favorites {
     padding: 2rem;
     display: flex;
     justify-content: center;
+    align-items: center;
+    min-height: 70vh;
+}
+
+.no-favorites-content {
+    text-align: center;
+    max-width: max-content;
+    border-radius: 1rem;
+}
+
+.no-favorites-icon {
+    font-size: 5rem;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.no-favorites h2 {
+    color: black;
+    margin-bottom: 0.5rem;
 }
 
 .no-favorites p {
+    color: black;
     font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+}
+
+.no-favorites button {
+    background: #4c4cb6;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    box-shadow: 3px 3px 6px rgb(0, 0, 0);
 }
