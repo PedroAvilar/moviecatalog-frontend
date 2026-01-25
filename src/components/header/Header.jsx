@@ -65,24 +65,22 @@ function Header() {
                         <span onClick={() => setCategoriesOpen(prev => !prev)}>
                             Categorias ▾
                         </span>
-                        {categoriesOpen && (
-                            <ul className='submenu'>
-                                {genres.map(genre => (
-                                    <li key={genre.id}>
-                                        <NavLink
-                                            to={`/categorias/${genre.id}/${slugify(genre.name)}`}
-                                            state={{genreRealName : genre.name}}
-                                            onClick={() => {
-                                                setMenuOpen(false);
-                                                setCategoriesOpen(false);
-                                            }}
-                                        >
-                                            {genre.name}
-                                        </NavLink>
-                                    </li>
-                                ))}
-                            </ul>
-                        )}
+                        <ul className={`submenu ${categoriesOpen ? 'open' : ''}`}>
+                            {genres.map(genre => (
+                                <li key={genre.id}>
+                                    <NavLink
+                                        to={`/categorias/${genre.id}/${slugify(genre.name)}`}
+                                        state={{genreRealName : genre.name}}
+                                        onClick={() => {
+                                            setMenuOpen(false);
+                                            setCategoriesOpen(false);
+                                        }}
+                                    >
+                                        {genre.name}
+                                    </NavLink>
+                                </li>
+                            ))}
+                        </ul>
                     </li>
 
                     {/* Favoritos */}

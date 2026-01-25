@@ -78,7 +78,7 @@ header {
 
 .submenu {
     position: absolute;
-    top: 2rem;
+    top: 100%;
     left: 0;
     list-style: none;
     background-color: rgb(55, 55, 55);
@@ -87,6 +87,18 @@ header {
     min-width: 180px;
     z-index: 1000;
     text-align: center;
+    /* Estado inicial (escondido) */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-1rem);
+
+    transition: all 0.3s ease-in-out;
+}
+
+.submenu.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
 }
 
 .submenu li {
