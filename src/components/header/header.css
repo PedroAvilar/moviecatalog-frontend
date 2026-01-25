@@ -1,4 +1,5 @@
 header {
+    height: 4rem;
     position: fixed;
     top: 0;
     left: 0;
@@ -141,7 +142,7 @@ header {
         padding: 2rem 0;
         display: flex;
         flex-direction: column;
-        max-height: 100vh;
+        max-height: calc(100vh - 4rem);
         overflow-y: auto;
     }
 
@@ -151,8 +152,14 @@ header {
 
     .submenu {
         position: relative;
-        top: 0rem;
-        bottom: 2rem;
         background-color: rgb(55, 55, 55);
+        display: none;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+    }
+
+    .submenu.open {
+        display: block;
     }
 }
