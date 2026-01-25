@@ -1,8 +1,8 @@
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 const BASE_URL = 'https://api.themoviedb.org/3'
 
-async function fetchFromTMDB(endpoint) {
-    const response = await fetch(`${BASE_URL}${endpoint}?api_key=${API_KEY}&language=pt-BR`);
+async function fetchFromTMDB(endpoint, extraParams = "") {
+    const response = await fetch(`${BASE_URL}${endpoint}?api_key=${API_KEY}&language=pt-BR${extraParams}`);
     if (!response.ok) {
         throw new Error('Erro ao buscar dados da API');
     }
@@ -22,7 +22,7 @@ export function getMovieDetails(id) {
 }
 
 export function getMoviesByGenre(genreId, page = 1) {
-    return fetchFromTMDB(`/discover/movie&with_genres=${genreId}&page=${page}`);
+    return fetchFromTMDB('/discover/movie', `&with_genres=${genreId}&page=${page}`);
 }
 
 export function getGenres() {
