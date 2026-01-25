@@ -17,7 +17,7 @@ function App() {
       <main className='content'>
         <Routes>
           <Route path='/' element={<Home/>}/>
-          <Route path='/categorias' element={<Categories/>}/>
+          <Route path='/categorias/:genreId/:genreName' element={<Categories/>}/>
           <Route path='/favoritos' element={<Favorites/>}/>
           <Route path='/sobre' element={<About/>}/>
           <Route path='/filme/:id/:title' element={<MovieDetails />} />
