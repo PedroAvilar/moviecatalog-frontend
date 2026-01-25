@@ -19,6 +19,18 @@ function Header() {
         fetchGenres();
     }, []);
 
+    // Controle de rolagem da tela com o menu aberto
+    useEffect(() => {
+        if (menuOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'auto';
+        }
+        return () => {
+            document.body.style.overflow = 'auto';
+        };
+    }, [menuOpen]);
+
     return (
         <header>
             {/* Sobreposição para fechar o menu ao clicar fora (em dispositivos móveis) */}
