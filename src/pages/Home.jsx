@@ -8,21 +8,19 @@ function Home() {
     // Estados para armazenar as listas de filmes
     const [popular, setPopular] = useState([]); // (inicia arrays vazios)
     const [topRated, setTopRated] = useState([]);
-    const [bannerMovie, setBannerMovie] = useState(null);
 
     // Hook para executar a busca de dados assim que o componente iniciar
     useEffect(() => {
-        // Busca e atualiza o estado de "Populares" e do banner
+        // Busca e atualiza o estado de "Populares"
         getPopularMovies().then(data => {
             setPopular(data.results);
-            setBannerMovie(data.results[0]);
         });
 
         // Busca e atualiza o estado de "Melhores availados"
         getTopRatedMovies().then(data => {
             setTopRated(data.results);
         })
-    }, []); // Indica que o efeito roda apenas uma vez
+    }, []);
 
     return (
         <div>
