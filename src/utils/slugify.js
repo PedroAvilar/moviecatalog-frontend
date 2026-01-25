@@ -1,6 +1,8 @@
 export function slugify(text) {
     return text
         .toString()
+        .normalize("NFD") // Decompõe caracteres acentuados
+        .replace(/[\u0300-\u036f]/g, "") // Remove apenas os acentos
         .toLowerCase()
         .trim()
         .replace(/\s+/g, '-') // Substitui espaços por hífens
