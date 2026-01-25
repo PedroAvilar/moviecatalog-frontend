@@ -1,11 +1,17 @@
 // Página de categorias do catálogo de filmes
 import { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { getMoviesByGenre } from '../services/tmdbService'
 import MovieSection from "../components/movieSection/MovieSection";
 
 function Categories() {
     const { genreId, genreName } = useParams(); // Obtém o ID e nome da categoria da URL
+    const location = useLocation(); // Hook para acesso ao state enviado
+
+    // Definir o título, tentando pegar o enviado pelo Header, se não tiver, formata o slug da URL
+    const displayTitle = location.state?.genreRealName ||
+        genreName.split('-').map(word => 
+            word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
 
     // Estados para dados, controle de página e carregamento
     const [movies, setMovies] = useState([]);
@@ -55,7 +61,7 @@ function Categories() {
     return (
         <div>
             <MovieSection 
-                title={genreName}
+                title={displayTitle}
                 movies={movies}
             />
 

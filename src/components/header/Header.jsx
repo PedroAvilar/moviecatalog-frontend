@@ -71,6 +71,7 @@ function Header() {
                                     <li key={genre.id}>
                                         <NavLink
                                             to={`/categorias/${genre.id}/${slugify(genre.name)}`}
+                                            state={{genreRealName : genre.name}}
                                             onClick={() => {
                                                 setMenuOpen(false);
                                                 setCategoriesOpen(false);
