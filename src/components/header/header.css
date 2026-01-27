@@ -56,7 +56,7 @@ header {
 .menu-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.5);
     z-index: 998;
 }
 
@@ -84,7 +84,7 @@ header {
     list-style: none;
     background-color: rgb(55, 55, 55);
     padding: 0.5rem 0rem;
-    border-radius: 0.5rem;
+    border-radius: 1rem;
     min-width: 180px;
     z-index: 1000;
     text-align: center;
@@ -131,19 +131,20 @@ header {
         position: absolute;
         top: 0;
         left: 0;
-        width: 100%;
-        background-color: rgb(41, 41, 41);
         display: none;
         z-index: 1000;
     }
 
     /* Estilos para o menu quando está aberto */
     .menu.open {
+        width: 60%;
+        background-color: rgb(41, 41, 41);
         padding: 2rem 0;
         display: flex;
         flex-direction: column;
         max-height: calc(100vh - 4rem);
         overflow-y: auto;
+        border-bottom-right-radius: 1rem;
     }
 
     .menu li {
@@ -152,7 +153,6 @@ header {
 
     .submenu {
         position: relative;
-        background-color: rgb(55, 55, 55);
         display: none;
         opacity: 1;
         visibility: visible;
