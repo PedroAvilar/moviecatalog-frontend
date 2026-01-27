@@ -44,13 +44,45 @@ header {
 
 /* Estilos para o ícone do menu em dispositivos móveis */
 .menu-toggle {
+    position: relative;
     display: none;
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 1.3rem;
-    color: white;
+    width: 2rem;
+    height: 1.8rem;
     z-index: 120;
+}
+
+.menu-toggle span {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 0.2rem;
+    background: white;
+    border-radius: 0.15rem;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Estado fechado (☰) */
+.menu-toggle span:nth-child(1) { top: 0; }
+.menu-toggle span:nth-child(2) { top: 0.8rem; }
+.menu-toggle span:nth-child(3) { top: 1.6rem; }
+
+/* Estado aberto (X) */
+.menu-toggle.open span:nth-child(1) {
+    top: 0.8rem;
+    transform: rotate(45deg);
+}
+
+.menu-toggle.open span:nth-child(2) {
+    opacity: 0;
+    transform: translateX(-1.5rem);
+}
+
+.menu-toggle.open span:nth-child(3) {
+    top: 0.8rem;
+    transform: rotate(-45deg);
 }
 
 /* Estilos para o overlay do menu em dispositivos móveis */
