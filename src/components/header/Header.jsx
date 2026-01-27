@@ -41,10 +41,11 @@ function Header() {
             <nav className='nav'>
                 {/* Botão para alternar o menu em dispositivos móveis */}
                 <button 
-                    className={`menu-toggle ${menuOpen ? 'hidden' : ''}`} 
-                    onClick={() => setMenuOpen(true)}
+                    className='menu-toggle'
+                    onClick={() => setMenuOpen(prev => !prev)}
+                    aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'}
                 >
-                    ☰
+                    {menuOpen ? '✕' : '☰'}
                 </button>
 
                 <ul className={`menu ${menuOpen ? 'open' : ''}`}>
