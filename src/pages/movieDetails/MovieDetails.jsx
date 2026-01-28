@@ -3,6 +3,7 @@ import './movieDetails.css';
 import { useEffect, useState } from "react";
 import { isFavorite, removeFavorite, saveFavorite } from "../../services/favoritesService";
 import { getMovieDetails } from "../../services/tmdbService";
+import { getPosterUrl } from "../../utils/getPosterUrl";
 
 function MovieDetails() {
     // Obtém ID da URL
@@ -40,7 +41,7 @@ function MovieDetails() {
     return (
         <section className="movie-details">
             <img 
-                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                src={getPosterUrl(movie.poster_path)}
                 alt={movie.title} 
             />
 

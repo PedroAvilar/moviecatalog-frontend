@@ -1,3 +1,4 @@
+import { getPosterUrl } from '../../utils/getPosterUrl';
 import MovieCard from '../moviecard/MovieCard';
 import './movieSection.css';
 
@@ -12,11 +13,7 @@ function MovieSection({ title, movies }) {
                         key={movie.id}
                         id={movie.id}
                         title={movie.title}
-                        poster={
-                            movie.poster_path
-                                ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-                                : 'https://via.placeholder.com/300x450?text=Sem+Imagem'
-                        }
+                        poster={getPosterUrl(movie.poster_path)}
                         rating={movie.vote_average?.toFixed(1)}
                     />
                 ))}
