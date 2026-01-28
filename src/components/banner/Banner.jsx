@@ -2,6 +2,7 @@ import './banner.css';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import { slugify } from '../../utils/slugify';
+import { getBackdropUrl } from '../../utils/getBackDrop';
 
 function Banner({ movies }) {
     const navigate = useNavigate(); // Hook para navegação programática
@@ -79,8 +80,8 @@ function Banner({ movies }) {
         >
             <div 
                 className={`banner-image ${fade? 'fade-in' : 'fade-out'}`}
-                // Define a imagem de fundo dinamicamente usando o backdrop (imagem horizontal) da API
-                style={{backgroundImage: `url(https://image.tmdb.org/t/p/w1280${movie.backdrop_path})`}}
+                // Define a imagem de fundo dinamicamente com função em utils
+                style={{ backgroundImage: `url(${getBackdropUrl(movie.backdrop_path)})`}}
             />
         
             <div 
