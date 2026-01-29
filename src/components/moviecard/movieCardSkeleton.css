@@ -25,7 +25,7 @@
 
 .skeleton-rating { width: 40%; }
 
-.skeleton-poster::after,
+.poster-container.skeleton-poster::after,
 .skeleton-title::after,
 .skeleton-rating::after {
     content: "";

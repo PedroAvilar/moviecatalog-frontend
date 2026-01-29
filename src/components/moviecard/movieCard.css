@@ -9,12 +9,32 @@
     transform: scale(1.03);
 }
 
-/* Estilos para o pôster do filme */
+/* Estilos para o pôster do filme com fade-in */
 .movie-poster {
     width: 100%;
     aspect-ratio: 2 / 3;
     border-radius: 0.5rem;
     display: block;
+    object-fit: cover;
+
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+
+    background-color: #313131;
+}
+
+.movie-poster.loaded {
+    opacity: 1;
+}
+
+/* Garante que o título não suba enquanto a imagem não carrega */
+.poster-container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    border-radius: 0.5rem;
+    background-color: #313131;
+    overflow: hidden;
 }
 
 /* Estilos para o título */
