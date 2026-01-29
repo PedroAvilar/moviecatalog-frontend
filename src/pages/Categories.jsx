@@ -63,9 +63,8 @@ function Categories() {
             <MovieSection 
                 title={displayTitle}
                 movies={movies}
+                loading={loading}
             />
-
-            {loading && <p>Carregando mais filmes...</p>}
 
             {/* Quando visível, o observer detecta e carrega mais */}
             <div ref={observerRef} style={{ height: '1px' }}/>

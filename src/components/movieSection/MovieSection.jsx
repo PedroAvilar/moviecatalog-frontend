@@ -1,8 +1,9 @@
 import { getPosterUrl } from '../../utils/getPosterUrl';
 import MovieCard from '../moviecard/MovieCard';
+import MovieCardSkeleton from '../moviecard/MovieCardSkeleton';
 import './movieSection.css';
 
-function MovieSection({ title, movies }) {
+function MovieSection({ title, movies, loading }) {
     return (
         <section className='movie-section'>
             <h2 className='section-title'>{title}</h2>
@@ -17,6 +18,13 @@ function MovieSection({ title, movies }) {
                         rating={movie.vote_average?.toFixed(1)}
                     />
                 ))}
+
+                {/* Carregando filmes e exibindo skeleton cards */}
+                {loading && 
+                    Array.from({ length: 15 }).map((_, index) => (
+                        <MovieCardSkeleton key={`skeleton-${index}`} />
+                    ))
+                }
             </div>
         </section>
     );
