@@ -12,15 +12,10 @@
 /* Estilos para o pôster do filme com fade-in */
 .movie-poster {
     width: 100%;
-    aspect-ratio: 2 / 3;
-    border-radius: 0.5rem;
-    display: block;
+    height: 100%;
     object-fit: cover;
-
     opacity: 0;
     transition: opacity 0.5s ease-in-out;
-
-    background-color: #313131;
 }
 
 .movie-poster.loaded {

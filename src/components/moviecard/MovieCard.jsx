@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import './movieCard.css';
+import '../../styles/skeleton.css';
 import { slugify } from '../../utils/slugify';
 import { useState } from 'react';
 
@@ -14,7 +15,7 @@ function MovieCard ({ id, title, poster, rating }) {
             className='movie-card'
             onClick={() => navigate(`/filme/${id}/${titleSlug}`)} /* Navega para detalhes do filme */
         >
-            <div className={`poster-container ${!isLoaded ? 'skeleton-poster' : ''}`}>
+            <div className={`poster-container ${!isLoaded ? 'skeleton-base' : ''}`}>
                 <img 
                     src={poster} 
                     alt={`Poster do filme ${title}`}
