@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import { slugify } from '../../utils/slugify';
 import { getBackdropUrl } from '../../utils/getBackDrop';
+import BannerSkeleton from './BannerSkeleton';
 
 function Banner({ movies }) {
     const navigate = useNavigate(); // Hook para navegação programática
@@ -65,7 +66,7 @@ function Banner({ movies }) {
         return () => clearInterval(intervalRef.current); // Função de limpeza
     }, [movies, currentIndex]); // Reinicia caso a lista ou índice mude
 
-    if (!movies || movies.length === 0) return null; // Caso vazia ou nula, não renderiza
+    if (!movies || movies.length === 0) return <BannerSkeleton />; // Caso vazia ou nula chama o BannerSkeleton
     
     const movie = movies[currentIndex]; // Seleciona o filme com base no índice do estado
     const titleSlug = slugify(movie.title); // Gera slug do título do filme
