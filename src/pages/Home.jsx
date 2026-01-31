@@ -5,21 +5,25 @@ import MovieSection from '../components/movieSection/MovieSection';
 import { getPopularMovies, getTopRatedMovies } from '../services/tmdbService';
 
 function Home() {
-    // Estados para armazenar as listas de filmes
+    // Estados para armazenar as listas de filmes e carregamento
     const [popular, setPopular] = useState([]); // (inicia arrays vazios)
     const [topRated, setTopRated] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     // Hook para executar a busca de dados assim que o componente iniciar
     useEffect(() => {
-        // Busca e atualiza o estado de "Populares"
-        getPopularMovies().then(data => {
-            setPopular(data.results);
-        });
+        async function loadData() {
+            setLoading(true);
 
-        // Busca e atualiza o estado de "Melhores availados"
-        getTopRatedMovies().then(data => {
-            setTopRated(data.results);
-        })
+            const popularData = await getPopularMovies();
+            const topRatedData = await getTopRatedMovies();
+
+            setPopular(popularData.results);
+            setTopRated(topRatedData.results);
+
+            setLoading(false);
+        }
+        loadData();
     }, []);
 
     return (
@@ -29,11 +33,13 @@ function Home() {
             <MovieSection 
                 title={'Populares'}
                 movies={popular}
+                loading={loading}
             />
 
             <MovieSection 
                 title={'Melhores avaliados'}
                 movies={topRated}
+                loading={loading}
             />
         </div>
     )
