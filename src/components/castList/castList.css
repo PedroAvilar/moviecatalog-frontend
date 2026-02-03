@@ -1,0 +1,42 @@
+.cast-container {
+    margin: 2rem 0;
+    color: black;
+}
+
+.cast-title {
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.cast-scroll {
+    display: flex;
+    gap: 1.5rem;
+    overflow-x: auto;
+    padding-bottom: 1rem;
+    scroll-behavior: smooth;
+}
+
+.cast-card {
+    flex: 0 0 180px;
+    text-align: center;
+}
+
+.cast-image {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 0.5rem;
+}
+
+.cast-name {
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin: 0;
+}
+
+.cast-character {
+    font-size: 0.8rem;
+    margin-bottom: 0.5rem;
+}

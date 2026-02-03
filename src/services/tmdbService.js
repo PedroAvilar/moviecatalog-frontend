@@ -22,7 +22,7 @@ export function getMovieDetails(id) {
 }
 
 export function getMovieCredits(id) {
-    return fetchFromTMDB(`movie/${id}/credits`)
+    return fetchFromTMDB(`/movie/${id}/credits`)
 }
 
 export function getMoviesByGenre(genreId, page = 1) {
