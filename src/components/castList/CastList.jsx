@@ -6,7 +6,7 @@ function CastList({ cast }) {
 
     return (
         <div className="cast-container">
-            <h3 className="cast-title">Elenco principal</h3>
+            <h2>Elenco principal</h2>
             <div className="cast-scroll">
                 {cast.slice(0, 15).map(actor => (
                     <div key={actor.id} className="cast-card">
