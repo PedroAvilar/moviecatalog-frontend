@@ -19,15 +19,36 @@
 }
 
 .movie-info h1 {
+    font-size: 2rem;
     margin-bottom: 1rem;
 }
 
+.movie-info h2 {
+    font-size: 1.4rem;
+    margin-bottom: 0.25rem;
+}
+
 .movie-info p {
-    margin-bottom: 0.5rem;
     font-size: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.movie-rating-runtime-genres {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.movie-rating-runtime-genres p {
+    font-size: 0.9rem;
 }
 
 /* Estilos para o botão de favorito */
+.movie-favorite-btn {
+    display: flex;
+    gap: 1rem;
+}
+
 .favorite-btn {
     padding: 0.5rem 1rem;
     border-radius: 0.5rem;
@@ -67,5 +88,10 @@
 
     .movie-details img {
         width: 80%;
+    }
+
+    .movie-rating-runtime-genres,
+    .movie-favorite-btn {
+        justify-content: center;
     }
 }

@@ -53,28 +53,42 @@ function MovieDetails() {
 
                 <div className="movie-info">
 
-                    <h1>{movie.title}</h1>
+                    <h1>{movie.title} ({movie.release_date?.slice(0,4)})</h1>
+                    
+                    <div className="movie-rating-runtime-genres">
+                        <p>⭐ 
+                            {movie.vote_average > 0 
+                                ? movie.vote_average.toFixed(1)
+                                : '--'}
+                        </p>
 
-                    <p><strong>Nota: ⭐</strong>
-                        {movie.vote_average > 0 
-                            ? movie.vote_average.toFixed(1)
-                            : 'Sem avaliação.'}
-                    </p>
+                        {movie.runtime && (
+                            <p>{movie.runtime} min</p>
+                        )}
 
-                    <p><strong>Descrição: </strong>
+                        {movie.genres && (
+                            <p>{movie.genres.map(g => g.name).join(' / ')}</p>
+                        )}
+                    </div>
+
+                    <h2>Descrição</h2>
+                    <p>
                         {movie.overview && movie.overview.trim() !== ''
                             ? movie.overview
                             : 'Sem descrição disponível.'}
                     </p>
 
-                    <p><strong>Favorito: </strong>
-                        <button 
-                            onClick={handleFavorite}
-                            className={`favorite-btn ${favorite ? 'remove' : 'add'}`}
-                        >
-                            {favorite ? 'Remover' : 'Adicionar'}
-                        </button>
-                    </p>
+                    <div className="movie-favorite-btn">
+                        <h2>Favorito</h2>
+                        <p>
+                            <button 
+                                onClick={handleFavorite}
+                                className={`favorite-btn ${favorite ? 'remove' : 'add'}`}
+                            >
+                                {favorite ? 'Remover' : 'Adicionar'}
+                            </button>
+                        </p>
+                    </div>
                 </div>
             </section>
 
