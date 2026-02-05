@@ -1,6 +1,7 @@
 .cast-container {
     margin: 2rem 0;
     color: black;
+    width: 100%;
 }
 
 .cast-container h2 {
@@ -14,16 +15,17 @@
     overflow-x: auto;
     padding-bottom: 1rem;
     scroll-behavior: smooth;
+
 }
 
 .cast-card {
-    flex: 0 0 180px;
+    flex: 0 0 11rem;
     text-align: center;
 }
 
 .cast-image {
-    width: 180px;
-    height: 180px;
+    width: 11rem;
+    height: 11rem;
     object-fit: cover;
     border-radius: 50%;
     margin-bottom: 0.5rem;
@@ -38,4 +40,13 @@
 .cast-character {
     font-size: 0.8rem;
     margin-bottom: 0.5rem;
+}
+
+/* Para dispositivos móveis */
+@media (max-width: 768px) {
+    .cast-card { flex: 0 0 8rem; }
+
+    .cast-image { width: 8rem; height: 8rem; }
+
+    .cast-container { text-align: center; }
 }
