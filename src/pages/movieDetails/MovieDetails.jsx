@@ -6,32 +6,43 @@ import { getMovieCredits, getMovieDetails } from "../../services/tmdbService";
 import { getPosterUrl } from "../../utils/getPosterUrl";
 import CastList from "../../components/castList/CastList";
 import MovieDetailsSkeleton from "./MovieDetailsSkeleton";
+import CastListSkeleton from "../../components/castList/CastListSkeleton";
 
 function MovieDetails() {
     // Obtém ID da URL
     const {id} = useParams();
 
-    // Estados para armazenar os dados do filme e status de favorito
+    // Estados para armazenar os dados e status
     const [movie, setMovie] = useState(null);
     const [favorite, setFavorite] = useState(false);
     const [cast, setCast] = useState([]);
+    const [loading, setloading] = useState(true);
 
     useEffect(() => {
         // Buscar detalhes e verificar se é favorito
         async function fetchMovie() {
+            setloading(true);
+
             const data = await getMovieDetails(id);
             setMovie(data);
             setFavorite(isFavorite(data.id));
 
             const creditsData = await getMovieCredits(id);
             setCast(creditsData.cast);
+
+            setloading(false);
         }
 
         fetchMovie();
     }, [id]); // Reexecuta se o ID na URL mudar
 
-    if (!movie) {
-        return <MovieDetailsSkeleton />
+    if (loading) {
+        return (
+            <div className="movie-details-wrapper">
+                <MovieDetailsSkeleton />
+                <CastListSkeleton />
+            </div>
+        )
     }
 
     // Função para alternar o estado de favorito
