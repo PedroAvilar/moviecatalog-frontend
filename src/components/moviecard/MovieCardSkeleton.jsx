@@ -3,10 +3,10 @@ import '../../styles/skeleton.css';
 
 function MovieCardSkeleton() {
     return (
-        <article className='movie-card skeleton'>
-            <div className='skeleton-poster skeleton-base'/>
-            <div className='skeleton-title skeleton-base' />
-            <div className='skeleton-rating skeleton-base'/>
+        <article className='movie-card skeleton-card'>
+            <div className='skeleton-card-poster skeleton-base'/>
+            <div className='skeleton-card-title skeleton-base' />
+            <div className='skeleton-card-rating skeleton-base'/>
         </article>
     );
 }

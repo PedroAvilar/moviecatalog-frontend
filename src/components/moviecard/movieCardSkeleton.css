@@ -1,20 +1,20 @@
-.skeleton {
+.skeleton-card {
     pointer-events: none;
 }
 
-.skeleton-poster {
+.skeleton-card-poster {
     width: 100%;
     aspect-ratio: 2 / 3;
     border-radius: 0.5rem;
 }
 
-.skeleton-title, 
-.skeleton-rating {
+.skeleton-card-title, 
+.skeleton-card-rating {
     margin-top: 0.5rem;
     height: 1rem;
     border-radius: 0.25rem;
 }
 
-.skeleton-title { width: 80%; }
+.skeleton-card-title { width: 80%; }
 
-.skeleton-rating { width: 40%; }
+.skeleton-card-rating { width: 40%; }
