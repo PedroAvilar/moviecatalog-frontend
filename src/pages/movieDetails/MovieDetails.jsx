@@ -5,6 +5,7 @@ import { isFavorite, removeFavorite, saveFavorite } from "../../services/favorit
 import { getMovieCredits, getMovieDetails } from "../../services/tmdbService";
 import { getPosterUrl } from "../../utils/getPosterUrl";
 import CastList from "../../components/castList/CastList";
+import MovieDetailsSkeleton from "./MovieDetailsSkeleton";
 
 function MovieDetails() {
     // Obtém ID da URL
@@ -30,7 +31,7 @@ function MovieDetails() {
     }, [id]); // Reexecuta se o ID na URL mudar
 
     if (!movie) {
-        return <p>Carregando filme...</p>
+        return <MovieDetailsSkeleton />
     }
 
     // Função para alternar o estado de favorito

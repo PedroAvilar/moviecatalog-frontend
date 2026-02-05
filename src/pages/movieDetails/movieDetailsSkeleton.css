@@ -1,0 +1,93 @@
+/* 
+    Estilos com base no movieDetails.css
+    Adaptados para divs ao invés de conteúdo
+ */
+.skeleton-details-wrapper {
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* Envolve poster e info */
+.skeleton-details {
+    display: flex;
+    gap: 2rem;
+}
+
+.skeleton-details-poster {
+    width: 300px;
+    aspect-ratio: 2 / 3;
+    border-radius: 1rem;
+}
+
+/* Envolve title, subtitle, group, favorite-btn */
+.skeleton-details-info { flex: 1; }
+
+.skeleton-details-title {
+    height: 3rem;
+    width: 20rem;
+    border-radius: 0.5rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.skeleton-details-subtitle {
+    height: 2rem;
+    width: 8rem;
+    border-radius: 0.5rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+/* Envolve lines small e medium */
+.skeleton-details-group {
+    width: 100%;
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 1rem;
+}
+
+/* Envolve subtitle e btn */
+.skeleton-details-favorite-btn {
+    display: flex;
+    gap: 1rem;
+}
+
+.skeleton-details-line {
+    height: 1rem;
+    border-radius: 0.25rem;
+    margin-bottom: 0.75rem;
+}
+
+.skeleton-details-btn {
+    height: 2rem;
+    width: 6rem;
+    border-radius: 0.5rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+
+.skeleton-details-line.small { width: 15%; }
+
+.skeleton-details-line.medium { width: 60%; }
+
+.skeleton-details-line.full { width: 100%; }
+
+/* Estilos para mobile */
+@media (max-width: 768px) {
+    .skeleton-details {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .skeleton-details-poster {
+        width: 80%;
+    }
+
+    .skeleton-details-info {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
