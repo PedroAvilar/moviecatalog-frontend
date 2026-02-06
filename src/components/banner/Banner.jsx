@@ -1,4 +1,5 @@
 import './banner.css';
+import '../../styles/transitions.css'
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import { slugify } from '../../utils/slugify';
@@ -9,24 +10,21 @@ function Banner({ movies }) {
     const navigate = useNavigate(); // Hook para navegação programática
     // Estados para controles
     const [currentIndex, setCurrentIndex] = useState(0);
-    const [fade, setFade] = useState(true);
     const [touchStartX, setTouchStartX] = useState(null);
     const [touchEndX, setTouchEndX] = useState(null);
+    const [imageLoaded, setImageLoaded] = useState(false);
 
     const intervalRef = useRef(null);
 
-    // Função central que troca o banner e reinicia o timer
+    // Função central que troca o banner
     function changeBanner(index) {
         if (!movies || movies.length === 0) return;
 
-        setFade(false);
+        setImageLoaded(false);
 
-        setTimeout(() => {
-            const newIndex = (index + movies.length) % movies.length;
-            setCurrentIndex(newIndex);
-            setFade(true);
-            startAutoSlide();
-        }, 300);
+        const newIndex = (index + movies.length) % movies.length;
+        setCurrentIndex(newIndex);
+        startAutoSlide();
     }
 
     // Função para autoplay
@@ -59,7 +57,7 @@ function Banner({ movies }) {
     }
 
     useEffect(() => {
-        if (!movies || movies.length === 0) return; // Caso sem filmes, sem temporizador
+        if (!movies || movies.length === 0) return; // Caso sem filmes
 
         startAutoSlide();
 
@@ -80,9 +78,16 @@ function Banner({ movies }) {
             onTouchEnd={handleTouchEnd}
         >
             <div 
-                className={`banner-image ${fade? 'fade-in' : 'fade-out'}`}
+                className={`banner-image fade fade-slow ${imageLoaded ? 'show' : ''}`}
                 // Define a imagem de fundo dinamicamente com função em utils
                 style={{ backgroundImage: `url(${getBackdropUrl(movie.backdrop_path)})`}}
+            />
+            {/* Garante que a imagem baixou para então liberar o fade */}
+            <img
+                src={getBackdropUrl(movie.backdrop_path)}
+                alt=""
+                style={{ display: 'none' }}
+                onLoad={() => setImageLoaded(true)}
             />
         
             <div 
