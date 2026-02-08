@@ -1,5 +1,7 @@
 import { useParams } from "react-router-dom";
 import './movieDetails.css';
+import '../../styles/skeleton.css';
+import '../../styles/transitions.css'
 import { useEffect, useState } from "react";
 import { isFavorite, removeFavorite, saveFavorite } from "../../services/favoritesService";
 import { getMovieCredits, getMovieDetails } from "../../services/tmdbService";
@@ -17,6 +19,7 @@ function MovieDetails() {
     const [favorite, setFavorite] = useState(false);
     const [cast, setCast] = useState([]);
     const [loading, setloading] = useState(true);
+    const [posterLoading, setPosterLoading] = useState(false);
 
     useEffect(() => {
         // Buscar detalhes e verificar se é favorito
@@ -58,10 +61,16 @@ function MovieDetails() {
     return (
         <div className="movie-details-wrapper">
             <section className="movie-details">
-                <img 
-                    src={getPosterUrl(movie.poster_path)}
-                    alt={movie.title} 
-                />
+
+                {/* Wrapper com skeleton */}
+                <div className={`movie-details-poster-wrapper ${!posterLoading ? 'skeleton-base' : ''}`}>
+                    <img 
+                        src={getPosterUrl(movie.poster_path)}
+                        alt={movie.title}
+                        className={`movie-details-poster fade fade-slow ${posterLoading ? 'show' : ''}`}
+                        onLoad={() => setPosterLoading(true)}
+                    />
+                </div>
 
                 <div className="movie-info">
 

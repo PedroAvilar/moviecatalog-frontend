@@ -1,16 +1,26 @@
+/* Envolve details */
 .movie-details-wrapper {
     margin: 0 auto;
 }
 
+/* Envolve poster-wrapper, poster e info */
 .movie-details {
     display: flex;
     gap: 2rem;
 }
 
-/* Estilos para a imagem do filme */
-.movie-details img {
+/* Envolve poster */
+.movie-details-poster-wrapper {
     width: 300px;
+    aspect-ratio: 2 / 3;
     border-radius: 1rem;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.movie-details-poster {
+    width: 100%;
+    object-fit: cover;
 }
 
 /* Estilos para as informações do filme */
@@ -86,7 +96,7 @@
         text-align: center;
     }
 
-    .movie-details img {
+    .movie-details-poster-wrapper {
         width: 80%;
     }
 
