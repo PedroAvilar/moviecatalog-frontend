@@ -7,11 +7,12 @@
 .movie-details {
     display: flex;
     gap: 2rem;
+    align-items: flex-start;
 }
 
 /* Envolve poster */
 .movie-details-poster-wrapper {
-    width: 300px;
+    width: 19rem;
     aspect-ratio: 2 / 3;
     border-radius: 1rem;
     overflow: hidden;
