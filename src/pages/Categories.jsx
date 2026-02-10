@@ -39,7 +39,12 @@ function Categories() {
             if (data.results.length === 0) {
                 setHasMore(false);
             } else {
-                setMovies(prev => [...prev, ...data.results]); // Concatena os filmes
+                // Evita duplicatas ao adicionar novos filmes ao estado
+                setMovies(prev => {
+                    const ids = new Set(prev.map(m => m.id));
+                    const newMovies = data.results.filter(m => !ids.has(m.id));
+                    return [...prev, ...newMovies];
+                });
             }
             setLoading(false);
         }
