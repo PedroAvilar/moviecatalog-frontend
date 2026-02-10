@@ -20,7 +20,10 @@
 }
 
 /* Envolve title, subtitle, group, favorite-btn */
-.skeleton-details-info { flex: 1; }
+.skeleton-details-info { 
+    flex: 1; 
+    max-width: 63rem;
+}
 
 .skeleton-details-title {
     height: 3rem;
