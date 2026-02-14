@@ -20,7 +20,7 @@ function App() {
           <Route path='/categorias/:genreId/:genreName' element={<Categories/>}/>
           <Route path='/favoritos' element={<Favorites/>}/>
           <Route path='/sobre' element={<About/>}/>
-          <Route path='/filme/:id/:title' element={<MovieDetails />} />
+          <Route path='/filme/:id/:title?' element={<MovieDetails />} />
         </Routes>
       </main>
 

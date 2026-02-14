@@ -14,7 +14,7 @@ function MovieCard ({ id, title, poster, rating }) {
     return (
         <article 
             className='movie-card'
-            onClick={() => navigate(`/filme/${id}/${titleSlug}`)} /* Navega para detalhes do filme */
+            onClick={() => navigate(`/filme/${id}/${encodeURIComponent(titleSlug)}`)} /* Navega para detalhes do filme */
         >
             {/* Wrapper com skeleton */}
             <div className={`movie-card-poster-wrapper ${!isLoaded ? 'skeleton-base' : ''}`}> 
