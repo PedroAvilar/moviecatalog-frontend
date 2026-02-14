@@ -7,13 +7,14 @@ import { useNavigate } from 'react-router-dom';
 
 function Favorites() {
     const [favorites, setFavorites] = useState([]);
+    const [visibleCount, setVisibleCount] = useState(25);
     const navigate = useNavigate();
 
     useEffect(() => {
-        setFavorites(getFavorites());
+        setFavorites(getFavorites().reverse());
     }, []);
 
-    // Verifica se possui filmes favoritados
+    // Sem filmes favoritados
     if (favorites.length == 0) {
         return (
             <div className='no-favorites'>
@@ -27,14 +28,28 @@ function Favorites() {
                 </div>
             </div>
         )
-    } else {
-        return (
-            <MovieSection 
-                title={'Filmes favoritos'}
-                movies={favorites}
-            />
-        )
     }
+
+    const visibleFavorites = favorites.slice(0, visibleCount);
+
+    return(
+        <>
+            <MovieSection
+                title={'Filmes favoritos'}
+                movies={visibleFavorites}
+            />
+
+            {visibleCount < favorites.length && (
+                <div className='favorite-more'>
+                    <button
+                        onClick={() => setVisibleCount(prev => prev + 10)}
+                    >
+                        Ver mais
+                    </button>
+                </div>
+            )}
+        </>
+    )
 }
 
 export default Favorites;
