@@ -30,16 +30,6 @@
     margin-bottom: 1.5rem;
 }
 
-.no-favorites button {
-    background: #4c4cb6;
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-    border: none;
-    cursor: pointer;
-    box-shadow: 3px 3px 6px rgb(0, 0, 0);
-}
-
 /* Estilos onde fica o botão Ver mais */
 .favorite-more {
     display: flex;

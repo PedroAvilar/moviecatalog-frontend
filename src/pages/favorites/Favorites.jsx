@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { getFavorites } from '../../services/favoritesService';
 import MovieSection from '../../components/movieSection/MovieSection';
-import './favorites.css'
+import './favorites.css';
 import { useNavigate } from 'react-router-dom';
 
 function Favorites() {
@@ -22,7 +22,9 @@ function Favorites() {
                     <span className='no-favorites-icon'>💔</span>
                     <h2>Nenhum filme adicionado</h2>
                     <p>Adicione filmes aos favoritos para aparecerem aqui.</p>
-                    <button onClick={() => navigate('/')}>
+                    <button 
+                        className='btn btn-primary'
+                        onClick={() => navigate('/')}>
                         Explorar filmes
                     </button>
                 </div>
