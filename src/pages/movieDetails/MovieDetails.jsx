@@ -9,6 +9,7 @@ import { getPosterUrl } from "../../utils/getPosterUrl";
 import CastList from "../../components/castList/CastList";
 import MovieDetailsSkeleton from "./MovieDetailsSkeleton";
 import CastListSkeleton from "../../components/castList/CastListSkeleton";
+import Button from "../../components/button/Button";
 
 function MovieDetails() {
     // Obtém ID da URL
@@ -101,14 +102,12 @@ function MovieDetails() {
 
                     <div className="movie-favorite-btn">
                         <h2>Favorito</h2>
-                        <p>
-                            <button 
-                                onClick={handleFavorite}
-                                className={`btn ${favorite ? 'btn-danger' : 'btn-secondary'}`}
-                            >
-                                {favorite ? 'Remover' : 'Adicionar'}
-                            </button>
-                        </p>
+                        <Button
+                            onClick={handleFavorite}
+                            variant={favorite? 'danger' : 'secondary'}
+                        >
+                            {favorite ? 'Remover' : 'Adicionar'}
+                        </Button>
                     </div>
                 </div>
             </section>

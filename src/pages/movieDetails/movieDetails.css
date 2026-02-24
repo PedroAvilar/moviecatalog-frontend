@@ -58,6 +58,7 @@
 /* Estilos one fica o botão de Favorito */
 .movie-favorite-btn {
     display: flex;
+    align-items: center;
     gap: 1rem;
 }
 
