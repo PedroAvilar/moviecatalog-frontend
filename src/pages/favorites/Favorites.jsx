@@ -4,6 +4,7 @@ import { getFavorites } from '../../services/favoritesService';
 import MovieSection from '../../components/movieSection/MovieSection';
 import './favorites.css';
 import { useNavigate } from 'react-router-dom';
+import Button from '../../components/button/Button';
 
 function Favorites() {
     const [favorites, setFavorites] = useState([]);
@@ -22,11 +23,13 @@ function Favorites() {
                     <span className='no-favorites-icon'>💔</span>
                     <h2>Nenhum filme adicionado</h2>
                     <p>Adicione filmes aos favoritos para aparecerem aqui.</p>
-                    <button 
-                        className='btn btn-primary'
-                        onClick={() => navigate('/')}>
+
+                    <Button
+                        onClick={() => navigate('/')}
+                        variant='primary'
+                    >
                         Explorar filmes
-                    </button>
+                    </Button>
                 </div>
             </div>
         )
@@ -43,12 +46,12 @@ function Favorites() {
 
             {visibleCount < favorites.length && (
                 <div className='favorite-more'>
-                    <button
-                        className='btn btn-secondary'
+                    <Button
                         onClick={() => setVisibleCount(prev => prev + 10)}
+                        variant='secondary'
                     >
                         Ver mais
-                    </button>
+                    </Button>
                 </div>
             )}
         </>
