@@ -55,39 +55,10 @@
     font-size: 0.9rem;
 }
 
-/* Estilos para o botão de favorito */
+/* Estilos one fica o botão de Favorito */
 .movie-favorite-btn {
     display: flex;
     gap: 1rem;
-}
-
-.favorite-btn {
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    box-shadow: 3px 3px 6px rgb(0, 0, 0);
-    transition: all 0.3s ease;
-}
-
-.favorite-btn.add {
-    background-color: #e84250;
-    color: white;
-    border: 2px solid transparent;
-}
-
-.favorite-btn.add:hover {
-    background-color: #c12d3a;
-}
-
-.favorite-btn.remove {
-    background-color: transparent;
-    color: #9B1C31;
-    border: 2px solid #9B1C31;
-}
-
-.favorite-btn.remove:hover {
-    background-color: #9B1C31;
-    color: white;
 }
 
 /* Estilos para dispositivos móveis */

@@ -104,7 +104,7 @@ function MovieDetails() {
                         <p>
                             <button 
                                 onClick={handleFavorite}
-                                className={`favorite-btn ${favorite ? 'remove' : 'add'}`}
+                                className={`btn ${favorite ? 'btn-danger' : 'btn-secondary'}`}
                             >
                                 {favorite ? 'Remover' : 'Adicionar'}
                             </button>
