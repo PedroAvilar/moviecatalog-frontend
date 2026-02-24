@@ -44,6 +44,7 @@ function Favorites() {
             {visibleCount < favorites.length && (
                 <div className='favorite-more'>
                     <button
+                        className='btn btn-secondary'
                         onClick={() => setVisibleCount(prev => prev + 10)}
                     >
                         Ver mais
