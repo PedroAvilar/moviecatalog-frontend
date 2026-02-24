@@ -60,8 +60,8 @@ function MovieDetails() {
     }
 
     return (
-        <div className="movie-details-wrapper">
-            <section className="movie-details">
+        <main className="movie-details-wrapper">
+            <article className="movie-details">
 
                 {/* Wrapper com skeleton */}
                 <div className={`movie-details-poster-wrapper ${!posterLoading ? 'skeleton-base' : ''}`}>
@@ -73,47 +73,57 @@ function MovieDetails() {
                     />
                 </div>
 
-                <div className="movie-info">
+                <section className="movie-info">
 
-                    <h1>{movie.title} ({movie.release_date?.slice(0,4)})</h1>
-                    
-                    <div className="movie-rating-runtime-genres">
-                        <p>⭐ 
-                            {movie.vote_average > 0 
-                                ? movie.vote_average.toFixed(1)
-                                : '--'}
-                        </p>
+                    <div className="movie-header">
+                        <h1>{movie.title} ({movie.release_date?.slice(0,4)})</h1>
+                        
+                        <div className="movie-meta">
+                            <span>
+                                ⭐ {movie.vote_average > 0 
+                                    ? movie.vote_average.toFixed(1)
+                                    : '--'}
+                            </span>
 
-                        {movie.runtime && (
-                            <p>{movie.runtime} min</p>
-                        )}
+                            {movie.runtime && (
+                                <span>{movie.runtime} min</span>
+                            )}
 
-                        {movie.genres && (
-                            <p>{movie.genres.map(g => g.name).join(' / ')}</p>
-                        )}
+                            {movie.genres && (
+                                <span>
+                                    {movie.genres.map(g => g.name).join(' / ')}
+                                </span>
+                            )}
+                        </div>
                     </div>
 
-                    <h2>Descrição</h2>
-                    <p>
-                        {movie.overview && movie.overview.trim() !== ''
-                            ? movie.overview
-                            : 'Sem descrição disponível.'}
-                    </p>
+                    <section className="movie-description">
+                        <h2>Descrição</h2>
+                        <p>
+                            {movie.overview && movie.overview.trim() !== ''
+                                ? movie.overview
+                                : 'Sem descrição disponível.'}
+                        </p>
+                    </section>
 
-                    <div className="movie-favorite-btn">
-                        <h2>Favorito</h2>
+                    <div className="movie-favorite-action">
+                        <span className="movie-favorite-label">
+                            Favorito
+                        </span>
+
                         <Button
                             onClick={handleFavorite}
                             variant={favorite? 'danger' : 'secondary'}
+                            aria-pressed={favorite}
                         >
                             {favorite ? 'Remover' : 'Adicionar'}
                         </Button>
                     </div>
-                </div>
-            </section>
+                </section>
+            </article>
 
             <CastList cast={cast} />
-        </div>
+        </main>
     );
 }
 
