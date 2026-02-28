@@ -4,6 +4,7 @@ import '../../styles/skeleton.css';
 import '../../styles/transitions.css';
 import { slugify } from '../../utils/slugify';
 import { useState } from 'react';
+import FavoriteButton from '../favoriteButton/FavoriteButton';
 
 function MovieCard ({ id, title, poster, rating }) {
     const navigate = useNavigate(); /* Hook para navegação programática */
@@ -24,6 +25,10 @@ function MovieCard ({ id, title, poster, rating }) {
                     className={`movie-card-poster fade ${isLoaded ? 'show' : ''}`}
                     onLoad={() => setIsLoaded(true)}
                     loading='lazy'
+                />
+                <FavoriteButton
+                    movie={{ id, title, poster_path: poster }}
+                    size={35}
                 />
             </div>
             <h3 className='movie-title'>{title}</h3>

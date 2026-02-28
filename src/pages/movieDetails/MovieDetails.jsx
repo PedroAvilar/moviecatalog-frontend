@@ -3,33 +3,37 @@ import './movieDetails.css';
 import '../../styles/skeleton.css';
 import '../../styles/transitions.css'
 import { useEffect, useState } from "react";
-import { isFavorite, removeFavorite, saveFavorite } from "../../services/favoritesService";
 import { getMovieCredits, getMovieDetails } from "../../services/tmdbService";
 import { getPosterUrl } from "../../utils/getPosterUrl";
 import CastList from "../../components/castList/CastList";
 import MovieDetailsSkeleton from "./MovieDetailsSkeleton";
 import CastListSkeleton from "../../components/castList/CastListSkeleton";
 import Button from "../../components/button/Button";
+import { useFavorites } from '../../context/FavoritesContext';
 
 function MovieDetails() {
     // Obtém ID da URL
     const {id} = useParams();
 
+    // Contexto de favoritos
+    const { isFavorite, addFavorite, removeFavorite } = useFavorites();
+
     // Estados para armazenar os dados e status
     const [movie, setMovie] = useState(null);
-    const [favorite, setFavorite] = useState(false);
     const [cast, setCast] = useState([]);
     const [loading, setloading] = useState(true);
     const [posterLoading, setPosterLoading] = useState(false);
 
+    // Verifica se o filme é favorito
+    const favorite = movie ? isFavorite(movie.id) : false;
+
     useEffect(() => {
-        // Buscar detalhes e verificar se é favorito
+        // Buscar detalhes do filme e elenco
         async function fetchMovie() {
             setloading(true);
 
             const data = await getMovieDetails(id);
             setMovie(data);
-            setFavorite(isFavorite(data.id));
 
             const creditsData = await getMovieCredits(id);
             setCast(creditsData.cast);
@@ -49,14 +53,13 @@ function MovieDetails() {
         )
     }
 
-    // Função para alternar o estado de favorito
+    // Manipulador para adicionar ou remover dos favoritos
     function handleFavorite() {
         if (favorite) {
             removeFavorite(movie.id);
         } else {
-            saveFavorite(movie);
+            addFavorite(movie);
         }
-        setFavorite(!favorite);
     }
 
     return (
@@ -115,6 +118,7 @@ function MovieDetails() {
                             onClick={handleFavorite}
                             variant={favorite? 'danger' : 'secondary'}
                             aria-pressed={favorite}
+                            aria-label={favorite ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}
                         >
                             {favorite ? 'Remover' : 'Adicionar'}
                         </Button>
