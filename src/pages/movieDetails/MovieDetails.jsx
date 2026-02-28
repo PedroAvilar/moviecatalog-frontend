@@ -8,8 +8,8 @@ import { getPosterUrl } from "../../utils/getPosterUrl";
 import CastList from "../../components/castList/CastList";
 import MovieDetailsSkeleton from "./MovieDetailsSkeleton";
 import CastListSkeleton from "../../components/castList/CastListSkeleton";
-import Button from "../../components/button/Button";
 import { useFavorites } from '../../context/FavoritesContext';
+import FavoriteButton from "../../components/favoriteButton/FavoriteButton";
 
 function MovieDetails() {
     // Obtém ID da URL
@@ -79,7 +79,15 @@ function MovieDetails() {
                 <section className="movie-info">
 
                     <div className="movie-header">
-                        <h1>{movie.title} ({movie.release_date?.slice(0,4)})</h1>
+
+                        <div className="movie-title-icon">
+                            <h1>{movie.title} ({movie.release_date?.slice(0,4)})</h1>
+
+                            <FavoriteButton 
+                                movie={movie}
+                                size={55}
+                            />
+                        </div>
                         
                         <div className="movie-meta">
                             <span>
@@ -108,21 +116,6 @@ function MovieDetails() {
                                 : 'Sem descrição disponível.'}
                         </p>
                     </section>
-
-                    <div className="movie-favorite-action">
-                        <span className="movie-favorite-label">
-                            Favorito
-                        </span>
-
-                        <Button
-                            onClick={handleFavorite}
-                            variant={favorite? 'danger' : 'secondary'}
-                            aria-pressed={favorite}
-                            aria-label={favorite ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}
-                        >
-                            {favorite ? 'Remover' : 'Adicionar'}
-                        </Button>
-                    </div>
                 </section>
             </article>
 

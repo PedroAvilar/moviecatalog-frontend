@@ -1,30 +1,23 @@
 /* Estilos para o botão de favorito */
 .favorite-btn {
-    background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(4px);
-    border: none;
-    border-radius: 50%;
-
     padding: 0;
     display: flex;
     align-items: center;
     justify-content: center;
 
     cursor: pointer;
+    border: none;
+    background: transparent;
+    border-radius: 50%;
+
+    flex-shrink: 0;
+    flex-grow: 0;
 
     transition: transform 0.3s ease, background 0.5s ease;
 }
 
 .favorite-btn:hover {
     transform: scale(1.15);
-    background: rgba(0, 0, 0, 0.7);
-}
-
-/* Estilos para o botão de favorito em modo flutuante */
-.favorite-btn.floating {
-    position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
 }
 
 /* Estilos para o SVG do coração */
@@ -72,6 +65,18 @@
     transform: scale(1);
 }
 
-.favorite-btn.active {
-    background: rgba(255, 255, 255, 0.7);
+/* Estilos para o botão de favorito em modo flutuante */
+.favorite-btn.floating {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
 }
+
+.favorite-btn.floating.active { background: rgba(255, 255, 255, 0.4); }
+
+.favorite-btn.floating.active:hover { background: rgba(255, 255, 255, 0.7); }
+
+.favorite-btn.floating:not(.active):hover { background: rgba(0, 0, 0, 0.7); }
