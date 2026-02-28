@@ -1,15 +1,11 @@
 /* Estilos para o botão de favorito */
 .favorite-btn {
-    position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
-    padding: 0;
-
     background: rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(4px);
     border: none;
     border-radius: 50%;
 
+    padding: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -22,6 +18,13 @@
 .favorite-btn:hover {
     transform: scale(1.15);
     background: rgba(0, 0, 0, 0.7);
+}
+
+/* Estilos para o botão de favorito em modo flutuante */
+.favorite-btn.floating {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
 }
 
 /* Estilos para o SVG do coração */

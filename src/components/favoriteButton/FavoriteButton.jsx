@@ -3,7 +3,7 @@ import { HEART_PATH } from "../../utils/Icons";
 import './favoriteButton.css';
 
 // Componente de botão para adicionar ou remover um filme dos favoritos
-function FavoriteButton({ movie, size = 30 }) {
+function FavoriteButton({ movie, size = 30, variant }) {
     const { isFavorite, addFavorite, removeFavorite } = useFavorites();
     const favorite = isFavorite(movie.id);
 
@@ -14,7 +14,7 @@ function FavoriteButton({ movie, size = 30 }) {
 
     return (
         <button
-            className={`favorite-btn ${favorite ? 'active' : ''}`}
+            className={`favorite-btn ${variant === 'floating' ? 'floating' : ''} ${favorite ? 'active' : ''}`}
             onClick={handleClick}
             aria-pressed={favorite}
             aria-label={favorite ? "Remover dos favoritos" : "Adicionar aos favoritos"}

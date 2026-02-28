@@ -29,6 +29,7 @@ function MovieCard ({ id, title, poster, rating }) {
                 <FavoriteButton
                     movie={{ id, title, poster_path: poster }}
                     size={35}
+                    variant='floating'
                 />
             </div>
             <h3 className='movie-title'>{title}</h3>
