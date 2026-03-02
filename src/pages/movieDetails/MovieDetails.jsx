@@ -92,7 +92,7 @@ function MovieDetails() {
                         <div className="movie-meta">
                             <span>
                                 ⭐ {movie.vote_average > 0 
-                                    ? movie.vote_average.toFixed(1)
+                                    ? movie.vote_average.toFixed(1) + ' / 10'
                                     : '--'}
                             </span>
 
