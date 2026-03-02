@@ -8,24 +8,17 @@ import { getPosterUrl } from "../../utils/getPosterUrl";
 import CastList from "../../components/castList/CastList";
 import MovieDetailsSkeleton from "./MovieDetailsSkeleton";
 import CastListSkeleton from "../../components/castList/CastListSkeleton";
-import { useFavorites } from '../../context/FavoritesContext';
 import FavoriteButton from "../../components/favoriteButton/FavoriteButton";
 
 function MovieDetails() {
     // Obtém ID da URL
     const {id} = useParams();
 
-    // Contexto de favoritos
-    const { isFavorite, addFavorite, removeFavorite } = useFavorites();
-
     // Estados para armazenar os dados e status
     const [movie, setMovie] = useState(null);
     const [cast, setCast] = useState([]);
     const [loading, setloading] = useState(true);
     const [posterLoading, setPosterLoading] = useState(false);
-
-    // Verifica se o filme é favorito
-    const favorite = movie ? isFavorite(movie.id) : false;
 
     useEffect(() => {
         // Buscar detalhes do filme e elenco
