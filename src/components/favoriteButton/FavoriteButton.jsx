@@ -18,7 +18,7 @@ function FavoriteButton({ movie, size = 30, variant }) {
             onClick={handleClick}
             aria-pressed={favorite}
             aria-label={favorite ? "Remover dos favoritos" : "Adicionar aos favoritos"}
-            style={{ width: size, height: size }}
+            style={{ width: size, height: size, minWidth: size, minHeight: size }}
         >
             <svg
                 viewBox="0 0 24 24"
