@@ -53,15 +53,6 @@ function MovieDetails() {
         )
     }
 
-    // Manipulador para adicionar ou remover dos favoritos
-    function handleFavorite() {
-        if (favorite) {
-            removeFavorite(movie.id);
-        } else {
-            addFavorite(movie);
-        }
-    }
-
     return (
         <main className="movie-details-wrapper">
             <article className="movie-details">
