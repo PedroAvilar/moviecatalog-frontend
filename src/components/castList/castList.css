@@ -6,8 +6,9 @@
 }
 
 .cast-container h2 {
-    font-size: 1.4rem;
+    margin-top: 0;
     margin-bottom: 0.25rem;
+    font-size: 1.4rem;
 }
 
 /* Envolve o conjunto de cards */
