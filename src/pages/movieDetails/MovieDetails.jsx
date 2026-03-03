@@ -66,34 +66,31 @@ function MovieDetails() {
 
                 <section className="movie-info">
 
-                    <div className="movie-header">
+                    <div className="movie-title-icon">
+                        <h1>{movie.title} ({movie.release_date?.slice(0,4)})</h1>
 
-                        <div className="movie-title-icon">
-                            <h1>{movie.title} ({movie.release_date?.slice(0,4)})</h1>
-
-                            <FavoriteButton 
-                                movie={movie}
-                                size={55}
-                            />
-                        </div>
+                        <FavoriteButton 
+                            movie={movie}
+                            size={55}
+                        />
+                    </div>
                         
-                        <div className="movie-meta">
+                    <div className="movie-meta">
+                        <span>
+                            ⭐ {movie.vote_average > 0 
+                                ? movie.vote_average.toFixed(1) + ' / 10'
+                                : '--'}
+                        </span>
+
+                        {movie.runtime && (
+                            <span>{movie.runtime} min</span>
+                        )}
+
+                        {movie.genres && (
                             <span>
-                                ⭐ {movie.vote_average > 0 
-                                    ? movie.vote_average.toFixed(1) + ' / 10'
-                                    : '--'}
+                                {movie.genres.map(g => g.name).join(' / ')}
                             </span>
-
-                            {movie.runtime && (
-                                <span>{movie.runtime} min</span>
-                            )}
-
-                            {movie.genres && (
-                                <span>
-                                    {movie.genres.map(g => g.name).join(' / ')}
-                                </span>
-                            )}
-                        </div>
+                        )}
                     </div>
 
                     <section className="movie-text">

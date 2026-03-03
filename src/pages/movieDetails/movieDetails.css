@@ -31,10 +31,6 @@
     max-width: 63rem;
 }
 
-.movie-header {
-    margin-bottom: 1rem;
-}
-
 /* Envolve título e ícone de favorito */
 .movie-title-icon {
     width: 100%;
