@@ -19,9 +19,10 @@ function MovieDetails() {
     const [cast, setCast] = useState([]);
     const [loading, setloading] = useState(true);
     const [posterLoading, setPosterLoading] = useState(false);
+    const [directors, setDirectors] = useState([]);
 
     useEffect(() => {
-        // Buscar detalhes do filme e elenco
+        // Buscar detalhes do filme
         async function fetchMovie() {
             setloading(true);
 
@@ -30,6 +31,9 @@ function MovieDetails() {
 
             const creditsData = await getMovieCredits(id);
             setCast(creditsData.cast);
+
+            const directorsList = creditsData.crew.filter(member => member.job === 'Director') || [];
+            setDirectors(directorsList);
 
             setloading(false);
         }
@@ -92,7 +96,7 @@ function MovieDetails() {
                         </div>
                     </div>
 
-                    <section className="movie-description">
+                    <section className="movie-text">
                         <h2>Descrição</h2>
                         <p>
                             {movie.overview && movie.overview.trim() !== ''
@@ -100,6 +104,24 @@ function MovieDetails() {
                                 : 'Sem descrição disponível.'}
                         </p>
                     </section>
+
+                    {directors.length > 0 && (
+                        <section className="movie-text">
+                            <h2>Direção</h2>
+                            <p>
+                                {directors.map(d => d.name).join(' / ')}
+                            </p>
+                        </section>
+                    )}
+                    
+                    {movie.production_companies?.length > 0 && (
+                        <section className="movie-text">
+                            <h2>Produção</h2>
+                            <p>
+                                {movie.production_companies.map(c => c.name).join(' / ')}
+                            </p>
+                        </section>
+                    )}
                 </section>
             </article>
 
