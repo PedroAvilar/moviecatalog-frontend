@@ -39,7 +39,7 @@ function Favorites() {
     return(
         <>
             <MovieSection
-                title={'Filmes favoritos'}
+                title={'Favoritos'}
                 movies={visibleFavorites}
             />
 
