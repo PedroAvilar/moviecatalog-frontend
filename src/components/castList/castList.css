@@ -24,14 +24,14 @@
 
 /* Envolve image-wrapper e info */
 .cast-card {
-    flex: 0 0 11rem;
+    flex: 0 0 8rem;
     text-align: center;
 }
 
 /* Envolve image */
 .cast-image-wrapper {
-    width: 11rem;
-    height: 11rem;
+    width: 8rem;
+    height: 8rem;
     overflow: hidden;
     border-radius: 50%;
     margin-bottom: 0.5rem;
@@ -66,9 +66,9 @@
 
 /* Para dispositivos móveis */
 @media (max-width: 768px) {
-    .cast-card { flex: 0 0 8rem; }
+    .cast-card { flex: 0 0 6rem; }
 
-    .cast-image-wrapper { width: 8rem; height: 8rem; }
+    .cast-image-wrapper { width: 6rem; height: 6rem; }
 
     .cast-container { text-align: center; }
 }
