@@ -17,6 +17,7 @@
     border-radius: 1rem;
     overflow: hidden;
     flex-shrink: 0;
+    margin-bottom: 1.5rem;
 }
 
 .movie-details-poster {
@@ -76,6 +77,7 @@
 
     .movie-details-poster-wrapper {
         width: 80%;
+        margin-bottom: 0;
     }
 
     .movie-meta {
