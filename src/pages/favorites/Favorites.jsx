@@ -9,7 +9,7 @@ import { useFavorites } from '../../context/FavoritesContext';
 // Componente para exibir a lista de filmes favoritos
 function Favorites() {
     const { favorites } = useFavorites(); //Obtém lista do contexto
-    const [visibleCount, setVisibleCount] = useState(25); // Quantidade exibida
+    const [visibleCount, setVisibleCount] = useState(18); // Quantidade exibida
     const navigate = useNavigate();
 
     const displayFavorites = [...favorites].reverse(); // Exibe os mais recentes primeiro
@@ -46,7 +46,7 @@ function Favorites() {
             {visibleCount < favorites.length && (
                 <div className='favorite-more'>
                     <Button
-                        onClick={() => setVisibleCount(prev => prev + 10)}
+                        onClick={() => setVisibleCount(prev => prev + 18)}
                         variant='secondary'
                     >
                         Ver mais
