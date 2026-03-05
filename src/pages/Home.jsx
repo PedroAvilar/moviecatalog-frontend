@@ -1,4 +1,3 @@
-// Página inicial do catálogo de filmes
 import { useEffect, useState } from 'react';
 import Banner from '../components/banner/Banner';
 import MovieSection from '../components/movieSection/MovieSection';
@@ -6,13 +5,11 @@ import { getPopularMovies, getTopRatedMovies } from '../services/tmdbService';
 import ErrorMessage from '../components/errorMessage/ErrorMessage';
 
 function Home() {
-    // Estados para armazenar as listas de filmes e status
-    const [popular, setPopular] = useState([]); // (inicia arrays vazios)
+    const [popular, setPopular] = useState([]);
     const [topRated, setTopRated] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    // Função para carregar os dados
     async function loadData() {
         try {
             setLoading(true);
@@ -30,7 +27,6 @@ function Home() {
         }
     }
 
-    // Hook para executar a busca de dados assim que o componente iniciar
     useEffect(() => {
         loadData();
     }, []);
