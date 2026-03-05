@@ -80,6 +80,7 @@ function Categories() {
                 <ErrorMessage
                     message={error}
                     onRetry={fetchMovies}
+                    variant="compact"
                 />
             )}
 

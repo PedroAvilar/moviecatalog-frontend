@@ -1,9 +1,9 @@
 import './errorMessage.css';
 import Button from '../button/Button';
 
-function ErrorMessage({ message, onRetry }) {
+function ErrorMessage({ message, onRetry, variant = 'full' }) {
     return (
-        <div className='error-wrapper'>
+        <div className={`error-wrapper ${variant === 'compact' ? 'compact' : ''}`}>
 
             <h2>Algo deu errado!</h2>
 
