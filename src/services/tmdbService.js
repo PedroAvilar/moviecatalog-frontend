@@ -1,3 +1,7 @@
+/* 
+    Centraliza a comunicação com a API TMDB e trata erros
+*/
+
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
 const BASE_URL = 'https://api.themoviedb.org/3'
 
@@ -10,25 +14,28 @@ async function fetchFromTMDB(endpoint, extraParams = "") {
             let errorMessage = `Erro ${response.status}: Falha na requisição`;
             try {
                 const contentType = response.headers.get('content-type');
-
                 if (contentType && contentType.includes('application/json')) {
                     const errorData = await response.json();
                     errorMessage = errorData.status_message || errorMessage;
                 }
             } catch (e) {
-                // Mantém a mensagem com o status code
+                // Mantém a mensagem padrão com o código HTTP
             }
             throw new Error(errorMessage);
         }
         return await response.json();
 
     } catch (error) {
-        console.error(error.message);
+        console.error('Erro técnico: ', error.message);
 
         if (error.message.includes("execute 'json'") || error.message.includes('is not valid JSON')) {
             throw new Error('O servidor retornou uma resposta inválida. Tente novamente mais tarde.')
         }
-
+        
+        if (error.message === 'Failed to fetch' || error.name === 'TypeError') {
+            throw new Error('Não foi possível conectar à internet. Verifique sua conexão.')
+        }
+        
         if (error instanceof Error) {
             throw error;
         }
@@ -36,6 +43,8 @@ async function fetchFromTMDB(endpoint, extraParams = "") {
         throw new Error('Erro de conexão com a API');
     }
 }
+
+// Funções para buscas específicas
 
 export function getPopularMovies() {
     return fetchFromTMDB('/movie/popular');
