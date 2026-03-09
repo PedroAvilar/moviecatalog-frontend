@@ -2,6 +2,14 @@
 
 Website with a movie catalog.
 
+## Project link
+
+**[View live site](https://pedroavilar.github.io/moviecatalog-frontend/)**
+
+## About the project
+
+MovieCatalog allows users to browse popular, top-rated, and categorized movies, all powered by the TMDB API. The platform allows users to favorite titles and explore complete details, including cast and production information. The project is being developed with a focus on responsiveness and accessibility, addressing various error scenarios and loading states to ensure the best user experience.
+
 
 
 This website uses TMDB and the TMDB APIs but is not endorsed, certified, or otherwise approved by TMDB.  
@@ -17,7 +25,6 @@ This website uses TMDB and the TMDB APIs but is not endorsed, certified, or othe
 
 ## Installation and setup
 
-In the project directory, you can run:  
 **npm install**  
 **npm install react-router-dom**  
 Run the project:  
