@@ -84,7 +84,7 @@ function Header() {
                     >
                         <button
                             type='button'
-                            className='categories-button'
+                            className={`categories-button ${categoriesOpen ? 'active' : ''}`}
                             aria-expanded={categoriesOpen}
                             aria-controls='categories-submenu'
                             onClick={() => {

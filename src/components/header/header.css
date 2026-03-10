@@ -101,9 +101,7 @@ header {
 }
 
 .menu a.active,
-.menu a:hover,
-.categories-button:hover,
-.submenu li a:hover {
+.categories-button.active {
     color: rgb(255, 255, 255);
 }
 
@@ -140,6 +138,14 @@ header {
         opacity: 1;
         visibility: visible;
         transform: translateY(0);
+    }
+}
+
+@media (pointer: fine) {
+    .menu a:hover,
+    .categories-button:hover,
+    .submenu li a:hover {
+        color: rgb(255, 255, 255);
     }
 }
 
