@@ -42,6 +42,10 @@ header {
     color: rgb(255, 255, 255);
 }
 
+.menu a:hover {
+    color: #fff;
+}
+
 /* Estilos para o ícone do menu em dispositivos móveis */
 .menu-toggle {
     position: relative;
@@ -129,12 +133,6 @@ header {
     transition: all 0.3s ease-in-out;
 }
 
-.submenu.open {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-
 .submenu li {
     padding: 0.25rem 0rem;
 }
@@ -145,6 +143,18 @@ header {
 
 .submenu li a:hover {
     color: #fff;
+}
+
+@media (min-width: 769px) {
+    .menu-categories:hover .submenu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    .submenu {
+        pointer-events: auto;
+    }
 }
 
 /* Estilos responsivos para telas menores */
@@ -160,7 +170,7 @@ header {
         top: 0;
         left: 0;
         width: 60%;
-        max-height: calc(100vh - 4rem);
+        max-height: 100dvh;
         background-color: rgb(41, 41, 41);
         z-index: 100;
 
@@ -203,7 +213,8 @@ header {
 
     .submenu.open {
         max-height: 1000px;
-        padding: 0.5rem 0;
+        opacity: 1;
         visibility: visible;
+        transform: none;
     }
 }

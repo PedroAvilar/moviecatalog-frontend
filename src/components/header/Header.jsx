@@ -60,12 +60,10 @@ function Header() {
                     </li>
 
                     {/* Categorias com submenu */}
-                    <li
-                        className='menu-categories'
-                        onMouseEnter={() => setCategoriesOpen(true)}
-                        onMouseLeave={() => setCategoriesOpen(false)}
-                    >
-                        <span onClick={() => setCategoriesOpen(prev => !prev)}>
+                    <li className='menu-categories'>
+                        <span
+                            onClick={() => setCategoriesOpen(prev => !prev)}
+                        >
                             Categorias ▾
                         </span>
                         <ul className={`submenu ${categoriesOpen ? 'open' : ''}`}>
