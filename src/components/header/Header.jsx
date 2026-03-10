@@ -45,7 +45,12 @@ function Header() {
 
                 <button 
                     className={`menu-toggle ${menuOpen ? 'open' : ''}`}
-                    onClick={() => setMenuOpen(prev => !prev)}
+                    onClick={() => {
+                        setMenuOpen(prev => {
+                            if (prev) setCategoriesOpen(false);
+                            return !prev;
+                        });
+                    }}
                     aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'}
                     aria-expanded={menuOpen}
                     aria-controls='main-menu'
@@ -61,18 +66,32 @@ function Header() {
                 >
 
                     <li>
-                        <NavLink to='/' end onClick={() => setMenuOpen(false)}>
+                        <NavLink 
+                            to='/'
+                            onClick={() => {
+                                setMenuOpen(false);
+                                setCategoriesOpen(false)
+                            }}
+                        >
                             Página inicial
                         </NavLink>
                     </li>
 
-                    <li className='menu-categories'>
+                    <li 
+                        className='menu-categories'
+                        onMouseEnter={() => window.innerWidth > 768 && setCategoriesOpen(true)}
+                        onMouseLeave={() => window.innerWidth > 768 && setCategoriesOpen(false)}
+                    >
                         <button
                             type='button'
                             className='categories-button'
                             aria-expanded={categoriesOpen}
                             aria-controls='categories-submenu'
-                            onClick={() => setCategoriesOpen(prev => !prev)}
+                            onClick={() => {
+                                if (window.innerWidth <= 768) {
+                                    setCategoriesOpen(prev => !prev);
+                                }
+                            }}
                         >
                             Categorias ▾
                         </button>
@@ -98,13 +117,25 @@ function Header() {
                     </li>
 
                     <li>
-                        <NavLink to='/favoritos' onClick={() => setMenuOpen(false)}>
+                        <NavLink 
+                            to='/favoritos'
+                            onClick={() => {
+                                setMenuOpen(false);
+                                setCategoriesOpen(false)
+                            }}
+                        >
                             Favoritos
                         </NavLink>
                     </li>
 
                     <li>
-                        <NavLink to='/sobre' onClick={() => setMenuOpen(false)}>
+                        <NavLink 
+                            to='/sobre'
+                            onClick={() => {
+                                setMenuOpen(false);
+                                setCategoriesOpen(false)
+                            }}
+                        >
                             Sobre
                         </NavLink>
                     </li>

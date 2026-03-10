@@ -132,15 +132,14 @@ header {
 }
 
 @media (min-width: 769px) {
-    .menu-categories:hover .submenu,
-    .menu-categories:focus-within .submenu {
+    .submenu {
+        pointer-events: auto;
+    }
+
+    .submenu.open {
         opacity: 1;
         visibility: visible;
         transform: translateY(0);
-    }
-
-    .submenu {
-        pointer-events: auto;
     }
 }
 
@@ -174,9 +173,7 @@ header {
         position: relative;
         overflow: hidden;
         max-height: 0;
-        opacity: 1;
         padding: 0;
-        visibility: hidden;
         transform: none;
     }
 
@@ -184,6 +181,5 @@ header {
         max-height: 1000px;
         opacity: 1;
         visibility: visible;
-        transform: none;
     }
 }
