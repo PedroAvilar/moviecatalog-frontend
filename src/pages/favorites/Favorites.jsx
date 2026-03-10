@@ -1,4 +1,3 @@
-// Página de favoritos do catálogo de filmes
 import { useEffect, useState } from 'react';
 import MovieSection from '../../components/movieSection/MovieSection';
 import './favorites.css';
@@ -6,15 +5,13 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../../components/button/Button';
 import { useFavorites } from '../../context/FavoritesContext';
 
-// Componente para exibir a lista de filmes favoritos
 function Favorites() {
-    const { favorites } = useFavorites(); //Obtém lista do contexto
-    const [visibleCount, setVisibleCount] = useState(18); // Quantidade exibida
+    const { favorites } = useFavorites();
+    const [visibleCount, setVisibleCount] = useState(18);
     const navigate = useNavigate();
 
-    const displayFavorites = [...favorites].reverse(); // Exibe os mais recentes primeiro
+    const displayFavorites = [...favorites].reverse();
 
-    // Sem filmes favoritados
     if (favorites.length == 0) {
         return (
             <div className='no-favorites'>
