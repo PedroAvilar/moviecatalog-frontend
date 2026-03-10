@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import MovieSection from '../../components/movieSection/MovieSection';
 import './favorites.css';
 import { useNavigate } from 'react-router-dom';
