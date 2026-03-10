@@ -4,10 +4,8 @@ header {
     top: 0;
     left: 0;
     width: 100%;
-
     background-color:rgb(41, 41, 41);
-    color: white;
-
+    color: rgb(255, 255, 255);
     z-index: 90;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
@@ -21,33 +19,14 @@ header {
     position: relative;
     list-style: none;
     display: flex;
-    font-size: 1.3rem;
     gap: 2rem;
     margin: 0;
     padding: 0;
 }
 
-.menu a {
-    color: rgba(255, 255, 255, 0.500);
-    font-weight: bold;
-    text-decoration: none;
-    font-size: 1rem;
-}
-
-.menu a.active {
-    color: rgb(255, 255, 255);
-}
-
-.menu a:hover {
-    color: #fff;
-}
-
 .menu-toggle {
     position: relative;
     display: none;
-    background: none;
-    border: none;
-    cursor: pointer;
     width: 2rem;
     height: 1.8rem;
     z-index: 120;
@@ -58,9 +37,8 @@ header {
     left: 0;
     width: 100%;
     height: 0.2rem;
-    background: white;
+    background: rgb(255, 255, 255);
     border-radius: 0.15rem;
-    transition: all 0.3s ease-in-out;
 }
 
 /* (☰) */
@@ -94,21 +72,6 @@ header {
     cursor: pointer;
 }
 
-.categories-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: rgba(255, 255, 255, 0.500);
-    font-weight: bold;
-    text-decoration: none;
-    font-size: 1rem;
-    font-family: inherit;
-}
-
-.categories-button:hover {
-    color: #fff;
-}
-
 .submenu {
     position: absolute;
     top: 100%;
@@ -119,24 +82,15 @@ header {
     border-radius: 1rem;
     min-width: 180px;
     z-index: 110;
-    text-align: center;
     opacity: 0;
     visibility: hidden;
     transform: translateY(-1rem);
-
-    transition: all 0.3s ease-in-out;
 }
 
-.submenu li {
-    padding: 0.25rem 0rem;
-}
-
-.submenu li a {
-    font-size: 1rem;
-}
-
-.submenu li a:hover {
-    color: #fff;
+.submenu li,
+.menu li {
+    text-align: center;
+    padding: 0.5rem 0rem;
 }
 
 .menu a:focus-visible,
@@ -144,6 +98,37 @@ header {
 .categories-button:focus-visible {
     outline: 3px solid rgb(158, 255, 158);
     outline-offset: 2px;
+}
+
+.menu a.active,
+.menu a:hover,
+.categories-button:hover,
+.submenu li a:hover {
+    color: rgb(255, 255, 255);
+}
+
+.menu a,
+.categories-button,
+.submenu li a {
+    color: rgba(255, 255, 255, 0.500);
+    font-size: 1rem;
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.menu-toggle,
+.categories-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.menu-toggle span,
+.menu,
+.submenu {
+    transition: all 0.3s ease-in-out;
 }
 
 @media (min-width: 769px) {
@@ -172,27 +157,19 @@ header {
         max-height: 100dvh;
         background-color: rgb(41, 41, 41);
         z-index: 100;
-
         display: flex;
         flex-direction: column;
         gap: 1rem;
         padding: 3rem 0 2rem 0;
         overflow-y: auto;
         border-bottom-right-radius: 1rem;
-
         transform: translateX(-100%);
-        transition: transform 0.3s ease-in-out;
     }
 
     .menu.open {
         transform: translateX(0);
     }
 
-    .menu li {
-        text-align: center;
-    }
-
-    
     .submenu {
         position: relative;
         overflow: hidden;
@@ -201,11 +178,6 @@ header {
         padding: 0;
         visibility: hidden;
         transform: none;
-        
-        transition: 
-            max-height 0.3s ease-in-out,
-            padding 0.3s ease-in-out,
-            visibility 0.3s;
     }
 
     .submenu.open {
