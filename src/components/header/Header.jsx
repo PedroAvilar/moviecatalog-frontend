@@ -44,13 +44,18 @@ function Header() {
                     className={`menu-toggle ${menuOpen ? 'open' : ''}`}
                     onClick={() => setMenuOpen(prev => !prev)}
                     aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'}
+                    aria-expanded={menuOpen}
+                    aria-controls='main-menu'
                 >
                     <span />
                     <span />
                     <span />
                 </button>
 
-                <ul className={`menu ${menuOpen ? 'open' : ''}`}>
+                <ul 
+                    id='main-menu'
+                    className={`menu ${menuOpen ? 'open' : ''}`}
+                >
 
                     {/* Página inicial */}
                     <li>
@@ -61,12 +66,19 @@ function Header() {
 
                     {/* Categorias com submenu */}
                     <li className='menu-categories'>
-                        <span
+                        <button
+                            type='button'
+                            className='categories-button'
+                            aria-expanded={categoriesOpen}
+                            aria-controls='categories-submenu'
                             onClick={() => setCategoriesOpen(prev => !prev)}
                         >
                             Categorias ▾
-                        </span>
-                        <ul className={`submenu ${categoriesOpen ? 'open' : ''}`}>
+                        </button>
+                        <ul 
+                            id='categories-submenu'
+                            className={`submenu ${categoriesOpen ? 'open' : ''}`}
+                        >
                             {genres.map(genre => (
                                 <li key={genre.id}>
                                     <NavLink

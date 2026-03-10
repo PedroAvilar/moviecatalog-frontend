@@ -103,14 +103,18 @@ header {
     cursor: pointer;
 }
 
-.menu-categories span {
+.categories-button {
+    background: none;
+    border: none;
+    cursor: pointer;
     color: rgba(255, 255, 255, 0.500);
     font-weight: bold;
     text-decoration: none;
     font-size: 1rem;
+    font-family: inherit;
 }
 
-.menu-categories span:hover {
+.categories-button:hover {
     color: #fff;
 }
 
@@ -145,8 +149,16 @@ header {
     color: #fff;
 }
 
+.menu a:focus-visible,
+.menu-toggle:focus-visible,
+.categories-button:focus-visible {
+    outline: 3px solid rgb(158, 255, 158);
+    outline-offset: 2px;
+}
+
 @media (min-width: 769px) {
-    .menu-categories:hover .submenu {
+    .menu-categories:hover .submenu,
+    .menu-categories:focus-within .submenu {
         opacity: 1;
         visibility: visible;
         transform: translateY(0);
