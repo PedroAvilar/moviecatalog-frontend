@@ -35,7 +35,13 @@ function Header() {
         <header>
             {/* Sobreposição para fechar o menu ao clicar fora (em dispositivos móveis) */}
             {menuOpen && (
-                <div className='menu-overlay' onClick={() => setMenuOpen(false)} />
+                <div 
+                    className='menu-overlay' 
+                    onClick={() => {
+                        setMenuOpen(false);
+                        setCategoriesOpen(false);
+                    }}
+                />
             )}
 
             <nav className='nav'>
