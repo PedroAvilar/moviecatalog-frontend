@@ -12,13 +12,11 @@ header {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
-/* Estilos para a barra de navegação */
 .nav {
     display: flex;
     padding: 1rem 2rem;
 }
 
-/* Estilos para o menu de navegação */
 .menu {
     position: relative;
     list-style: none;
@@ -29,7 +27,6 @@ header {
     padding: 0;
 }
 
-/* Estilos para os links do menu */
 .menu a {
     color: rgba(255, 255, 255, 0.500);
     font-weight: bold;
@@ -37,7 +34,6 @@ header {
     font-size: 1rem;
 }
 
-/* Estilos para o link ativo */
 .menu a.active {
     color: rgb(255, 255, 255);
 }
@@ -46,7 +42,6 @@ header {
     color: #fff;
 }
 
-/* Estilos para o ícone do menu em dispositivos móveis */
 .menu-toggle {
     position: relative;
     display: none;
@@ -68,28 +63,25 @@ header {
     transition: all 0.3s ease-in-out;
 }
 
-/* Estado fechado (☰) */
+/* (☰) */
 .menu-toggle span:nth-child(1) { top: 0; }
 .menu-toggle span:nth-child(2) { top: 0.8rem; }
 .menu-toggle span:nth-child(3) { top: 1.6rem; }
 
-/* Estado aberto (X) */
+/* (X) */
 .menu-toggle.open span:nth-child(1) {
     top: 0.8rem;
     transform: rotate(45deg);
 }
-
 .menu-toggle.open span:nth-child(2) {
     opacity: 0;
     transform: translateX(-1.5rem);
 }
-
 .menu-toggle.open span:nth-child(3) {
     top: 0.8rem;
     transform: rotate(-45deg);
 }
 
-/* Estilos para o overlay do menu em dispositivos móveis */
 .menu-overlay {
     position: fixed;
     inset: 0;
@@ -97,7 +89,6 @@ header {
     z-index: 95;
 }
 
-/* Categorias com submenu */
 .menu-categories {
     position: relative;
     cursor: pointer;
@@ -129,7 +120,6 @@ header {
     min-width: 180px;
     z-index: 110;
     text-align: center;
-    /* Estado inicial (escondido) */
     opacity: 0;
     visibility: hidden;
     transform: translateY(-1rem);
@@ -169,14 +159,11 @@ header {
     }
 }
 
-/* Estilos responsivos para telas menores */
 @media (max-width: 768px) {
-    /* Exibe o botão ☰ */
     .menu-toggle {
         display: block;
     }
 
-    /* Estilos para o componente */
     .menu {
         position: absolute;
         top: 0;
@@ -193,12 +180,10 @@ header {
         overflow-y: auto;
         border-bottom-right-radius: 1rem;
 
-        /* Estado fechado */
         transform: translateX(-100%);
         transition: transform 0.3s ease-in-out;
     }
 
-    /* Estilo para o estado aberto (animação) */
     .menu.open {
         transform: translateX(0);
     }
@@ -207,7 +192,7 @@ header {
         text-align: center;
     }
 
-    /* Estilos para o submenu */
+    
     .submenu {
         position: relative;
         overflow: hidden;

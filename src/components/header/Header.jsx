@@ -5,12 +5,10 @@ import { getGenres } from '../../services/tmdbService';
 import { slugify } from '../../utils/slugify'
 
 function Header() {
-    // Estados para controle de interface de dados
     const [menuOpen, setMenuOpen] = useState(false);
     const [genres, setGenres] = useState([]);
     const [categoriesOpen, setCategoriesOpen] = useState(false);
 
-    // Busca os gêneros no TMDB
     useEffect(() => {
         async function fetchGenres() {
             const data = await getGenres();
@@ -19,7 +17,6 @@ function Header() {
         fetchGenres();
     }, []);
 
-    // Controle de rolagem da tela com o menu aberto
     useEffect(() => {
         if (menuOpen) {
             document.body.style.overflow = 'hidden';
@@ -33,7 +30,7 @@ function Header() {
 
     return (
         <header>
-            {/* Sobreposição para fechar o menu ao clicar fora (em dispositivos móveis) */}
+
             {menuOpen && (
                 <div 
                     className='menu-overlay' 
@@ -45,7 +42,7 @@ function Header() {
             )}
 
             <nav className='nav'>
-                {/* Botão para alternar o menu em dispositivos móveis */}
+
                 <button 
                     className={`menu-toggle ${menuOpen ? 'open' : ''}`}
                     onClick={() => setMenuOpen(prev => !prev)}
@@ -63,14 +60,12 @@ function Header() {
                     className={`menu ${menuOpen ? 'open' : ''}`}
                 >
 
-                    {/* Página inicial */}
                     <li>
                         <NavLink to='/' end onClick={() => setMenuOpen(false)}>
                             Página inicial
                         </NavLink>
                     </li>
 
-                    {/* Categorias com submenu */}
                     <li className='menu-categories'>
                         <button
                             type='button'
@@ -102,14 +97,12 @@ function Header() {
                         </ul>
                     </li>
 
-                    {/* Favoritos */}
                     <li>
                         <NavLink to='/favoritos' onClick={() => setMenuOpen(false)}>
                             Favoritos
                         </NavLink>
                     </li>
 
-                    {/* Sobre */}
                     <li>
                         <NavLink to='/sobre' onClick={() => setMenuOpen(false)}>
                             Sobre
