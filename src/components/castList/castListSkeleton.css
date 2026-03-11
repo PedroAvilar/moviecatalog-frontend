@@ -1,9 +1,8 @@
 /*
-    Estilos com base no castList.css
-    Adaptados para divs ao invés de conteúdo
+    Styles based on castList.css
+    Adapted for divs
 */
 
-/* Envolve skeleton de title e scroll */
 .skeleton-cast-container {
     margin: 2rem 0;
     width: 100%;
@@ -17,7 +16,6 @@
     margin-bottom: 1.5rem;
 }
 
-/* Envolve skeleton de card */
 .skeleton-cast-scroll {
     display: flex;
     gap: 1.5rem;
@@ -27,7 +25,6 @@
     margin-right: -1rem;
 }
 
-/* Envolve skeleton de image e info */
 .skeleton-cast-card {
     flex: 0 0 11rem;
     text-align: center;
@@ -40,7 +37,6 @@
     margin-bottom: 1rem;
 }
 
-/* Envolve skeleton de name e character */
 .skeleton-cast-info {
     display: flex;
     flex-direction: column;
@@ -62,7 +58,6 @@
     margin-bottom: 3rem;
 }
 
-/* Para dispositivos móveis */
 @media (max-width: 768px) {
     .skeleton-cast-card { flex: 0 0 8rem; }
 
