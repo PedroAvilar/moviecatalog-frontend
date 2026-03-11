@@ -1,4 +1,3 @@
-/* Estilos para o componente Banner */
 .banner {
     width: 100%;
     height: 60vh;
@@ -10,7 +9,6 @@
     overflow: hidden;
 }
 
-/* Estilos para a imagem */
 .banner-image {
     position: absolute;
     inset: 0;
@@ -20,7 +18,6 @@
     animation: zoomBg 10s ease-in-out infinite;
 }
 
-/* Sobreposição */
 .banner-overlay {
     position: absolute;
     inset: 0;
@@ -35,7 +32,6 @@
     z-index: 2;
 }
 
-/* Conteúdo do banner */
 .banner-content {
     color: white;
     padding: 2rem;
@@ -44,20 +40,16 @@
     animation: textFadeUp 1s ease both;
 }
 
-/* Título */
 .banner-content h2 {
     font-size: 2rem;
     margin-bottom: 0.5rem;
-    
 }
 
-/* Texto */
 .banner-content p {
     font-size: 1rem;
     margin-bottom: 1rem;
 }
 
-/* Para dispositivos móveis */
 @media (max-width: 768px) {
     .banner {
         height: 50vh;
@@ -68,7 +60,6 @@
     }
 }
 
-/* Dots de navegação */
 .banner-dots {
     position: absolute;
     bottom: 1rem;
@@ -93,7 +84,6 @@
     transform: scale(1.3);
 }
 
-/* Animação do texto */
 @keyframes textFadeUp {
     from {
         opacity: 0;
@@ -105,7 +95,6 @@
     }
 }
 
-/* Animação da imagem */
 @keyframes zoomBg {
     from {
         transform: scale(1);
