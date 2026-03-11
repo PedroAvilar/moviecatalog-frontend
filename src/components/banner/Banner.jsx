@@ -108,7 +108,9 @@ function Banner({ movies }) {
                             className={`dot ${index === currentIndex ? 'active' : ''}`}
                             onClick={(e) => {
                                 e.stopPropagation();
-                                changeBanner(index);
+                                if (index !== currentIndex) {
+                                    changeBanner(index);
+                                }
                             }}
                         />
                     ))}
