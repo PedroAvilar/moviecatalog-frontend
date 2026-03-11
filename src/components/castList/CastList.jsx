@@ -3,7 +3,6 @@ import { getProfileUrl } from "../../utils/getProfileUrl";
 import './castList.css';
 import '../../styles/skeleton.css';
 
-// Componente principal para lista de atores
 function CastList({ cast }) {
     if (!cast || cast.length === 0) return null;
 
@@ -19,9 +18,8 @@ function CastList({ cast }) {
     );
 }
 
-// Componente para exibir cada ator
 function CastCard({ actor}) {
-    const [loaded, setLoaded] = useState(false); // Estado para transitions
+    const [loaded, setLoaded] = useState(false);
 
     return (
         <div className="cast-card">
