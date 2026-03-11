@@ -1,6 +1,6 @@
 .banner {
     width: 100%;
-    height: 60vh;
+    height: 60dvh;
     min-height: 320px;
     background-color: rgb(102, 102, 102);
     position: relative;
@@ -52,7 +52,7 @@
 
 @media (max-width: 768px) {
     .banner {
-        height: 50vh;
+        height: 50dvh;
     }
 
     .banner-content h2 {
