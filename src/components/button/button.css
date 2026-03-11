@@ -21,7 +21,7 @@
 
 /* Foco para acessibilidade */
 .btn:focus-visible {
-    outline: 3px solid #9ea6ff;
+    outline: 3px solid rgb(158, 255, 158);
     outline-offset: 2px;
 }
 
