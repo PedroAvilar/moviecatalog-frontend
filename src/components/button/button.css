@@ -44,12 +44,3 @@
     background-color: rgb(0, 144, 187);
     color: rgb(255, 255, 255);
 }
-
-.btn-danger {
-    background-color: rgb(232, 66, 80);
-    border: 2px solid transparent;
-    color: rgb(255, 255, 255);
-    box-shadow: none;
-}
-
-.btn-danger:hover { background-color: rgb(193, 45, 58); }
