@@ -7,8 +7,8 @@ import { getBackdropUrl } from '../../utils/getBackDrop';
 import BannerSkeleton from './BannerSkeleton';
 
 function Banner({ movies }) {
-    const navigate = useNavigate(); // Hook para navegação programática
-    // Estados para controles
+    const navigate = useNavigate();
+
     const [currentIndex, setCurrentIndex] = useState(0);
     const [touchStartX, setTouchStartX] = useState(null);
     const [touchEndX, setTouchEndX] = useState(null);
@@ -16,7 +16,6 @@ function Banner({ movies }) {
 
     const intervalRef = useRef(null);
 
-    // Função central que troca o banner
     function changeBanner(index) {
         if (!movies || movies.length === 0) return;
 
@@ -27,7 +26,6 @@ function Banner({ movies }) {
         startAutoSlide();
     }
 
-    // Função para autoplay
     function startAutoSlide() {
         clearInterval(intervalRef.current);
 
@@ -36,7 +34,6 @@ function Banner({ movies }) {
         }, 8000)
     }
 
-    // Handlers para suporte a touch (mobile)
     function handleTouchStart(e) {setTouchStartX(e.touches[0].clientX);}
     function handleTouchMove(e) {setTouchEndX(e.touches[0].clientX);}
 
@@ -47,9 +44,9 @@ function Banner({ movies }) {
         const minSwipeDistance = 50;
 
         if (distance > minSwipeDistance) {
-            changeBanner(currentIndex + 1); // Próximo
+            changeBanner(currentIndex + 1);
         } else if (distance < -minSwipeDistance) {
-            changeBanner(currentIndex - 1); //Anterior
+            changeBanner(currentIndex - 1);
         }
 
         setTouchStartX(null);
@@ -57,17 +54,17 @@ function Banner({ movies }) {
     }
 
     useEffect(() => {
-        if (!movies || movies.length === 0) return; // Caso sem filmes
+        if (!movies || movies.length === 0) return;
 
         startAutoSlide();
 
-        return () => clearInterval(intervalRef.current); // Função de limpeza
-    }, [movies, currentIndex]); // Reinicia caso a lista ou índice mude
+        return () => clearInterval(intervalRef.current);
+    }, [movies, currentIndex]);
 
-    if (!movies || movies.length === 0) return <BannerSkeleton />; // Caso vazia ou nula chama o BannerSkeleton
+    if (!movies || movies.length === 0) return <BannerSkeleton />;
     
-    const movie = movies[currentIndex]; // Seleciona o filme com base no índice do estado
-    const titleSlug = slugify(movie.title); // Gera slug do título do filme
+    const movie = movies[currentIndex];
+    const titleSlug = slugify(movie.title);
 
     return (
         <section 
@@ -79,10 +76,8 @@ function Banner({ movies }) {
         >
             <div 
                 className={`banner-image fade fade-slow ${imageLoaded ? 'show' : ''}`}
-                // Define a imagem de fundo dinamicamente com função em utils
                 style={{ backgroundImage: `url(${getBackdropUrl(movie.backdrop_path)})`}}
             />
-            {/* Garante que a imagem baixou para então liberar o fade */}
             <img
                 src={getBackdropUrl(movie.backdrop_path)}
                 alt=""
@@ -92,14 +87,13 @@ function Banner({ movies }) {
         
             <div 
                 className='banner-overlay'
-                onClick={() => navigate(`/filme/${movie.id}/${titleSlug}`)} // Navega para detalhes do filme
+                onClick={() => navigate(`/filme/${movie.id}/${titleSlug}`)}
             
             >
                 <div className='banner-content'>
                     <h2>{movie.title}</h2>
                     <p>
                         {movie.overview
-                            // Limita o conteúdo da descrição exibida
                             ? movie.overview.length > 160
                                 ? movie.overview.slice(0, 160) + '...'
                                 : movie.overview
@@ -107,7 +101,6 @@ function Banner({ movies }) {
                     </p>
                 </div>
 
-                {/* Dots para navegação do usuário */}
                 <div className='banner-dots'>
                     {movies.map((_, index) => (
                         <span
