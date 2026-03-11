@@ -23,33 +23,33 @@
 }
 
 .btn-primary {
-    background-color: #4c4cb6;
-    color: white;
+    background-color: rgb(76, 76, 182);
+    color: rgb(255, 255, 255);
     box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.5);
 }
 
 .btn-primary:hover {
-    background-color: #3f3fa0;
+    background-color: rgb(63, 63, 160);
     box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.8);
 }
 
 .btn-secondary {
     background: transparent;
-    border: 2px solid #0090bb;
-    color: #0090bb;
+    border: 2px solid rgb(0, 144, 187);
+    color: rgb(0, 144, 187);
     box-shadow: none;
 }
 
 .btn-secondary:hover {
-    background-color: #0090bb;
-    color: white;
+    background-color: rgb(0, 144, 187);
+    color: rgb(255, 255, 255);
 }
 
 .btn-danger {
-    background-color: #e84250;
+    background-color: rgb(232, 66, 80);
     border: 2px solid transparent;
-    color: white;
+    color: rgb(255, 255, 255);
     box-shadow: none;
 }
 
-.btn-danger:hover { background-color: #c12d3a; }
+.btn-danger:hover { background-color: rgb(193, 45, 58); }
