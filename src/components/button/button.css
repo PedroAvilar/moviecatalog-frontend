@@ -27,11 +27,19 @@
     box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.5);
 }
 
+.btn-primary:active {
+    background-color: rgb(53, 53, 120);
+}
+
 .btn-secondary {
     background: transparent;
     border: 2px solid rgb(0, 144, 187);
     color: rgb(0, 144, 187);
     box-shadow: none;
+}
+
+.btn-secondary:active {
+    background-color: rgba(0, 144, 187, 0.3);
 }
 
 @media (pointer: fine) {
