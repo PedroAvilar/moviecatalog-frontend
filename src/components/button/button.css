@@ -1,4 +1,3 @@
-/* Estilos universais para os botões */ 
 .btn {
     display: inline-flex;
     align-items: center;
@@ -16,16 +15,13 @@
     transition: all 0.3s ease;
 }
 
-/* Efeito de clique para os botões */
 .btn:active { transform: scale(0.97); }
 
-/* Foco para acessibilidade */
 .btn:focus-visible {
     outline: 3px solid rgb(158, 255, 158);
     outline-offset: 2px;
 }
 
-/* Botões para ações principais */
 .btn-primary {
     background-color: #4c4cb6;
     color: white;
@@ -37,7 +33,6 @@
     box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.8);
 }
 
-/* Botões para ações secundárias */
 .btn-secondary {
     background: transparent;
     border: 2px solid #0090bb;
@@ -50,7 +45,6 @@
     color: white;
 }
 
-/* Botões para ações de exclusão */
 .btn-danger {
     background-color: #e84250;
     border: 2px solid transparent;
