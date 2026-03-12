@@ -1,13 +1,12 @@
 /* 
-    Estilos com base no movieDetails.css
-    Adaptados para divs ao invés de conteúdo
+    Styles based on movieDetails.css
+    Adapted for divs
  */
 .skeleton-details-wrapper {
     width: 100%;
     margin: 0 auto;
 }
 
-/* Envolve poster e info */
 .skeleton-details {
     display: flex;
     gap: 2rem;
@@ -19,7 +18,6 @@
     border-radius: 1rem;
 }
 
-/* Envolve title, subtitle, group, favorite-btn */
 .skeleton-details-info { 
     flex: 1; 
     max-width: 63rem;
@@ -41,7 +39,6 @@
     margin-bottom: 1rem;
 }
 
-/* Envolve lines small e medium */
 .skeleton-details-group {
     width: 100%;
     display: flex;
@@ -49,7 +46,6 @@
     margin-bottom: 1rem;
 }
 
-/* Envolve subtitle e btn */
 .skeleton-details-favorite-btn {
     display: flex;
     gap: 1rem;
@@ -75,7 +71,6 @@
 
 .skeleton-details-line.full { width: 100%; }
 
-/* Estilos para mobile */
 @media (max-width: 768px) {
     .skeleton-details {
         flex-direction: column;
