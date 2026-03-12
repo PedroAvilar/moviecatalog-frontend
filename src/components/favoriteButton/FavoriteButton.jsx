@@ -2,7 +2,6 @@ import { useFavorites } from "../../context/FavoritesContext";
 import { HEART_PATH } from "../../utils/Icons";
 import './favoriteButton.css';
 
-// Componente de botão para adicionar ou remover um filme dos favoritos
 function FavoriteButton({ movie, size = 30, variant }) {
     const { isFavorite, addFavorite, removeFavorite } = useFavorites();
     const favorite = isFavorite(movie.id);
@@ -24,12 +23,10 @@ function FavoriteButton({ movie, size = 30, variant }) {
                 viewBox="0 0 24 24"
                 className="heart-svg"
             >
-                {/* Camada de fundo (contorno) */}
                 <path
                     className="heart-outline"
                     d={HEART_PATH}
                 />
-                {/* Camada de preenchimento (frente) */}
                 <path 
                     className="heart-fill"
                     d={HEART_PATH}
