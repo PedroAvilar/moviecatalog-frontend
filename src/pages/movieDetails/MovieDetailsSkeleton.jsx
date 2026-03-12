@@ -24,10 +24,14 @@ function MovieDetailsSkeleton() {
                     <div className='skeleton-details-line full skeleton-base'/>
                     <div className='skeleton-details-line full skeleton-base'/>
 
-                    <div className='skeleton-details-favorite-btn'>
-                        <div className='skeleton-details-subtitle skeleton-base'/>
-                        <div className='skeleton-details-btn skeleton-base'/>
-                    </div>
+                    <div className='skeleton-details-subtitle skeleton-base'/>
+
+                    <div className='skeleton-details-line medium skeleton-base'/>
+
+                    <div className='skeleton-details-subtitle skeleton-base'/>
+
+                    <div className='skeleton-details-line full skeleton-base'/>
+                    <div className='skeleton-details-line full skeleton-base'/>
 
                 </div>
             </section>
