@@ -19,7 +19,6 @@ function MovieSection({ title, movies, loading }) {
                     />
                 ))}
 
-                {/* Carregando filmes e exibindo skeleton cards */}
                 {loading && 
                     Array.from({ length: 15 }).map((_, index) => (
                         <MovieCardSkeleton key={`skeleton-${index}`} />
