@@ -12,10 +12,6 @@
     transition: transform 0.3s ease, background 0.5s ease;
 }
 
-.favorite-btn:hover {
-    transform: scale(1.15);
-}
-
 .favorite-btn svg {
     width: 65%;
     height: 65%;
@@ -62,8 +58,20 @@
     backdrop-filter: blur(4px);
 }
 
-.favorite-btn.floating.active { background: rgba(255, 255, 255, 0.4); }
+.favorite-btn.floating.active { 
+    background: rgba(255, 255, 255, 0.4); 
+}
 
-.favorite-btn.floating.active:hover { background: rgba(255, 255, 255, 0.7); }
+@media (pointer: fine) {
+    .favorite-btn.floating.active:hover { 
+        background: rgba(255, 255, 255, 0.7); 
+    }
 
-.favorite-btn.floating:not(.active):hover { background: rgba(0, 0, 0, 0.7); }
+    .favorite-btn.floating:not(.active):hover { 
+        background: rgba(0, 0, 0, 0.7); 
+    }
+
+    .favorite-btn:hover {
+        transform: scale(1.15);
+    }
+}
