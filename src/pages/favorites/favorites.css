@@ -1,4 +1,3 @@
-/* Estilos para quando Favoritos estiver vazio */
 .no-favorites {
     padding: 2rem;
     display: flex;
@@ -20,17 +19,16 @@
 }
 
 .no-favorites h2 {
-    color: black;
+    color: rgb(0, 0, 0);
     margin-bottom: 0.5rem;
 }
 
 .no-favorites p {
-    color: black;
+    color: rgb(0, 0, 0);
     font-size: 1.2rem;
     margin-bottom: 1.5rem;
 }
 
-/* Estilos onde fica o botão Ver mais */
 .favorite-more {
     display: flex;
     justify-content: center;
