@@ -1,4 +1,3 @@
-/* Arquivo base para qualquer elemento que vai aparecer com fade */
 .fade {
     opacity: 0;
     transition: opacity 0.4s ease-in-out;

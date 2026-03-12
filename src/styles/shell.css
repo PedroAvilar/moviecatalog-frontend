@@ -1,5 +1,7 @@
-/* Estilos usados para exibir conteúdo ao usuário
-    Antes do React montar (conexão lenta do usuário) */
+/* 
+    Styles used to display content to the user
+    Before React mounts (slow user connection)
+*/
 .app-shell {
     padding: 0.5rem;
 }
