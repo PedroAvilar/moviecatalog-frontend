@@ -1,5 +1,5 @@
 /* 
-    Centraliza a comunicação com a API TMDB e trata erros
+    It centralizes communication with the TMDB API and handles errors
 */
 
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
@@ -19,7 +19,7 @@ async function fetchFromTMDB(endpoint, extraParams = "") {
                     errorMessage = errorData.status_message || errorMessage;
                 }
             } catch (e) {
-                // Mantém a mensagem padrão com o código HTTP
+                // Keep the default message with the HTTP code
             }
             throw new Error(errorMessage);
         }
@@ -43,8 +43,6 @@ async function fetchFromTMDB(endpoint, extraParams = "") {
         throw new Error('Erro de conexão com a API');
     }
 }
-
-// Funções para buscas específicas
 
 export function getPopularMovies() {
     return fetchFromTMDB('/movie/popular');
