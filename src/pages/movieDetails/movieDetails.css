@@ -1,16 +1,13 @@
-/* Envolve details */
 .movie-details-wrapper {
     margin: 0 auto;
 }
 
-/* Envolve poster-wrapper, poster e info */
 .movie-details {
     display: flex;
     gap: 2rem;
     align-items: flex-start;
 }
 
-/* Envolve poster */
 .movie-details-poster-wrapper {
     width: 19rem;
     aspect-ratio: 2 / 3;
@@ -26,12 +23,10 @@
     object-fit: cover;
 }
 
-/* Estilos para as informações do filme */
 .movie-info {
     color: black;
 }
 
-/* Envolve título e ícone de favorito */
 .movie-title-icon {
     width: 100%;
     display: flex;
@@ -65,7 +60,6 @@
     font-size: 1rem;
 }
 
-/* Estilos para dispositivos móveis */
 @media (max-width: 768px) {
     .movie-details,
     .movie-title-icon {

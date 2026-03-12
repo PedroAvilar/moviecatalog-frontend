@@ -11,10 +11,8 @@ import CastListSkeleton from "../../components/castList/CastListSkeleton";
 import FavoriteButton from "../../components/favoriteButton/FavoriteButton";
 
 function MovieDetails() {
-    // Obtém ID da URL
     const {id} = useParams();
 
-    // Estados para armazenar os dados e status
     const [movie, setMovie] = useState(null);
     const [cast, setCast] = useState([]);
     const [loading, setloading] = useState(true);
@@ -22,7 +20,6 @@ function MovieDetails() {
     const [directors, setDirectors] = useState([]);
 
     useEffect(() => {
-        // Buscar detalhes do filme
         async function fetchMovie() {
             setloading(true);
 
@@ -39,7 +36,7 @@ function MovieDetails() {
         }
 
         fetchMovie();
-    }, [id]); // Reexecuta se o ID na URL mudar
+    }, [id]);
 
     if (loading) {
         return (
@@ -54,7 +51,6 @@ function MovieDetails() {
         <main className="movie-details-wrapper">
             <article className="movie-details">
 
-                {/* Wrapper com skeleton */}
                 <div className={`movie-details-poster-wrapper ${!posterLoading ? 'skeleton-base' : ''}`}>
                     <img 
                         src={getPosterUrl(movie.poster_path)}
