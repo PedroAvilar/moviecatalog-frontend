@@ -7,17 +7,16 @@ import { useState } from 'react';
 import FavoriteButton from '../favoriteButton/FavoriteButton';
 
 function MovieCard ({ id, title, poster, rating }) {
-    const navigate = useNavigate(); /* Hook para navegação programática */
-    const [isLoaded, setIsLoaded] = useState(false); /* Estado para fade-in em transitions */
+    const navigate = useNavigate();
+    const [isLoaded, setIsLoaded] = useState(false);
     
-    const titleSlug = slugify(title); /* Gera slug do título do filme */
+    const titleSlug = slugify(title);
 
     return (
         <article 
             className='movie-card'
-            onClick={() => navigate(`/filme/${id}/${encodeURIComponent(titleSlug)}`)} /* Navega para detalhes do filme */
+            onClick={() => navigate(`/filme/${id}/${encodeURIComponent(titleSlug)}`)}
         >
-            {/* Wrapper com skeleton */}
             <div className={`movie-card-poster-wrapper ${!isLoaded ? 'skeleton-base' : ''}`}> 
                 <img 
                     src={poster} 

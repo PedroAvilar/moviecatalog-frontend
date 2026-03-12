@@ -1,15 +1,12 @@
-/* Estilos para o componente MovieCard */
 .movie-card {
     cursor: pointer;
     transition: transform 0.3s ease;
 }
 
-/* Efeito de zoom ao passar o mouse */
 .movie-card:hover {
     transform: scale(1.03);
 }
 
-/* Envolve a img de movie-card-poster */
 .movie-card-poster-wrapper {
     position: relative;
     width: 100%;
@@ -18,14 +15,12 @@
     overflow: hidden;
 }
 
-/* Estilos para o pôster do filme */
 .movie-card-poster {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-/* Estilos para o título */
 .movie-title {
     margin-top: 0.5rem;
     font-size: 0.95rem;
@@ -33,7 +28,6 @@
     
 }
 
-/* Estilos para a avaliação */
 .movie-rating {
     margin-top: 0.25rem;
     font-size: 0.9rem;
