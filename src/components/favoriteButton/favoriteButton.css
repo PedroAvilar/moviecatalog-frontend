@@ -1,18 +1,14 @@
-/* Estilos para o botão de favorito */
 .favorite-btn {
     padding: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-
     cursor: pointer;
     border: none;
     background: transparent;
     border-radius: 50%;
-
     flex-shrink: 0;
     flex-grow: 0;
-
     transition: transform 0.3s ease, background 0.5s ease;
 }
 
@@ -20,41 +16,34 @@
     transform: scale(1.15);
 }
 
-/* Estilos para o SVG do coração */
 .favorite-btn svg {
     width: 65%;
     height: 65%;
     display: block;
 }
 
-/* Estilos para os path do coração */
 .heart-svg path {
     stroke: #e10711;
     stroke-width: 2;
     stroke-linecap: round;
     stroke-linejoin: round;
-
     transform-box: fill-box;
     transform-origin: center;
-
     transition: all 0.5s ease-in-out;
 }
 
-/* Estilos para o coração outline */
 .heart-outline {
     fill: none;
     opacity: 1;
     transform: scale(1);
 }
 
-/* Estilos para o coração preenchido */
 .heart-fill {
     fill: #e10711;
     opacity: 0;
     transform: scale(0);
 }
 
-/* Estilos para o estado ativo (favoritado) */
 .favorite-btn.active .heart-outline {
     opacity: 0;
     transform: scale(0);
@@ -65,12 +54,10 @@
     transform: scale(1);
 }
 
-/* Estilos para o botão de favorito em modo flutuante */
 .favorite-btn.floating {
     position: absolute;
     top: 0.5rem;
     right: 0.5rem;
-
     background: rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(4px);
 }
