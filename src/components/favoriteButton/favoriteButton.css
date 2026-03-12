@@ -19,7 +19,7 @@
 }
 
 .heart-svg path {
-    stroke: #e10711;
+    stroke: rgb(225, 7, 17);
     stroke-width: 2;
     stroke-linecap: round;
     stroke-linejoin: round;
@@ -35,7 +35,7 @@
 }
 
 .heart-fill {
-    fill: #e10711;
+    fill: rgb(225, 7, 17);
     opacity: 0;
     transform: scale(0);
 }
