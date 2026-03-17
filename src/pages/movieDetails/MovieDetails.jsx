@@ -9,6 +9,7 @@ import CastList from "../../components/castList/CastList";
 import MovieDetailsSkeleton from "./MovieDetailsSkeleton";
 import CastListSkeleton from "../../components/castList/CastListSkeleton";
 import FavoriteButton from "../../components/favoriteButton/FavoriteButton";
+import ErrorMessage from "../../components/errorMessage/ErrorMessage";
 
 function MovieDetails() {
     const {id} = useParams();
@@ -18,10 +19,12 @@ function MovieDetails() {
     const [loading, setloading] = useState(true);
     const [posterLoading, setPosterLoading] = useState(false);
     const [directors, setDirectors] = useState([]);
+    const [error, setError] = useState(null);
 
-    useEffect(() => {
-        async function fetchMovie() {
+    async function fetchMovie() {
+        try {
             setloading(true);
+            setError(null);
 
             const data = await getMovieDetails(id);
             setMovie(data);
@@ -31,12 +34,18 @@ function MovieDetails() {
 
             const directorsList = creditsData.crew.filter(member => member.job === 'Director') || [];
             setDirectors(directorsList);
-
+        } catch (e) {
+            setError(e.message);
+        } finally {
             setloading(false);
         }
+    }
 
+    useEffect(() => {
         fetchMovie();
     }, [id]);
+
+    if (error) return <ErrorMessage message={error} onRetry={fetchMovie} />
 
     if (loading) {
         return (
