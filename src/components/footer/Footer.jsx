@@ -6,6 +6,9 @@ function Footer() {
     return (
         <footer className='footer'>
             <p>&copy; MovieCatalog {year}. Todos os direitos reservados.</p>
+            <p className='dev-credit'>
+                Desenvolvido por <a href="https://github.com/PedroAvilar" target="_blank" rel="noopener noreferrer">Pedro Avilar</a>.
+            </p>
         </footer>
     )
 }
