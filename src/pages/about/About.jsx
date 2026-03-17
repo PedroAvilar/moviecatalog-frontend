@@ -1,4 +1,3 @@
-// Página sobre o catálogo de filmes
 function About() {
     return (
         <div>
