@@ -5,7 +5,7 @@ import Footer from './components/footer/Footer.jsx';
 import Home from './pages/Home.jsx';
 import Categories from './pages/Categories.jsx';
 import Favorites from './pages/favorites/Favorites.jsx';
-import About from './pages/About.jsx';
+import About from './pages/about/About.jsx';
 import MovieDetails from './pages/movieDetails/MovieDetails.jsx';
 
 function App() {
