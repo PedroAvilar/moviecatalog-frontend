@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useParams, useLocation } from "react-router-dom";
-import { getMoviesByGenre } from '../services/tmdbService'
+import { getMoviesByGenre } from '../services/apiService';
 import MovieSection from "../components/movieSection/MovieSection";
 import ErrorMessage from "../components/errorMessage/ErrorMessage";
 
@@ -28,7 +28,7 @@ function Categories() {
             setError(null);
             const data = await getMoviesByGenre(genreId, page);
 
-            if (data.results.length === 0) {
+            if (!data.results || data.results.length === 0) {
                 setHasMore(false);
             } else {
                 setMovies(prev => {
