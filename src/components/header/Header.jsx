@@ -1,7 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import './header.css';
 import { useEffect, useState } from 'react';
-import { getGenres } from '../../services/tmdbService';
+import { getGenres } from '../../services/apiService';
 import { slugify } from '../../utils/slugify'
 
 function Header() {
@@ -11,8 +11,12 @@ function Header() {
 
     useEffect(() => {
         async function fetchGenres() {
-            const data = await getGenres();
-            setGenres(data.genres);
+            try {
+                const data = await getGenres();
+                setGenres(data.genres || []);
+            } catch (error) {
+                console.error('Erro ao carregar gêneros no Header: ', error);
+            }
         }
         fetchGenres();
     }, []);
