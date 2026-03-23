@@ -33,7 +33,7 @@ export const getGenres = async () => {
     return response.data;
 }
 
-export const getMoviesByGenre = async () => {
+export const getMoviesByGenre = async (genreId, page) => {
     const response = await api.get('/movie/discover', {
         params: {
             with_genres: genreId,
