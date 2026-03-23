@@ -3,7 +3,7 @@ import './movieDetails.css';
 import '../../styles/skeleton.css';
 import '../../styles/transitions.css'
 import { useEffect, useState } from "react";
-import { getMovieCredits, getMovieDetails } from "../../services/tmdbService";
+import { getMovieDetails } from "../../services/apiService";
 import { getPosterUrl } from "../../utils/getPosterUrl";
 import CastList from "../../components/castList/CastList";
 import MovieDetailsSkeleton from "./MovieDetailsSkeleton";
@@ -15,10 +15,8 @@ function MovieDetails() {
     const {id} = useParams();
 
     const [movie, setMovie] = useState(null);
-    const [cast, setCast] = useState([]);
     const [loading, setloading] = useState(true);
     const [posterLoading, setPosterLoading] = useState(false);
-    const [directors, setDirectors] = useState([]);
     const [error, setError] = useState(null);
 
     async function fetchMovie() {
@@ -28,12 +26,6 @@ function MovieDetails() {
 
             const data = await getMovieDetails(id);
             setMovie(data);
-
-            const creditsData = await getMovieCredits(id);
-            setCast(creditsData.cast);
-
-            const directorsList = creditsData.crew.filter(member => member.job === 'Director') || [];
-            setDirectors(directorsList);
         } catch (e) {
             setError(e.message);
         } finally {
@@ -107,11 +99,11 @@ function MovieDetails() {
                         </p>
                     </section>
 
-                    {directors.length > 0 && (
+                    {movie.directors?.length > 0 && (
                         <section className="movie-text">
                             <h2>Direção</h2>
                             <p>
-                                {directors.map(d => d.name).join(' / ')}
+                                {movie.directors.join(' / ')}
                             </p>
                         </section>
                     )}
@@ -120,14 +112,14 @@ function MovieDetails() {
                         <section className="movie-text">
                             <h2>Produção</h2>
                             <p>
-                                {movie.production_companies.map(c => c.name).join(' / ')}
+                                {movie.production_companies.join(' / ')}
                             </p>
                         </section>
                     )}
                 </section>
             </article>
 
-            <CastList cast={cast} />
+            <CastList cast={movie.cast} />
         </main>
     );
 }
