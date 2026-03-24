@@ -7,6 +7,8 @@ import Categories from './pages/Categories.jsx';
 import Favorites from './pages/favorites/Favorites.jsx';
 import About from './pages/about/About.jsx';
 import MovieDetails from './pages/movieDetails/MovieDetails.jsx';
+import Login from './pages/login/Login.jsx';
+import Register from './pages/register/Register.jsx';
 
 function App() {
 
@@ -21,6 +23,8 @@ function App() {
           <Route path='/favoritos' element={<Favorites/>}/>
           <Route path='/sobre' element={<About/>}/>
           <Route path='/filme/:id/:title?' element={<MovieDetails />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/cadastro' element={<Register />} />
         </Routes>
       </main>
 
