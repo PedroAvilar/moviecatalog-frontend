@@ -43,12 +43,22 @@ export const getMoviesByGenre = async (genreId, page) => {
     return response.data;
 }
 
-export const login = (email, password) => api.post('/auth/login', { email, password });
+export const login = async (email, password) => {
+    const response = await api.post('/auth/login', { email, password });
+    return response.data;
+}
+
 export const register = (userData) => api.post('/auth/register', userData);
+
 export const logout = () => api.post('/auth/logout');
-export const getMe = () => api.get('/auth/me');
+
+export const getMe = async () => {
+    const response = await api.get('/auth/me');
+    return response.data;
+};
 
 export const createReview = (reviewData) => api.post('/review', reviewData);
+
 export const getMyReviews = () => api.get('/review/me');
 
 export default api;
