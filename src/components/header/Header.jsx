@@ -3,11 +3,13 @@ import './header.css';
 import { useEffect, useState } from 'react';
 import { getGenres } from '../../services/apiService';
 import { slugify } from '../../utils/slugify'
+import { useAuth } from '../../context/AuthContext';
 
 function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
     const [genres, setGenres] = useState([]);
     const [categoriesOpen, setCategoriesOpen] = useState(false);
+    const { user, signed, logout } = useAuth();
 
     useEffect(() => {
         async function fetchGenres() {
@@ -142,6 +144,17 @@ function Header() {
                         >
                             Sobre
                         </NavLink>
+                    </li>
+
+                    <li>
+                        {signed ? (
+                            <div>
+                                <span>Olá, {user.name}</span>
+                                <button onClick={logout}>Sair</button>
+                            </div>
+                        ) : (
+                            <NavLink to='login'>Entrar</NavLink>
+                        )}
                     </li>
                 </ul>
             </nav>
