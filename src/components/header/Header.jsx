@@ -4,11 +4,12 @@ import { useEffect, useState } from 'react';
 import { getGenres } from '../../services/apiService';
 import { slugify } from '../../utils/slugify'
 import { useAuth } from '../../context/AuthContext';
+import NavDropdown from '../navDropdown/NavDropdown';
 
 function Header() {
     const [menuOpen, setMenuOpen] = useState(false);
     const [genres, setGenres] = useState([]);
-    const [categoriesOpen, setCategoriesOpen] = useState(false);
+    const [openDropdown, setOpenDropdown] = useState(false);
     const { user, signed, logout } = useAuth();
 
     useEffect(() => {
@@ -34,16 +35,30 @@ function Header() {
         };
     }, [menuOpen]);
 
+    const closeAll = () => {
+        setMenuOpen(false)
+        setOpenDropdown(null);
+    };
+
+    const categoryItems = genres.map(g => ({
+        label: g.name,
+        to: `/categorias/${g.id}/${slugify(g.name)}`,
+        state: { genreRealName: g.name }
+    }));
+
+    const userItems = [
+        { label: 'Minhas avaliações', to: '/minhas-avaliacoes' },
+        { label: 'Meu perfil', to: '/perfil' },
+        { label: 'Sair', type: 'button', onClick: logout }
+    ];
+
     return (
         <header>
 
             {menuOpen && (
                 <div 
                     className='menu-overlay' 
-                    onClick={() => {
-                        setMenuOpen(false);
-                        setCategoriesOpen(false);
-                    }}
+                    onClick={closeAll}
                 />
             )}
 
@@ -53,7 +68,7 @@ function Header() {
                     className={`menu-toggle ${menuOpen ? 'open' : ''}`}
                     onClick={() => {
                         setMenuOpen(prev => {
-                            if (prev) setCategoriesOpen(false);
+                            if (prev) setOpenDropdown(false);
                             return !prev;
                         });
                     }}
@@ -74,61 +89,24 @@ function Header() {
                     <li>
                         <NavLink 
                             to='/'
-                            onClick={() => {
-                                setMenuOpen(false);
-                                setCategoriesOpen(false)
-                            }}
+                            onClick={closeAll}
                         >
                             Página inicial
                         </NavLink>
                     </li>
-
-                    <li 
-                        className='menu-categories'
-                        onMouseEnter={() => window.innerWidth > 768 && setCategoriesOpen(true)}
-                        onMouseLeave={() => window.innerWidth > 768 && setCategoriesOpen(false)}
-                    >
-                        <button
-                            type='button'
-                            className={`categories-button ${categoriesOpen ? 'active' : ''}`}
-                            aria-expanded={categoriesOpen}
-                            aria-controls='categories-submenu'
-                            onClick={() => {
-                                if (window.innerWidth <= 768) {
-                                    setCategoriesOpen(prev => !prev);
-                                }
-                            }}
-                        >
-                            Categorias ▾
-                        </button>
-                        <ul 
-                            id='categories-submenu'
-                            className={`submenu ${categoriesOpen ? 'open' : ''}`}
-                        >
-                            {genres.map(genre => (
-                                <li key={genre.id}>
-                                    <NavLink
-                                        to={`/categorias/${genre.id}/${slugify(genre.name)}`}
-                                        state={{genreRealName : genre.name}}
-                                        onClick={() => {
-                                            setMenuOpen(false);
-                                            setCategoriesOpen(false);
-                                        }}
-                                    >
-                                        {genre.name}
-                                    </NavLink>
-                                </li>
-                            ))}
-                        </ul>
-                    </li>
+                    
+                    <NavDropdown 
+                        label='Categorias'
+                        items={categoryItems}
+                        isOpen={openDropdown === 'categories'}
+                        onToggle={(state) => setOpenDropdown(state ? 'categories' : null)}
+                        onCloseMenu={closeAll}
+                    />
 
                     <li>
                         <NavLink 
                             to='/favoritos'
-                            onClick={() => {
-                                setMenuOpen(false);
-                                setCategoriesOpen(false)
-                            }}
+                            onClick={closeAll}
                         >
                             Favoritos
                         </NavLink>
@@ -137,25 +115,31 @@ function Header() {
                     <li>
                         <NavLink 
                             to='/sobre'
-                            onClick={() => {
-                                setMenuOpen(false);
-                                setCategoriesOpen(false)
-                            }}
+                            onClick={closeAll}
                         >
                             Sobre
                         </NavLink>
                     </li>
 
-                    <li>
-                        {signed ? (
-                            <div>
-                                <span>Olá, {user.name}</span>
-                                <button onClick={logout}>Sair</button>
-                            </div>
-                        ) : (
-                            <NavLink to='login'>Entrar</NavLink>
-                        )}
-                    </li>
+                    {signed ? (
+                        <NavDropdown
+                            label={`Olá, ${user.name.split(' ')[0]}`}
+                            items={userItems}
+                            isOpen={openDropdown === 'user'}
+                            onToggle={(state) => setOpenDropdown(state ? 'user' : null)}
+                            onCloseMenu={closeAll}
+                            isUserMenu
+                        />
+                    ) : (
+                        <li>
+                            <NavLink
+                                to='/login'
+                                onClick={closeAll}
+                            >
+                                Entrar
+                            </NavLink>
+                        </li>
+                    )}
                 </ul>
             </nav>
         </header>

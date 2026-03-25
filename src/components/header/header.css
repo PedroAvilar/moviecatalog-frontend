@@ -67,47 +67,22 @@ header {
     z-index: 95;
 }
 
-.menu-categories {
-    position: relative;
-    cursor: pointer;
-}
-
-.submenu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    list-style: none;
-    background-color: rgb(55, 55, 55);
-    padding: 0.5rem 0rem;
-    border-radius: 1rem;
-    min-width: 180px;
-    z-index: 110;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-1rem);
-}
-
-.submenu li,
 .menu li {
     text-align: center;
     padding: 0.5rem 0rem;
 }
 
 .menu a:focus-visible,
-.menu-toggle:focus-visible,
-.categories-button:focus-visible {
+.menu-toggle:focus-visible {
     outline: 3px solid rgb(158, 255, 158);
     outline-offset: 2px;
 }
 
-.menu a.active,
-.categories-button.active {
+.menu a.active {
     color: rgb(255, 255, 255);
 }
 
-.menu a,
-.categories-button,
-.submenu li a {
+.menu a {
     color: rgba(255, 255, 255, 0.500);
     font-size: 1rem;
     font-weight: bold;
@@ -115,8 +90,7 @@ header {
     transition: color 0.3s ease;
 }
 
-.menu-toggle,
-.categories-button {
+.menu-toggle {
     background: none;
     border: none;
     cursor: pointer;
@@ -124,27 +98,12 @@ header {
 }
 
 .menu-toggle span,
-.menu,
-.submenu {
+.menu {
     transition: all 0.3s ease-in-out;
 }
 
-@media (min-width: 769px) {
-    .submenu {
-        pointer-events: auto;
-    }
-
-    .submenu.open {
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0);
-    }
-}
-
 @media (pointer: fine) {
-    .menu a:hover,
-    .categories-button:hover,
-    .submenu li a:hover {
+    .menu a:hover {
         color: rgb(255, 255, 255);
     }
 }
@@ -173,19 +132,5 @@ header {
 
     .menu.open {
         transform: translateX(0);
-    }
-
-    .submenu {
-        position: relative;
-        overflow: hidden;
-        max-height: 0;
-        padding: 0;
-        transform: none;
-    }
-
-    .submenu.open {
-        max-height: 1000px;
-        opacity: 1;
-        visibility: visible;
     }
 }
