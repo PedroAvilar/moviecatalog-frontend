@@ -10,6 +10,7 @@ import MovieDetailsSkeleton from "./MovieDetailsSkeleton";
 import CastListSkeleton from "../../components/castList/CastListSkeleton";
 import FavoriteButton from "../../components/favoriteButton/FavoriteButton";
 import ErrorMessage from "../../components/errorMessage/ErrorMessage";
+import MovieReviews from "../../components/movieReviews/MovieReviews";
 
 function MovieDetails() {
     const {id} = useParams();
@@ -120,6 +121,12 @@ function MovieDetails() {
             </article>
 
             <CastList cast={movie.cast} />
+
+            <MovieReviews 
+                movieId={id}
+                reviews={movie.reviews}
+                onReviewAdded={fetchMovie}
+            />
         </main>
     );
 }
