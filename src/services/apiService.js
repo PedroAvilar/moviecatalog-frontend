@@ -59,6 +59,13 @@ export const getMe = async () => {
 
 export const createReview = (reviewData) => api.post('/review', reviewData);
 
-export const getMyReviews = () => api.get('/review/me');
+export const getMyReviews = async () => {
+    const response = await api.get('/review/me');
+    return response.data;
+};
+
+export const deleteReview = (reviewId) => api.delete(`/review/${reviewId}`);
+
+export const updateReview = (reviewId, data) => api.put(`/review/${reviewId}`, data);
 
 export default api;
