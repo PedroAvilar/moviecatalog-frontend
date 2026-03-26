@@ -16,6 +16,16 @@
     transform: scale(0.95); 
 }
 
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn:disabled:active {
+    transform: none;
+}
+
 .btn:focus-visible {
     outline: 3px solid rgb(158, 255, 158);
     outline-offset: 2px;
@@ -67,5 +77,10 @@
     .btn-danger:hover {
         background-color: rgb(187, 0, 50);
         color: rgb(255, 255, 255);
+    }
+
+    .btn:disabled:hover {
+        background-color: inherit;
+        color: inherit;
     }
 }

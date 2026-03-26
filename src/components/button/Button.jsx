@@ -6,15 +6,16 @@ export default function Button({
     onClick,
     type = 'button',
     disabled = false,
+    loading = false,
 }) {
     return (
         <button
             type={type}
             onClick={onClick}
             className={`btn btn-${variant}`}
-            disabled={disabled}
+            disabled={disabled || loading}
         >
-            {children}
+            {loading ? 'Aguarde...' : children}
         </button>
     )
 }
