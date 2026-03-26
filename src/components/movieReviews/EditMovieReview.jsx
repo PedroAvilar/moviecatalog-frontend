@@ -50,7 +50,7 @@ function EditMovieReview({ isOpen, onClose, review, onUpdate }) {
                         placeholder="Edite seu comentário..."
                     />
                 </div>
-                <div style={{ display: 'flex', gap: '1rem', marginTop: '1rem' }}>
+                <div className="modal-action">
                     <Button type="submit" variant="primary" loading={loading}>
                         Salvar
                     </Button>
