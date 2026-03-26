@@ -57,6 +57,12 @@ export const getMe = async () => {
     return response.data;
 };
 
+export const updateProfile = (data) => api.put('/auth/update-profile', data);
+
+export const updatePassword = (data) => api.put('/auth/update-password', data);
+
+export const deleteAccount = () => api.delete('/auth/delete-account');
+
 export const createReview = (reviewData) => api.post('/review', reviewData);
 
 export const getMyReviews = async () => {
