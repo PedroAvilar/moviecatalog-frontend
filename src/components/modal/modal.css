@@ -38,6 +38,13 @@
     padding: 1.5rem;
 }
 
+.modal-action {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+
 @keyframes slideUp {
     from { transform: translateY(5rem); opacity: 0; }
     to { transform: translateY(0); opacity: 1; }
