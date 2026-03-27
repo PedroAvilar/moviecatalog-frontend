@@ -92,6 +92,7 @@
     .review-card-content,
     .review-card-header {
         align-items: center;
+        text-align: center;
     }
 
     .review-card-header {
