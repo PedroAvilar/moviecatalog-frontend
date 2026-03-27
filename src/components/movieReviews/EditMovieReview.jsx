@@ -1,30 +1,29 @@
 import { useState } from "react";
 import { updateReview } from "../../services/apiService";
+import { useToast } from "../../context/ToastContext";
 import Button from "../button/Button";
 import Modal from "../modal/Modal";
-import ErrorMessage from "../errorMessage/ErrorMessage";
 
 function EditMovieReview({ isOpen, onClose, review, onUpdate }) {
+    const { showToast } = useToast();
     const [rating, setRating] = useState(review?.rating || 10);
     const [comment, setComment] = useState(review?.comment || '');
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
 
     async function handleSubmit(e) {
         e.preventDefault();
         try {
             setLoading(true);
-            await updateReview(review.id, { rating, comment });
+            const response = await updateReview(review.id, { rating, comment });
             onUpdate();
             onClose();
+            showToast(response)
         } catch (err) {
-            setError(err.message);
+            showToast(err);
         } finally {
             setLoading(false);
         }
     }
-
-    if (error) return <ErrorMessage message={error} />
 
     return (
         <Modal isOpen={isOpen} onClose={onClose} title={`Editar avaliação de ${review?.movieId?.title}`}>
