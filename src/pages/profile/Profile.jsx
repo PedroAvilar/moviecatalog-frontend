@@ -4,16 +4,16 @@ import Button from '../../components/button/Button';
 import Modal from '../../components/modal/Modal';
 import './profile.css';
 import { updatePassword, updateProfile, deleteAccount as apiDeleteAccount, getMe } from '../../services/apiService';
-import ErrorMessage from '../../components/errorMessage/ErrorMessage';
+import { useToast } from '../../context/ToastContext';
 
 function Profile() {
     const { user, logout, updateUser } = useAuth();
+    const { showToast } = useToast();
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [isPassModalOpen, setIsPassModalOpen] = useState(false);
     const [editData, setEditData] = useState({ name: user?.name || '', email: user?.email || '' });
     const [passData, setPassData] = useState({ currentPassword: '', newPassword: '', confirmPassword: '' });
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
     const [profileToDelete, setProfileToDelete] = useState(null);
 
     useEffect(() => {
@@ -24,14 +24,19 @@ function Profile() {
 
     const handleUpdateProfile = async (e) => {
         e.preventDefault();
+        if (!editData.name || !editData.email) {
+            return showToast({ message: 'Todos os campos são obrigatórios'})
+        }
+
         try {
             setLoading(true);
-            await updateProfile(editData);
+            const response = await updateProfile(editData);
             const freshUser = await getMe();
             updateUser(freshUser);
             setIsEditModalOpen(false);
+            showToast(response);
         } catch (err) {
-            setError(err.message);
+            showToast(err);
         } finally {
             setLoading(false);
         }
@@ -39,15 +44,22 @@ function Profile() {
 
     const handleUpdatePassword = async (e) => {
         e.preventDefault();
-        if (passData.newPassword !== passData.confirmPassword) return alert('As senhas não coincidem');
+        if (!passData.currentPassword || !passData.newPassword || !passData.confirmPassword) {
+            return showToast({ message: 'Todos os campos são obrigatórios' });
+        }
+
+        if (passData.newPassword !== passData.confirmPassword) {
+            return showToast({ message: 'As senhas não correspondem' });
+        }
 
         try {
             setLoading(true);
-            await updatePassword(passData);
+            const response = await updatePassword(passData);
             setIsPassModalOpen(false);
             setPassData({ currentPassword: '', newPassword: '', confirmPassword: '' });
+            showToast(response)
         } catch (err) {
-            setError(err.message);
+            showToast(err)
         } finally {
             setLoading(false);
         }
@@ -58,16 +70,16 @@ function Profile() {
 
         try {
             setLoading(true);
-            await apiDeleteAccount();
+            const response = await apiDeleteAccount();
             setProfileToDelete(null);
+            showToast(response);
             logout();
         } catch (err) {
-            setError(err.message);
+            showToast(err);
+        } finally {
             setLoading(false);
         }
     };
-
-    if (error) return <ErrorMessage message={error}/>
 
     return (
         <main className='profile-container'>
