@@ -1,9 +1,11 @@
 import { createContext, useState, useEffect, useContext } from "react";
 import { getMe, login as loginApi, logout as logoutApi } from '../services/apiService';
+import { useToast } from "./ToastContext";
 
 const AuthContext = createContext({});
 
 export function AuthProvider({ children }) {
+    const { showToast } = useToast();
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
@@ -36,7 +38,8 @@ export function AuthProvider({ children }) {
 
     const logout = async () => {
         try {
-            await logoutApi();
+            const response = await logoutApi();
+            showToast(response);
         } finally {
             setUser(null);
         }
