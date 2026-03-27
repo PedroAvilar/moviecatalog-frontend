@@ -1,28 +1,28 @@
 import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { createReview } from "../../services/apiService";
+import { useToast } from "../../context/ToastContext";
 import Button from "../button/Button";
-import ErrorMessage from "../errorMessage/ErrorMessage";
 import "./movieReviews.css";
 
 function MovieReviews({ movieId, reviews, onReviewAdded }) {
     const { signed, user } = useAuth();
+    const { showToast } = useToast();
     const [rating, setRating] = useState(10);
     const [comment, setComment] = useState('');
-    const [error, setError] = useState(null);
 
     const userAlreadyReviewed = reviews.some(r => r.userId?.id === user?.id);
 
     async function handleSubmit(e) {
         e.preventDefault();
         try {
-            setError(null);
-            await createReview({ movieId, rating, comment });
+            const response = await createReview({ movieId, rating, comment });
             setComment('');
             setRating(10);
             onReviewAdded();
+            showToast(response);
         } catch (err) {
-            setError(err.message);
+            showToast(err);
         }
     }
 
@@ -63,13 +63,6 @@ function MovieReviews({ movieId, reviews, onReviewAdded }) {
                         >
                             Publicar
                         </Button>
-
-                        {error && (
-                            <ErrorMessage
-                                message={error}
-                                variant="compact"
-                            />
-                        )}
                     </form>
                 ) : (
                     <p className="review-info">Você já avaliou esse filme. Gerencie suas notas em "Minhas avaliações".</p>
