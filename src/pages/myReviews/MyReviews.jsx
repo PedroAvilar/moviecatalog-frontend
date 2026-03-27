@@ -4,11 +4,13 @@ import ErrorMessage from "../../components/errorMessage/ErrorMessage";
 import Button from "../../components/button/Button";
 import EmptyState from "../../components/emptyState/EmptyState";
 import { getPosterUrl } from "../../utils/getPosterUrl";
+import { useToast } from "../../context/ToastContext";
 import './myReviews.css';
 import EditMovieReview from "../../components/movieReviews/EditMovieReview";
 import Modal from "../../components/modal/Modal";
 
 function MyReviews() {
+    const { showToast } = useToast();
     const [reviews, setReviews] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -36,11 +38,12 @@ function MyReviews() {
 
         try {
             setLoading(true);
-            await deleteReview(reviewToDelete.id);
+            const response = await deleteReview(reviewToDelete.id);
             setReviews(prev => prev.filter(r => r.id !== reviewToDelete.id));
             setReviewToDelete(null);
+            showToast(response);
         } catch (err) {
-            setError(err.message);
+            showToast(err);
         } finally {
             setLoading(false);
         }
