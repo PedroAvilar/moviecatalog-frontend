@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { register } from "../../services/apiService";
+import { useToast } from "../../context/ToastContext";
 import ErrorMessage from "../../components/errorMessage/ErrorMessage";
 import '../../styles/auth.css';
 import Button from "../../components/button/Button";
 
 function Register() {
+    const { showToast } = useToast();
     const [formData, setFormData] = useState({ name: '', email: '', password: ''});
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -20,10 +22,12 @@ function Register() {
         try {
             setLoading(true);
             setError(null);
-            await register(formData);
-            navigate('/login', { state: { message: 'Cadastro realizado! Faça login.'}})
+            const response = await register(formData);
+            showToast(response);
+            navigate('/login');
+            showToast({ message: 'Faça o login!'})
         } catch (err) {
-            setError(err.message);
+            showToast(err)
         } finally {
             setLoading(false);
         }
