@@ -1,13 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import Button from '../../components/button/Button';
 import Modal from '../../components/modal/Modal';
 import './profile.css';
-import { updatePassword, updateProfile, deleteAccount as apiDeleteAccount } from '../../services/apiService';
+import { updatePassword, updateProfile, deleteAccount as apiDeleteAccount, getMe } from '../../services/apiService';
 import ErrorMessage from '../../components/errorMessage/ErrorMessage';
 
 function Profile() {
-    const { user, logout } = useAuth();
+    const { user, logout, updateUser } = useAuth();
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [isPassModalOpen, setIsPassModalOpen] = useState(false);
     const [editData, setEditData] = useState({ name: user?.name || '', email: user?.email || '' });
@@ -15,11 +15,19 @@ function Profile() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
+    useEffect(() => {
+        if (user) {
+            setEditData({ name: user.name, email: user.email });
+        }
+    }, [user]);
+
     const handleUpdateProfile = async (e) => {
         e.preventDefault();
         try {
             setLoading(true);
             await updateProfile(editData);
+            const freshUser = await getMe();
+            updateUser(freshUser);
             setIsEditModalOpen(false);
         } catch (err) {
             setError(err.message);

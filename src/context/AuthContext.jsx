@@ -27,6 +27,13 @@ export function AuthProvider({ children }) {
         return data;
     };
 
+    const updateUser = (userData) => {
+        setUser(prev => ({
+            ...prev,
+            ...userData
+        }));
+    };
+
     const logout = async () => {
         try {
             await logoutApi();
@@ -43,6 +50,7 @@ export function AuthProvider({ children }) {
             signed,
             loading,
             login,
+            updateUser,
             logout
         }}>
             {children}
