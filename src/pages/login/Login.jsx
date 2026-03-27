@@ -1,27 +1,27 @@
 import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
-import ErrorMessage from "../../components/errorMessage/ErrorMessage";
+import { useToast } from "../../context/ToastContext";
 import Button from "../../components/button/Button";
 import '../../styles/auth.css'
 
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] =useState('');
-    const [error, setError] = useState(null);
     const [loading, setLoading] = useState(false);
     const { login } = useAuth();
+    const { showToast } = useToast();
     const navigate = useNavigate();
 
     async function handleSubmit(e) {
         e.preventDefault();
         try {
             setLoading(true);
-            setError(null);
-            await login(email, password);
+            const response = await login(email, password);
+            showToast(response)
             navigate('/');
         } catch (err) {
-            setError(err.message);
+            showToast(err)
         } finally {
             setLoading(false);
         }
@@ -66,13 +66,6 @@ function Login() {
                         Entrar
                     </Button>
                 </div>
-
-                {error && (
-                    <ErrorMessage
-                        message={error}
-                        variant="compact"
-                    />
-                )}
 
                 <p className="auth-footer">
                     Não tem uma conta? <Link to='/cadastro'>Cadastre-se</Link>
