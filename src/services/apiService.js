@@ -6,10 +6,18 @@ const api = axios.create({
 });
 
 api.interceptors.response.use(
-    (response) => response,
+    (response) => {
+        return {
+            message: response.data.message || 'Operação realizada com sucesso',
+            data: response.data,
+            type: 'success'
+        };
+    },
     (error) => {
-        const message = error.response?.data?.error || 'Erro na comunicação com o servidor'
-        return Promise.reject(new Error(message));
+        return Promise.reject({
+            message: error.response?.data?.error || 'Erro na comunicação com o servidor',
+            type: 'error'
+        });
     }
 );
 
@@ -45,33 +53,57 @@ export const getMoviesByGenre = async (genreId, page) => {
 
 export const login = async (email, password) => {
     const response = await api.post('/auth/login', { email, password });
-    return response.data;
+    return response;
 }
 
-export const register = (userData) => api.post('/auth/register', userData);
+export const register = async (userData) => {
+    const response = await api.post('/auth/register', userData);
+    return response;
+};
 
-export const logout = () => api.post('/auth/logout');
+export const logout = async () => {
+    const response = await api.post('/auth/logout');
+    return response;
+};
 
 export const getMe = async () => {
     const response = await api.get('/auth/me');
     return response.data;
 };
 
-export const updateProfile = (data) => api.put('/auth/update-profile', data);
+export const updateProfile = async (data) => {
+    const response = await api.put('/auth/update-profile', data);
+    return response;
+};
 
-export const updatePassword = (data) => api.put('/auth/update-password', data);
+export const updatePassword = async (data) => {
+    const response = await api.put('/auth/update-password', data);
+    return response;
+};
 
-export const deleteAccount = () => api.delete('/auth/delete-account');
+export const deleteAccount =  async () => {
+    const response = await api.delete('/auth/delete-account');
+    return response;
+};
 
-export const createReview = (reviewData) => api.post('/review', reviewData);
+export const createReview = async (reviewData) => {
+    const response = await api.post('/review', reviewData);
+    return response;
+};
 
 export const getMyReviews = async () => {
     const response = await api.get('/review/me');
     return response.data;
 };
 
-export const deleteReview = (reviewId) => api.delete(`/review/${reviewId}`);
+export const deleteReview = async (reviewId) => {
+    const response = await api.delete(`/review/${reviewId}`);
+    return response;
+};
 
-export const updateReview = (reviewId, data) => api.put(`/review/${reviewId}`, data);
+export const updateReview = async (reviewId, data) => {
+    const response = await api.put(`/review/${reviewId}`, data);
+    return response;
+};
 
 export default api;
