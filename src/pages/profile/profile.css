@@ -8,7 +8,7 @@
 }
 
 .profile-section {
-    margin-bottom: 2rem;
+    margin: 2rem 0;
     padding: 1rem;
     background: rgb(255, 255, 255);
     border-radius: 1rem;
@@ -50,4 +50,13 @@
     border: 1px solid rgb(221, 221, 221);
     border-radius: 0.5rem;
     font-size: 1rem;
+}
+
+@media (max-width: 786px) {
+    .profile-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
 }
