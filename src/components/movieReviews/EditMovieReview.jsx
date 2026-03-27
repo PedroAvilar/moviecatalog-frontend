@@ -51,11 +51,11 @@ function EditMovieReview({ isOpen, onClose, review, onUpdate }) {
                     />
                 </div>
                 <div className="modal-action">
-                    <Button type="submit" variant="primary" loading={loading}>
-                        Salvar
-                    </Button>
                     <Button type="button" variant="secondary" onClick={onClose}>
                         Cancelar
+                    </Button>
+                    <Button type="submit" variant="primary" loading={loading}>
+                        Salvar
                     </Button>
                 </div>
             </form>
