@@ -14,6 +14,7 @@ function Profile() {
     const [passData, setPassData] = useState({ currentPassword: '', newPassword: '', confirmPassword: '' });
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    const [profileToDelete, setProfileToDelete] = useState(null);
 
     useEffect(() => {
         if (user) {
@@ -52,12 +53,17 @@ function Profile() {
         }
     };
 
-    const handleDeleteAccount = async () => {
+    const confirmProfileDelete = async () => {
+        if (!profileToDelete) return;
+
         try {
+            setLoading(true);
             await apiDeleteAccount();
+            setProfileToDelete(null);
             logout();
         } catch (err) {
             setError(err.message);
+            setLoading(false);
         }
     };
 
@@ -102,7 +108,7 @@ function Profile() {
                 <p>Ao excluir sua conta, todas as suas avaliações e dados serão removidos permanentemente.</p>
                 <Button
                     variant='danger'
-                    onClick={handleDeleteAccount}
+                    onClick={() => setProfileToDelete(user)}
                 >
                     Excluir conta
                 </Button>
@@ -164,6 +170,35 @@ function Profile() {
                         Salvar
                     </Button>
                 </form>
+            </Modal>
+
+            <Modal
+                isOpen={!!profileToDelete}
+                onClose={() => setProfileToDelete(null)}
+                title='Confirmar exclusão'
+            >
+                {user.name && (
+                    <p><strong>{profileToDelete?.name}</strong></p>
+                )}
+                <p>Tem certeza que deseja excluir sua conta?</p>
+                <p>Essa ação não poderá ser desfeita e também apagará suas avaliações dos filmes.</p>
+
+                <div className='modal-action'>
+                    <Button
+                        variant='secondary'
+                        onClick={() => setProfileToDelete(null)}
+                        disabled={loading}
+                    >
+                        Cancelar
+                    </Button>
+                    <Button
+                        variant='danger'
+                        onClick={confirmProfileDelete}
+                        disabled={loading}
+                    >
+                        Excluir
+                    </Button>
+                </div>
             </Modal>
         </main>
     );
