@@ -23,7 +23,7 @@ export function AuthProvider({ children }) {
 
     const login = async (email, password) => {
         const data = await loginApi(email, password);
-        setUser(data.user);
+        setUser(data.data.user);
         return data;
     };
 
