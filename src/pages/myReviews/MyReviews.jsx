@@ -6,12 +6,14 @@ import EmptyState from "../../components/emptyState/EmptyState";
 import { getPosterUrl } from "../../utils/getPosterUrl";
 import './myReviews.css';
 import EditMovieReview from "../../components/movieReviews/EditMovieReview";
+import Modal from "../../components/modal/Modal";
 
 function MyReviews() {
     const [reviews, setReviews] = useState([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [editingReview, setEditingReview] = useState(null);
+    const [reviewToDelete, setReviewToDelete] = useState(null);
 
     async function fetchReviews() {
         try {
@@ -29,11 +31,14 @@ function MyReviews() {
         fetchReviews();
     }, []);
 
-    const handleDelete = async (reviewId) => {
+    const confirmDelete = async () => {
+        if (!reviewToDelete) return;
+
         try {
             setLoading(true);
-            await deleteReview(reviewId);
-            setReviews(prev => prev.filter(r => r.id !== reviewId));
+            await deleteReview(reviewToDelete.id);
+            setReviews(prev => prev.filter(r => r.id !== reviewToDelete.id));
+            setReviewToDelete(null);
         } catch (err) {
             setError(err.message);
         } finally {
@@ -96,7 +101,7 @@ function MyReviews() {
                                 </Button>
                                 <Button
                                     variant="danger"
-                                    onClick={() => handleDelete(review.id)}
+                                    onClick={() => setReviewToDelete(review)}
                                 >
                                     Excluir
                                 </Button>
@@ -114,6 +119,33 @@ function MyReviews() {
                     onUpdate={fetchReviews}
                 />
             )}
+
+            <Modal
+                isOpen={!!reviewToDelete}
+                onClose={() => setReviewToDelete(null)}
+                title='Confirmar exclusão'
+            >
+                <p>Tem certeza que deseja excluir sua avaliação de <strong>{reviewToDelete?.movieId?.title}</strong>?</p>
+                <p>Essa ação não poderá ser desfeita.</p>
+
+                <div className="modal-action">
+                    <Button
+                        variant="secondary"
+                        onClick={() => setReviewToDelete(null)}
+                        disabled={loading}
+                    >
+                        Cancelar
+                    </Button>
+                    <Button
+                        variant="danger"
+                        onClick={confirmDelete}
+                        loading={loading}
+                    >
+                        Excluir
+                    </Button>
+                        
+                </div>
+            </Modal>
         </main>
     );
 }
