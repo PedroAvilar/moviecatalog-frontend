@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { deleteReview, getMyReviews } from "../../services/apiService";
+import { useToast } from "../../context/ToastContext";
 import ErrorMessage from "../../components/errorMessage/ErrorMessage";
 import Button from "../../components/button/Button";
 import EmptyState from "../../components/emptyState/EmptyState";
-import { getPosterUrl } from "../../utils/getPosterUrl";
-import { useToast } from "../../context/ToastContext";
-import './myReviews.css';
 import EditMovieReview from "../../components/movieReviews/EditMovieReview";
 import Modal from "../../components/modal/Modal";
+import MoviePoster from "../../components/moviePoster/MoviePoster";
+import './myReviews.css';
 
 function MyReviews() {
     const { showToast } = useToast();
@@ -71,12 +71,12 @@ function MyReviews() {
             <div className="reviews-grid">
                 {reviews.map(review => (
                     <article key={review.id} className="review-card">
-                        <div className="review-card-poster">
-                            <img 
-                                src={getPosterUrl(review.movieId?.poster_path)}
-                                alt={review.movieId?.title}
-                            />
-                        </div>
+                        <MoviePoster 
+                            path={review.movieId?.poster_path}
+                            alt={review.movieId?.title}
+                            size="w342"
+                            className="poster-md"
+                        />
 
                         <div className="review-card-content">
                             <div className="review-card-header">
