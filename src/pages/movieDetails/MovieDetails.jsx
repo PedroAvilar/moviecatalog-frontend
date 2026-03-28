@@ -1,23 +1,19 @@
 import { useParams } from "react-router-dom";
-import './movieDetails.css';
-import '../../styles/skeleton.css';
-import '../../styles/transitions.css'
 import { useEffect, useState } from "react";
 import { getMovieDetails } from "../../services/apiService";
-import { getPosterUrl } from "../../utils/getPosterUrl";
 import CastList from "../../components/castList/CastList";
 import MovieDetailsSkeleton from "./MovieDetailsSkeleton";
 import CastListSkeleton from "../../components/castList/CastListSkeleton";
 import FavoriteButton from "../../components/favoriteButton/FavoriteButton";
 import ErrorMessage from "../../components/errorMessage/ErrorMessage";
 import MovieReviews from "../../components/movieReviews/MovieReviews";
+import MoviePoster from "../../components/moviePoster/MoviePoster";
+import './movieDetails.css';
 
 function MovieDetails() {
     const {id} = useParams();
-
     const [movie, setMovie] = useState(null);
     const [loading, setloading] = useState(true);
-    const [posterLoading, setPosterLoading] = useState(false);
     const [error, setError] = useState(null);
 
     async function fetchMovie() {
@@ -53,14 +49,11 @@ function MovieDetails() {
         <main className="movie-details-wrapper">
             <article className="movie-details">
 
-                <div className={`movie-details-poster-wrapper ${!posterLoading ? 'skeleton-base' : ''}`}>
-                    <img 
-                        src={getPosterUrl(movie.poster_path)}
-                        alt={movie.title}
-                        className={`movie-details-poster fade fade-slow ${posterLoading ? 'show' : ''}`}
-                        onLoad={() => setPosterLoading(true)}
-                    />
-                </div>
+                <MoviePoster 
+                    path={movie.poster_path}
+                    alt={movie.title}
+                    className="poster-lg"
+                />
 
                 <section className="movie-info">
 
