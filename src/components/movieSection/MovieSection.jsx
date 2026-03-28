@@ -1,4 +1,3 @@
-import { getPosterUrl } from '../../utils/getPosterUrl';
 import MovieCard from '../moviecard/MovieCard';
 import MovieCardSkeleton from '../moviecard/MovieCardSkeleton';
 import './movieSection.css';
@@ -14,7 +13,7 @@ function MovieSection({ title, movies, loading }) {
                         key={movie.id}
                         id={movie.id}
                         title={movie.title}
-                        poster={getPosterUrl(movie.poster_path)}
+                        poster_path={movie.poster_path}
                         rating={movie.vote_average?.toFixed(1)}
                     />
                 ))}
