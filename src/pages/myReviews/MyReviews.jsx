@@ -69,49 +69,53 @@ function MyReviews() {
             <h2>Minhas avaliações</h2>
 
             <div className="reviews-grid">
-                {reviews.map(review => (
-                    <article key={review.id} className="review-card">
-                        <MoviePoster 
-                            path={review.movieId?.poster_path}
-                            alt={review.movieId?.title}
-                            size="w342"
-                            className="poster-md"
-                        />
+                {reviews.map(review => {
+                    const movie = review.movieId;
 
-                        <div className="review-card-content">
-                            <div className="review-card-header">
-                                <h3>{review.movieId?.title}</h3>
-                                <span className="review-year">
-                                    {review.movieId?.release_date?.slice(0,4)}
-                                </span>
+                    return (
+                        <article key={review.id} className="review-card">
+                            <MoviePoster 
+                                path={movie?.poster_path}
+                                alt={movie?.title}
+                                size="w342"
+                                className="poster-md"
+                            />
+
+                            <div className="review-card-content">
+                                <div className="review-card-header">
+                                    <h3>{movie?.title}</h3>
+                                    <span className="review-year">
+                                        {movie?.release_date?.slice(0,4)}
+                                    </span>
+                                </div>
+
+                                <p className="review-card-comment">
+                                    "{review.comment}"
+                                </p>
+
+                                <div className="review-card-date-rating">
+                                    <span>⭐ {review.rating}/10</span>
+                                    <span>{new Date(review.createdAt).toLocaleDateString('pt-BR')}</span>
+                                </div>
+
+                                <div className="review-card-actions">
+                                    <Button
+                                        variant="secondary"
+                                        onClick={() => setEditingReview(review)}
+                                    >
+                                        Editar
+                                    </Button>
+                                    <Button
+                                        variant="danger"
+                                        onClick={() => setReviewToDelete(review)}
+                                    >
+                                        Excluir
+                                    </Button>
+                                </div>
                             </div>
-
-                            <p className="review-card-comment">
-                                "{review.comment}"
-                            </p>
-
-                            <div className="review-card-date-rating">
-                                <span>⭐ {review.rating}/10</span>
-                                <span>{new Date(review.createdAt).toLocaleDateString('pt-BR')}</span>
-                            </div>
-
-                            <div className="review-card-actions">
-                                <Button
-                                    variant="secondary"
-                                    onClick={() => setEditingReview(review)}
-                                >
-                                    Editar
-                                </Button>
-                                <Button
-                                    variant="danger"
-                                    onClick={() => setReviewToDelete(review)}
-                                >
-                                    Excluir
-                                </Button>
-                            </div>
-                        </div>
-                    </article>
-                ))}
+                        </article>
+                    )
+                })}
             </div>
 
             {editingReview && (
