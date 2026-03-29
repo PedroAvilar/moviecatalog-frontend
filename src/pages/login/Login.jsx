@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useToast } from "../../context/ToastContext";
 import Button from "../../components/button/Button";
 import '../../styles/auth.css'
@@ -12,6 +12,9 @@ function Login() {
     const { login } = useAuth();
     const { showToast } = useToast();
     const navigate = useNavigate();
+    const location = useLocation();
+
+    const from = location.state?.from?.pathname || '/';
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -19,7 +22,7 @@ function Login() {
             setLoading(true);
             const response = await login(email, password);
             showToast(response)
-            navigate('/');
+            navigate(from, { replace: true });
         } catch (err) {
             showToast(err)
         } finally {
