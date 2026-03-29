@@ -17,7 +17,11 @@
     overflow: hidden;
     cursor: pointer;
     position: relative;
-    animation: slideIn 0.3s ease;
+    animation: slideIn 0.3s ease forwards;
+}
+
+.toast-container.hide {
+    animation: slideOut 0.3s ease forwards;
 }
 
 .toast-content {
@@ -59,6 +63,9 @@
     height: 0.4rem;
     background: rgba(0, 0, 0, 0.3);
     width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
 }
 
 .toast-progress::after {
@@ -78,6 +85,17 @@
     to {
         transform: translateX(0);
         opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
     }
 }
 

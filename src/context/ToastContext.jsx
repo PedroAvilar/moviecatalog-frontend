@@ -7,13 +7,20 @@ export function ToastProvider({ children }) {
     const [toasts, setToasts] = useState([]);
 
     const showToast = useCallback((data, fallbackType = 'info') => {
-        const id = Date.now();
-
-        const message = typeof data === 'string' ? data : data.message
-
+        const message = typeof data === 'string' ? data : data.message;
         const type = typeof data === 'string' ? fallbackType : data.type || fallbackType;
 
-        setToasts((prev) => [...prev, { id, message, type }]);
+        setToasts((prev) => {
+            if (prev.length > 0 && prev[prev.length -1].message === message) {
+                return prev;
+            }
+
+            const newToast = [...prev, { id: Date.now(), message, type }];
+            if (newToast.length > 3) {
+                return newToast.slice(1);
+            }
+            return newToast;
+        });
     }, []);
 
     const removeToast = useCallback((id) => {
