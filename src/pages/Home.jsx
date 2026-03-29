@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
+import { getPopularMovies, getTopRatedMovies } from '../services/apiService';
 import Banner from '../components/banner/Banner';
 import MovieSection from '../components/movieSection/MovieSection';
-import { getPopularMovies, getTopRatedMovies } from '../services/apiService';
 import ErrorMessage from '../components/errorMessage/ErrorMessage';
 
 function Home() {

@@ -1,6 +1,6 @@
-import './styles/App.css'
-import Header from './components/header/Header.jsx';
 import { Routes, Route } from 'react-router-dom';
+import { ProtectedRoute } from './components/protectedRoute/ProtectedRoute.jsx';
+import Header from './components/header/Header.jsx';
 import Footer from './components/footer/Footer.jsx';
 import Home from './pages/Home.jsx';
 import Categories from './pages/Categories.jsx';
@@ -9,9 +9,9 @@ import About from './pages/about/About.jsx';
 import MovieDetails from './pages/movieDetails/MovieDetails.jsx';
 import Login from './pages/login/Login.jsx';
 import Register from './pages/register/Register.jsx';
-import { ProtectedRoute } from './components/protectedRoute/ProtectedRoute.jsx';
 import MyReviews from './pages/myReviews/MyReviews.jsx';
 import Profile from './pages/profile/Profile.jsx';
+import './styles/App.css';
 
 function App() {
 

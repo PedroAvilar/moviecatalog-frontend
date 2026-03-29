@@ -1,10 +1,10 @@
 import { NavLink } from 'react-router-dom';
-import './header.css';
 import { useEffect, useState } from 'react';
 import { getGenres } from '../../services/apiService';
 import { slugify } from '../../utils/slugify'
 import { useAuth } from '../../context/AuthContext';
 import NavDropdown from '../navDropdown/NavDropdown';
+import './header.css';
 
 function Header() {
     const [menuOpen, setMenuOpen] = useState(false);

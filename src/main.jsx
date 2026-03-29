@@ -1,10 +1,10 @@
 import { createRoot } from 'react-dom/client'
-import './styles/index.css'
-import App from './App.jsx'
 import { BrowserRouter } from 'react-router-dom'
 import { FavoritesProvider } from './context/FavoritesContext.jsx';
 import { AuthProvider } from './context/AuthContext.jsx';
 import { ToastProvider } from './context/ToastContext.jsx';
+import App from './App.jsx'
+import './styles/index.css'
 
 const basename = '/moviecatalog-frontend/';
 

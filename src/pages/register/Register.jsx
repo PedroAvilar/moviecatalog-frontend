@@ -3,8 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { register } from "../../services/apiService";
 import { useToast } from "../../context/ToastContext";
 import ErrorMessage from "../../components/errorMessage/ErrorMessage";
-import '../../styles/auth.css';
 import Button from "../../components/button/Button";
+import '../../styles/auth.css';
 
 function Register() {
     const { showToast } = useToast();

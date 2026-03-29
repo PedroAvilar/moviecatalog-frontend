@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import MovieSection from '../../components/movieSection/MovieSection';
-import './favorites.css';
-import Button from '../../components/button/Button';
 import { useFavorites } from '../../context/FavoritesContext';
+import MovieSection from '../../components/movieSection/MovieSection';
+import Button from '../../components/button/Button';
 import EmptyState from '../../components/emptyState/EmptyState';
+import './favorites.css';
 
 function Favorites() {
     const { favorites } = useFavorites();

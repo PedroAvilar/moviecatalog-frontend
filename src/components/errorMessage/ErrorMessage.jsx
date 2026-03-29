@@ -1,5 +1,5 @@
-import './errorMessage.css';
 import Button from '../button/Button';
+import './errorMessage.css';
 
 function ErrorMessage({ message, onRetry, variant = 'full' }) {
     return (

@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
+import { updatePassword, updateProfile, deleteAccount as apiDeleteAccount, getMe } from '../../services/apiService';
+import { useToast } from '../../context/ToastContext';
 import Button from '../../components/button/Button';
 import Modal from '../../components/modal/Modal';
 import './profile.css';
-import { updatePassword, updateProfile, deleteAccount as apiDeleteAccount, getMe } from '../../services/apiService';
-import { useToast } from '../../context/ToastContext';
 
 function Profile() {
     const { user, logout, updateUser } = useAuth();
