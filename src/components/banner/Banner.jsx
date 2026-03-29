@@ -1,10 +1,11 @@
-import './banner.css';
-import '../../styles/transitions.css'
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import { slugify } from '../../utils/slugify';
 import { getBackdropUrl } from '../../utils/getBackDrop';
 import BannerSkeleton from './BannerSkeleton';
+import './banner.css';
+import '../../styles/transitions.css';
+import '../../styles/skeleton.css';
 
 function Banner({ movies }) {
     const navigate = useNavigate();
@@ -17,7 +18,7 @@ function Banner({ movies }) {
     const intervalRef = useRef(null);
 
     function changeBanner(index) {
-        if (!movies || movies.length === 0) return;
+        if (!movies?.length) return;
 
         setImageLoaded(false);
 
@@ -54,17 +55,17 @@ function Banner({ movies }) {
     }
 
     useEffect(() => {
-        if (!movies || movies.length === 0) return;
+        if (!movies?.length) return;
 
         startAutoSlide();
 
         return () => clearInterval(intervalRef.current);
     }, [movies, currentIndex]);
 
-    if (!movies || movies.length === 0) return <BannerSkeleton />;
+    if (!movies?.length) return <BannerSkeleton />;
     
     const movie = movies[currentIndex];
-    const titleSlug = slugify(movie.title);
+    const backdropUrl = getBackdropUrl(movie.backdrop_path, 'original');
 
     return (
         <section 
@@ -75,11 +76,11 @@ function Banner({ movies }) {
             onTouchEnd={handleTouchEnd}
         >
             <div 
-                className={`banner-image fade fade-slow ${imageLoaded ? 'show' : ''}`}
-                style={{ backgroundImage: `url(${getBackdropUrl(movie.backdrop_path)})`}}
+                className={`banner-image fade fade-slow ${imageLoaded ? 'show' : 'skeleton-base'}`}
+                style={imageLoaded ? { backgroundImage: `url(${backdropUrl})`} : {}}
             />
             <img
-                src={getBackdropUrl(movie.backdrop_path)}
+                src={backdropUrl}
                 alt=""
                 style={{ display: 'none' }}
                 onLoad={() => setImageLoaded(true)}
@@ -87,17 +88,12 @@ function Banner({ movies }) {
         
             <div 
                 className='banner-overlay'
-                onClick={() => navigate(`/filme/${movie.id}/${titleSlug}`)}
-            
+                onClick={() => navigate(`/filme/${movie.id}/${slugify(movie.title)}`)}
             >
                 <div className='banner-content'>
                     <h2>{movie.title}</h2>
                     <p>
-                        {movie.overview
-                            ? movie.overview.length > 160
-                                ? movie.overview.slice(0, 160) + '...'
-                                : movie.overview
-                            : 'Sem descrição disponível.'}
+                        {movie.overview?.length > 160 ? movie.overview.slice(0, 160) + '...' : movie.overview || 'Sem descrição.'}
                     </p>
                 </div>
 
