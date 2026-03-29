@@ -13,8 +13,31 @@ function MovieReviews({ movieId, reviews, onReviewAdded }) {
 
     const userAlreadyReviewed = reviews.some(r => r.userId?.id === user?.id);
 
+    const handleRatingChange = (e) => {
+        const val = e.target.value;
+        if (val === '') {
+            setRating('');
+            return;
+        }
+        const numVale = Number(val);
+        if (numVale <= 10) {
+            setRating(numVale);
+        }
+    }
+
     async function handleSubmit(e) {
         e.preventDefault();
+
+        if (rating === '') {
+            showToast({ message: 'Insira uma nota na avaliação'});
+            return;
+        }
+
+        if (rating < 0 || rating > 10) {
+            showToast({ message: "A nota deve ser entre 0 e 10"});
+            return;
+        }
+
         try {
             const response = await createReview({ movieId, rating, comment });
             setComment('');
@@ -36,18 +59,22 @@ function MovieReviews({ movieId, reviews, onReviewAdded }) {
                         <h3>Deixe sua avaliação</h3>
 
                         <div className="review-inputs">
-                            <div className="review-stars">
-                                {[1,2,3,4,5,6,7,8,9,10].map((star) => (
-                                    <button
-                                        key={star}
-                                        type="button"
-                                        className={`star ${star <= rating ? 'active' : ''}`}
-                                        onClick={() => setRating(star)}
-                                    >
-                                        ★
-                                    </button>
-                                ))}
-                                <p>{rating}/10</p>
+                            <div className="review-rating">
+                                <p>Sua nota de 0 a 10</p>
+                                <div className="review-input-rating">
+                                    <span>⭐</span>
+                                    <input 
+                                        type="number"
+                                        min='0'
+                                        max='10'
+                                        step='1'
+                                        value={rating}
+                                        onChange={handleRatingChange}
+                                        className="rating-num-input"
+                                        required
+                                    />
+                                    <span>/ 10</span>
+                                </div>
                             </div>
                             <textarea
                                 placeholder="O que você achou do filme?"
