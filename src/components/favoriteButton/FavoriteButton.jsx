@@ -1,14 +1,17 @@
 import { useFavorites } from "../../context/FavoritesContext";
+import { useToast } from "../../context/ToastContext";
 import { HEART_PATH } from "../../utils/Icons";
 import './favoriteButton.css';
 
 function FavoriteButton({ movie, size = 30, variant }) {
-    const { isFavorite, addFavorite, removeFavorite } = useFavorites();
+    const { isFavorite, toggleFavorite } = useFavorites();
+    const { showToast } = useToast();
     const favorite = isFavorite(movie.id);
 
-    function handleClick(e) {
+    async function handleClick(e) {
         e.stopPropagation();
-        favorite ? removeFavorite(movie.id) : addFavorite(movie);
+        const response = await toggleFavorite(movie);
+        showToast(response);
     }
 
     return (

@@ -1,41 +1,57 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { getFavorites, setFavorites } from "../services/favoritesService";
+import { getFavorites, toggleFavorite } from "../services/apiService";
+import { useAuth } from './AuthContext';
 
 const FavoritesContext = createContext();
 
 export function FavoritesProvider({ children }) {
-    const [favorites, setFavoritesState] = useState([]);
+    const { user } = useAuth();
+    const [favorites, setFavorites] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
-        setFavoritesState(getFavorites());
-    }, []);
+        async function loadFavorites() {
+            if (!user) {
+                setFavorites([]);
+                return;
+            }
+            try {
+                const data = await getFavorites();
+                setFavorites(data);
+            } catch (err) {
+                console.error("Erro ao carregar favoritos:", err);
+            }
+        }
+        loadFavorites();
+    }, [user]);
 
-    function addFavorite(movie) {
-        const exists = favorites.some(fav => fav.id === movie.id);
-        if (exists) return;
+    async function handleToggleFavorite(movie) {
+        if (!user) return { message: 'Faça login para favoritar' };
 
-        const update = [...favorites, movie];
-        setFavoritesState(update);
-        setFavorites(update);
-    }
-
-    function removeFavorite(id) {
-        const update = favorites.filter(movie => movie.id !== id);
-        setFavoritesState(update);
-        setFavorites(update);
+        try {
+            const response = await toggleFavorite(movie);
+            if (response.data.isFavorite) {
+                setFavorites(prev => [{ ...movie, movieId: movie.id }, ...prev]);
+            } else {
+                setFavorites(prev => prev.filter(fav => (fav.movieId || fav.id) !== movie.id));
+            }
+            return response;
+        } catch (err) {
+            return err;
+        }
     }
 
     function isFavorite(id) {
-        return favorites.some(movie => movie.id === id);
+        return favorites.some(fav => (fav.movieId === id || fav.id === id));
     }
 
     return (
         <FavoritesContext.Provider
             value={{
                 favorites,
-                addFavorite,
-                removeFavorite,
-                isFavorite
+                toggleFavorite: handleToggleFavorite,
+                isFavorite,
+                loading
             }}
         >
             {children}
