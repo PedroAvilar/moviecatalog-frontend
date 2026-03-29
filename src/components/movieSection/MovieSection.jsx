@@ -14,7 +14,7 @@ function MovieSection({ title, movies, loading }) {
                         id={movie.id}
                         title={movie.title}
                         poster_path={movie.poster_path}
-                        rating={movie.vote_average?.toFixed(1)}
+                        vote_average={movie.vote_average}
                     />
                 ))}
 

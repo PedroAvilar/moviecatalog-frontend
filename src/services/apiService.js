@@ -116,7 +116,7 @@ export const toggleFavorite = async (movie) => {
         movieId: movie.id,
         title: movie.title,
         poster_path: movie.poster_path,
-        vote_average: movie.vote_average
+        vote_average: movie.vote_average ? Number(Number(movie.vote_average).toFixed(1)) : 0
     };
     const response = await api.post('/favorite/toggle', favoriteData);
     return response;

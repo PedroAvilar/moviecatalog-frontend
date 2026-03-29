@@ -4,7 +4,7 @@ import FavoriteButton from '../favoriteButton/FavoriteButton';
 import MoviePoster from '../moviePoster/MoviePoster';
 import './movieCard.css';
 
-function MovieCard ({ id, title, poster_path, rating }) {
+function MovieCard ({ id, title, poster_path, vote_average }) {
     const navigate = useNavigate();
     const titleSlug = slugify(title);
 
@@ -21,13 +21,13 @@ function MovieCard ({ id, title, poster_path, rating }) {
                     className='poster-sm'
                 />
                 <FavoriteButton
-                    movie={{ id, title, poster_path}}
+                    movie={{ id, title, poster_path, vote_average}}
                     size={35}
                     variant='floating'
                 />
             </div>
             <h3 className='movie-card-title'>{title}</h3>
-            {rating && <p className='movie-card-rating'>⭐ {rating}</p>}
+            {vote_average > 0 && <p className='movie-card-rating'>⭐ {Number(vote_average).toFixed(1)}</p>}
         </article>
     );
 }
