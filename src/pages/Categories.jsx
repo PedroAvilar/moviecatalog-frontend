@@ -28,7 +28,7 @@ function Categories() {
             setError(null);
             const data = await getMoviesByGenre(genreId, page);
 
-            if (!data.results || data.results.length === 0) {
+            if (!data.results || data.results.length === 0 || data.page >= data.total_pages) {
                 setHasMore(false);
             } else {
                 setMovies(prev => {
