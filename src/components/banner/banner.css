@@ -91,7 +91,7 @@
     }
     to {
         opacity: 1;
-        transform: rotateY(0);
+        transform: translateY(0);
     }
 }
 
