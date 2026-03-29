@@ -106,4 +106,20 @@ export const updateReview = async (reviewId, data) => {
     return response;
 };
 
+export const getFavorites = async () => {
+    const response = await api.get('/favorite');
+    return response.data;
+}
+
+export const toggleFavorite = async (movie) => {
+    const favoriteData = {
+        movieId: movie.id,
+        title: movie.title,
+        poster_path: movie.poster_path,
+        vote_average: movie.vote_average
+    };
+    const response = await api.post('/favorite/toggle', favoriteData);
+    return response;
+}
+
 export default api;
