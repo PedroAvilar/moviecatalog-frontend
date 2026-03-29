@@ -63,6 +63,13 @@
     gap: 1rem;
 }
 
+@media (pointer: fine) {
+    .review-title-clickable:hover {
+        cursor: pointer;
+        text-decoration: underline;
+    }
+}
+
 @media (max-width: 768px) {
     .review-card {
         flex-direction: column;

@@ -20,6 +20,16 @@
 
 .poster-lg { width: 19rem; }
 
+@media (pointer: fine) {
+    .movie-poster-container.clickable {
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }
+    .movie-poster-container.clickable:hover {
+        transform: scale(1.03);
+    }
+}
+
 @media (max-width: 768px) {
     .poster-md, .poster-lg { width: 80%; }
 }

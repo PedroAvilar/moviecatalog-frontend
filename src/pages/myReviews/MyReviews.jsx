@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { deleteReview, getMyReviews } from "../../services/apiService";
 import { useToast } from "../../context/ToastContext";
+import { slugify } from "../../utils/slugify";
+import { useNavigate } from "react-router-dom";
 import ErrorMessage from "../../components/errorMessage/ErrorMessage";
 import Button from "../../components/button/Button";
 import EmptyState from "../../components/emptyState/EmptyState";
@@ -16,6 +18,7 @@ function MyReviews() {
     const [error, setError] = useState(null);
     const [editingReview, setEditingReview] = useState(null);
     const [reviewToDelete, setReviewToDelete] = useState(null);
+    const navigate = useNavigate();
 
     async function fetchReviews() {
         try {
@@ -32,6 +35,13 @@ function MyReviews() {
     useEffect(() => {
         fetchReviews();
     }, []);
+
+    const handleNavigate = (movie) => {
+        if (!movie?.id) return;
+        
+        const titleSlug = slugify(movie.title);
+        navigate(`/filme/${movie.id}/${encodeURIComponent(titleSlug)}`);
+    }
 
     const confirmDelete = async () => {
         if (!reviewToDelete) return;
@@ -78,12 +88,18 @@ function MyReviews() {
                                 path={movie?.poster_path}
                                 alt={movie?.title}
                                 size="w342"
-                                className="poster-md"
+                                className="poster-md clickable"
+                                onClick={() => handleNavigate(movie)}
                             />
 
                             <div className="review-card-content">
                                 <div className="review-card-header">
-                                    <h3>{movie?.title}</h3>
+                                    <div 
+                                        className="review-title-clickable"
+                                        onClick={() => handleNavigate(movie)}
+                                    >
+                                        <h3>{movie?.title}</h3>
+                                    </div>
                                     <span className="review-year">
                                         {movie?.release_date?.slice(0,4)}
                                     </span>
