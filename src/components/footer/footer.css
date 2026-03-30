@@ -1,24 +1,6 @@
 .footer {
-    background-color: rgb(41, 41, 41);
-    color: rgb(255, 255, 255);
+    background-color: var(--color-bg-muted);
+    color: var(--color-text-white);
     text-align: center;
-    padding: 0.3rem 0;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 0.8rem;
-}
-
-.dev-credit {
-    margin-top: 0.5rem;
-}
-
-.dev-credit a {
-    color: rgb(0, 144, 187);
-    font-weight: bold;
-    text-decoration: none;
-}
-
-@media (pointer: fine) {
-    .dev-credit a:hover {
-        text-decoration: underline;
-    }
+    padding: 1rem 0;
 }
