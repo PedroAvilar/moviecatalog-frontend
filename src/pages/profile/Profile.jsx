@@ -82,7 +82,7 @@ function Profile() {
     };
 
     return (
-        <main className='profile-container'>
+        <main>
             <h2>Meu Perfil</h2>
 
             <section className='profile-section'>
@@ -127,7 +127,7 @@ function Profile() {
             </section>
 
             <Modal isOpen={isEditModalOpen} onClose={() => setIsEditModalOpen(false)} title="Editar Perfil">
-                <form onSubmit={handleUpdateProfile} className="profile-form">
+                <form onSubmit={handleUpdateProfile}>
                     <input 
                         type="text" 
                         value={editData.name} 
@@ -156,7 +156,7 @@ function Profile() {
                 onClose={() => setIsPassModalOpen(false)}
                 title='Alterar senha'
             >
-                <form onSubmit={handleUpdatePassword} className='profile-form'>
+                <form onSubmit={handleUpdatePassword}>
                     <input 
                         type="password" 
                         placeholder='Senha atual'
