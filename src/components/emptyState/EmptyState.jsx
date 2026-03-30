@@ -21,24 +21,22 @@ function EmptyState({
     };
 
     return (
-        <div className="empty-state">
-            <div className="empty-state-content">
-                <span className="empty-state-icon" role="img" aria-label="icon">
-                    {icon}
-                </span>
-                <h2>{title}</h2>
-                <p>{description}</p>
+        <main className="empty-state">
+            <span className="empty-state-icon" role="img" aria-label="icon">
+                {icon}
+            </span>
+            <h2>{title}</h2>
+            <p>{description}</p>
 
-                {actionText && (
-                    <Button
-                        onClick={handleAction}
-                        variant="primary"
-                    >
-                        {actionText}
-                    </Button>
-                )}
-            </div>
-        </div>
+            {actionText && (
+                <Button
+                    onClick={handleAction}
+                    variant="primary"
+                >
+                    {actionText}
+                </Button>
+            )}
+        </main>
     );
 }
 
