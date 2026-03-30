@@ -27,57 +27,47 @@
     transform: none;
 }
 
-.btn:focus-visible {
-    outline: 3px solid rgb(158, 255, 158);
-    outline-offset: 2px;
-}
-
 .btn-primary {
-    background-color: rgb(76, 76, 182);
-    color: rgb(255, 255, 255);
-    box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.5);
-}
-
-.btn-primary:active {
-    background-color: rgb(53, 53, 120);
+    background-color: var(--color-brand);
+    color: var(--color-text-white);
 }
 
 .btn-secondary {
     background: transparent;
-    border: 2px solid rgb(0, 144, 187);
-    color: rgb(0, 144, 187);
-    box-shadow: none;
+    border: 2px solid var(--color-primary);
+    color: var(--color-primary);
 }
 
 .btn-secondary:active {
-    background-color: rgba(0, 144, 187, 0.3);
+    background-color: var(--color-primary-hover);
 }
 
 .btn-danger {
     background: transparent;
-    border: 2px solid rgb(187, 0, 50);
-    color: rgb(187, 0, 50);
-    box-shadow: none;
+    border: 2px solid var(--color-red);
+    color: var(--color-red);
 }
 
 .btn-danger:active {
-    background-color: rgba(187, 0, 50, 0.3);
+    background-color: var(--color-red-hover);
 }
 
 @media (pointer: fine) {
+    .btn:hover {
+        box-shadow: var(--color-box-shadow);
+    }
     .btn-primary:hover {
-        background-color: rgb(63, 63, 160);
-        box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.8);
+        background-color: var(--color-brand-hover);
     }
 
     .btn-secondary:hover {
-        background-color: rgb(0, 144, 187);
-        color: rgb(255, 255, 255);
+        background-color: var(--color-primary);
+        color: var(--color-text-white);
     }
 
     .btn-danger:hover {
-        background-color: rgb(187, 0, 50);
-        color: rgb(255, 255, 255);
+        background-color: var(--color-red);
+        color: var(--color-text-white);
     }
 
     .btn:disabled:hover {
