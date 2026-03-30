@@ -19,7 +19,7 @@
 }
 
 .heart-svg path {
-    stroke: rgb(225, 7, 17);
+    stroke: var(--color-red);
     stroke-width: 2;
     stroke-linecap: round;
     stroke-linejoin: round;
@@ -35,7 +35,7 @@
 }
 
 .heart-fill {
-    fill: rgb(225, 7, 17);
+    fill: var(--color-red);
     opacity: 0;
     transform: scale(0);
 }
@@ -54,21 +54,17 @@
     position: absolute;
     top: 0.5rem;
     right: 0.5rem;
-    background: rgba(0, 0, 0, 0.4);
+    background: var(--color-overlay-low);
     backdrop-filter: blur(4px);
 }
 
 .favorite-btn.floating.active { 
-    background: rgba(255, 255, 255, 0.4); 
+    background: var(--color-light-muted); 
 }
 
 @media (pointer: fine) {
-    .favorite-btn.floating.active:hover { 
-        background: rgba(255, 255, 255, 0.7); 
-    }
-
     .favorite-btn.floating:not(.active):hover { 
-        background: rgba(0, 0, 0, 0.7); 
+        background: var(--color-overlay);
     }
 
     .favorite-btn:hover {
