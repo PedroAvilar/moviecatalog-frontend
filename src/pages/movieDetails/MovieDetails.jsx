@@ -38,7 +38,7 @@ function MovieDetails() {
 
     if (loading) {
         return (
-            <div className="movie-details-wrapper">
+            <div>
                 <MovieDetailsSkeleton />
                 <CastListSkeleton />
             </div>
@@ -46,7 +46,7 @@ function MovieDetails() {
     }
 
     return (
-        <main className="movie-details-wrapper">
+        <main>
             <article className="movie-details">
 
                 <MoviePoster 
