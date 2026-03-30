@@ -26,8 +26,8 @@ function MovieCard ({ id, title, poster_path, vote_average }) {
                     variant='floating'
                 />
             </div>
-            <h3 className='movie-card-title'>{title}</h3>
-            {vote_average > 0 && <p className='movie-card-rating'>⭐ {Number(vote_average).toFixed(1)}</p>}
+            <h4>{title}</h4>
+            {vote_average > 0 && <span>⭐ {Number(vote_average).toFixed(1)}</span>}
         </article>
     );
 }
