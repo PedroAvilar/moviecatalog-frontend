@@ -4,8 +4,8 @@ import './movieSection.css';
 
 function MovieSection({ title, movies, loading }) {
     return (
-        <section className='movie-section'>
-            <h2 className='section-title'>{title}</h2>
+        <section>
+            <h2>{title}</h2>
 
             <div className='movie-grid'>
                 {movies.map(movie => (
