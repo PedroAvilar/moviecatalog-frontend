@@ -3,8 +3,8 @@ import "./about.css";
 
 function About() {
     return (
-        <main className="about-container">
-            <section className="about-content">
+        <main>
+            <section>
                 <h2>Sobre o projeto</h2>
                 <p>
                     Bem-vindo ao <strong>Movie Catalog</strong>! Um catálogo de filmes desenvolvido para oferecer
