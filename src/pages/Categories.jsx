@@ -69,7 +69,7 @@ function Categories() {
     if (error && page === 1) return <ErrorMessage message={error} onRetry={fetchMovies} />
 
     return (
-        <div>
+        <section>
             <MovieSection 
                 title={displayTitle}
                 movies={movies}
@@ -87,7 +87,7 @@ function Categories() {
             {!error && hasMore && (
                 <div ref={observerRef} style={{ height: '1px' }}/>
             )}
-        </div>
+        </section>
     )
 }
 
