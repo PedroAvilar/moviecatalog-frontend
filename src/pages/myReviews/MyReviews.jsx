@@ -75,7 +75,7 @@ function MyReviews() {
     }
 
     return (
-        <main className="my-reviews-container">
+        <main>
             <h2>Minhas avaliações</h2>
 
             <div className="reviews-grid">
@@ -105,9 +105,7 @@ function MyReviews() {
                                     </span>
                                 </div>
 
-                                <p className="review-card-comment">
-                                    "{review.comment}"
-                                </p>
+                                <p>"{review.comment}"</p>
 
                                 <div className="review-card-date-rating">
                                     <span>⭐ {review.rating}/10</span>
