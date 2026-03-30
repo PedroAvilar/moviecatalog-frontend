@@ -11,9 +11,8 @@
 .toast-container {
     min-width: 280px;
     max-width: 480px;
-    background: rgb(255, 255, 255);
     border-radius: 0.5rem;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--color-box-shadow);
     overflow: hidden;
     cursor: pointer;
     position: relative;
@@ -45,23 +44,26 @@
 }
 
 .toast-container.success { 
-    border-left: 6px solid rgb(60, 150, 60); 
-    color: rgb(20, 90, 20); 
+    border-left: 6px solid var(--color-success); 
+    background-color: var(--color-bg-success);
+    color: var(--color-success);
 }
 
 .toast-container.error { 
-    border-left: 6px solid rgb(240, 60, 60); 
-    color: rgb(190, 40, 40); 
+    border-left: 6px solid var(--color-red);
+    background-color: var(--color-bg-red);
+    color: var(--color-red); 
 }
 
 .toast-container.info { 
-    border-left: 6px solid rgb(40, 60, 240); 
-    color: rgb(20, 20, 160); 
+    border-left: 6px solid var(--color-text-info);
+    background-color: var(--color-bg-info);
+    color: var(--color-text-info);
 }
 
 .toast-progress {
     height: 0.4rem;
-    background: rgba(0, 0, 0, 0.3);
+    background: var(--color-overlay-low);
     width: 100%;
     position: absolute;
     bottom: 0;
