@@ -4,7 +4,7 @@ import './castList.css';
 import '../../styles/skeleton.css';
 
 function CastList({ cast }) {
-    if (!cast || cast.length === 0) return null;
+    if (!cast?.length) return null;
 
     return (
         <div className="cast-container">
@@ -34,7 +34,7 @@ function CastCard({ actor}) {
             </div>
             <div className="cast-info">
                 <p className="cast-name">{actor.name}</p>
-                <p className="cast-character">{actor.character}</p>
+                <small className="cast-character">{actor.character}</small>
             </div>
         </div>
     );
