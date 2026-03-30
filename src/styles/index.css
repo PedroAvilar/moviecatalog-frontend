@@ -31,7 +31,7 @@
   --color-box-shadow: 2px 4px 6px var(--color-overlay);
   --color-box-shadow-low: 2px 4px 9px var(--color-overlay-low);
   
-  --font-base: Verdana, Geneva, Tahoma, sans-serif;
+  --font-base: 'Inter', sans-serif;
 }
 
 *, *::before, *::after {
