@@ -25,7 +25,7 @@ function Favorites() {
     const visibleFavorites = displayFavorites.slice(0, visibleCount);
 
     return(
-        <>
+        <main>
             <MovieSection
                 title={'Favoritos'}
                 movies={visibleFavorites}
@@ -41,7 +41,7 @@ function Favorites() {
                     </Button>
                 </div>
             )}
-        </>
+        </main>
     )
 }
 
