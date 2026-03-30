@@ -8,7 +8,7 @@
 .dropdown-trigger {
     background: none;
     border: none;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--color-light-muted);
     font-size: 1rem;
     font-weight: bold;
     font-family: inherit;
@@ -17,25 +17,21 @@
 }
 
 .dropdown-trigger.active {
-    color: rgb(255, 255, 255);
+    color: var(--color-text-light);
 }
 
 .dropdown-menu {
     width: 100%;
     list-style: none;
-    background-color: rgb(55, 55, 55);
+    background-color: var(--color-bg-muted);
     border-radius: 1rem;
     min-width: 180px;
     z-index: 110;
 }
 
-.dropdown-menu li {
-    padding: 0.35rem 0;
-}
-
 .dropdown-menu li a,
 .dropdown-btn {
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--color-light-muted);
     font-weight: bold;
     text-decoration: none;
     font-size: 1rem;
@@ -57,8 +53,11 @@
 
 @media (pointer: fine) {
     .dropdown-menu li a:hover, 
+    .dropdown-trigger:hover,
     .dropdown-btn:hover {
-        color: rgb(255, 255, 255);
+        color: var(--color-text-light);
+        box-shadow: none;
+        text-decoration: underline;
     }
 }
 
