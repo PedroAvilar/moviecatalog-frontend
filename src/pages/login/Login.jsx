@@ -31,9 +31,10 @@ function Login() {
     }
 
     return (
-        <main className="auth-container">
-            <form className="auth-form" onSubmit={handleSubmit}>
-                <h2>Entrar</h2>
+        <main>
+            <h2>Entrar</h2>
+
+            <form onSubmit={handleSubmit}>
 
                 <div className="auth-input-wrapper">
 
@@ -69,11 +70,9 @@ function Login() {
                         Entrar
                     </Button>
                 </div>
-
-                <p className="auth-footer">
-                    Não tem uma conta? <Link to='/cadastro'>Cadastre-se</Link>
-                </p>
             </form>
+
+            <p>Não tem uma conta? <Link to='/cadastro'>Cadastre-se</Link></p>
         </main>
     )
 }
