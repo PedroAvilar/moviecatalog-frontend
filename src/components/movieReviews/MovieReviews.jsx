@@ -50,12 +50,12 @@ function MovieReviews({ movieId, reviews, onReviewAdded }) {
     }
 
     return (
-        <section className="movie-reviews-section">
+        <section>
             <h2>Avaliações</h2>
             
             {signed ? (
                 !userAlreadyReviewed ? (
-                    <form className="review-form" onSubmit={handleSubmit}>
+                    <form onSubmit={handleSubmit}>
                         <h3>Deixe sua avaliação</h3>
 
                         <div className="review-inputs">
@@ -70,7 +70,6 @@ function MovieReviews({ movieId, reviews, onReviewAdded }) {
                                         step='1'
                                         value={rating}
                                         onChange={handleRatingChange}
-                                        className="rating-num-input"
                                         required
                                     />
                                     <span>/ 10</span>
@@ -106,8 +105,8 @@ function MovieReviews({ movieId, reviews, onReviewAdded }) {
                                 <p>{review.userId?.name || 'Usuário'}</p>
                                 <p>⭐ {review.rating}</p>
                             </div>
-                            <p className="review-comment">{review.comment}</p>
-                            <p className="review-date">{new Date(review.createdAt).toLocaleDateString('pt-BR')}</p>
+                            <p>"{review.comment}"</p>
+                            <p>{new Date(review.createdAt).toLocaleDateString('pt-BR')}</p>
                         </div>
                     ))
                 ) : (

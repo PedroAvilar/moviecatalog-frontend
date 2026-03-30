@@ -1,25 +1,3 @@
-.movie-reviews-section {
-    margin: 2rem 0;
-    color: rgb(0, 0, 0);
-}
-
-.movie-reviews-section h2 {
-    margin: 0;
-    font-size: 1.4rem;
-}
-
-.review-form {
-    margin: 1rem 0;
-    padding: 1.5rem;
-    background: rgb(242, 242, 242);
-    border-radius: 1rem;
-}
-
-.review-form h3 {
-    margin: 0 0 1.5rem;
-    font-size: 1.2rem;
-}
-
 .review-inputs,
 .review-list {
     display: flex;
@@ -36,55 +14,26 @@
     padding: 0.5rem;
 }
 
-.review-rating p {
-    font-size: 1rem;
-    margin: 0;
-}
-
 .review-input-rating {
     display: flex;
+    align-items: center;
     gap: 0.5rem;
 }
 
-.rating-num-input {
-    font-size: inherit;
-    font-weight: bold;
-    width: 2.5rem;
-    text-align: center;
-    border: 1px solid rgb(41, 41, 41);
-    border-radius: 0.25rem;
-}
-
-.rating-num-input::-webkit-inner-spin-button,
-.rating-num-input::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
-
-.review-form textarea {
-    min-height: 6rem;
-    padding: 0.5rem;
-    font-family: inherit;
-    font-size: 1rem;
-    resize: vertical;
-    border: 1px solid rgb(41, 41, 41);
-    border-radius: 0.5rem;
-}
-
 .review-info {
-    background: rgb(250, 250, 220);
+    background: var(--color-bg-info);
     padding: 1rem;
     border-radius: 8px;
-    color: rgb(130, 130, 0);
+    color: var(--color-text-info);
     margin: 1rem;
     font-size: 0.9rem;
 }
 
 .review-item {
     padding: 1rem;
-    border-left: 5px solid rgb(41, 41, 41);
+    border-left: 6px solid var(--color-bg-muted);
     border-radius: 8px;
-    box-shadow: 3px 6px 9px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--color-box-shadow-low);
 }
 
 .review-header {
@@ -94,25 +43,7 @@
     margin-bottom: 0.8rem;
 }
 
-.review-header p {
-    font-size: 1.05rem;
-    font-weight: bold;
-}
-
-.review-comment {
-    margin: 0;
-    font-size: 1rem;
-    line-height: 1.5;
-}
-
-.review-date {
-    margin-top: 0.5rem;
-    font-size: 0.8rem;
-    text-align: right;
-}
-
 @media (max-width: 768px) {
-    .movie-reviews-section,
     .review-form,
     .review-info {
         display: flex;
@@ -123,10 +54,8 @@
         box-sizing: border-box;
     }
 
-    .review-inputs,
-    .review-form textarea {
+    .review-inputs {
         width: 100%;
-        min-height: 14rem;
     }
 
     .review-rating {

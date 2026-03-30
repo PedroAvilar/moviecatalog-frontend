@@ -57,9 +57,8 @@ function EditMovieReview({ isOpen, onClose, review, onUpdate }) {
 
     return (
         <Modal isOpen={isOpen} onClose={onClose} title={`Editar avaliação de ${review?.movieId?.title}`}>
-            <form onSubmit={handleSubmit} className="review-form">
+            <form onSubmit={handleSubmit}>
                 <div className="review-inputs">
-                    {/* Novo layout de nota igual ao MovieReviews */}
                     <div className="review-rating">
                         <p>Sua nota de 0 a 10</p>
                         <div className="review-input-rating">
@@ -71,7 +70,6 @@ function EditMovieReview({ isOpen, onClose, review, onUpdate }) {
                                 step='1'
                                 value={rating}
                                 onChange={handleRatingChange}
-                                className="rating-num-input"
                                 required
                             />
                             <span>/ 10</span>
