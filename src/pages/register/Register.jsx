@@ -34,9 +34,10 @@ function Register() {
     }
 
     return (
-        <main className="auth-container">
-            <form className="auth-form" onSubmit={handleSubmit}>
-                <h2>Criar conta</h2>
+        <main>
+            <h2>Criar conta</h2>
+
+            <form onSubmit={handleSubmit}>
 
                 <div className="auth-input-wrapper">
 
@@ -88,11 +89,9 @@ function Register() {
                         variant="compact"
                     />
                 )}
-
-                <p className="auth-footer">
-                    Já possui conta? <Link to='/login'>Fazer login</Link>
-                </p>
             </form>
+
+            <p>Já possui conta? <Link to='/login'>Fazer login</Link></p>
         </main>
     )
 }
