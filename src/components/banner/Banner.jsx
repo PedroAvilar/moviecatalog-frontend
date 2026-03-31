@@ -44,10 +44,8 @@ function Banner({ movies }) {
         const distance = touchStartX - touchEndX;
         const minSwipeDistance = 50;
 
-        if (distance > minSwipeDistance) {
-            changeBanner(currentIndex + 1);
-        } else if (distance < -minSwipeDistance) {
-            changeBanner(currentIndex - 1);
+        if (Math.abs(distance) > 50) {
+            changeBanner(distance > 0 ? currentIndex + 1 : currentIndex - 1);
         }
 
         setTouchStartX(null);
