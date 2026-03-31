@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect, useContext } from "react";
+import { createContext, useState, useEffect, useContext, useMemo, useCallback } from "react";
 import { getMe, login as loginApi, logout as logoutApi } from '../services/apiService';
 import { useToast } from "./ToastContext";
 
@@ -23,39 +23,41 @@ export function AuthProvider({ children }) {
         loadUser();
     }, []);
 
-    const login = async (email, password) => {
+    const login = useCallback(async (email, password) => {
         const data = await loginApi(email, password);
         setUser(data.data.user);
         return data;
-    };
+    }, []);
 
-    const updateUser = (userData) => {
+    const updateUser = useCallback((userData) => {
         setUser(prev => ({
             ...prev,
             ...userData
         }));
-    };
+    }, []);
 
-    const logout = async () => {
+    const logout = useCallback(async () => {
         try {
             const response = await logoutApi();
             showToast(response);
         } finally {
             setUser(null);
         }
-    };
+    }, [showToast]);
 
-    const signed = Boolean(user);
+    const signed = useMemo(() => Boolean(user), [user]);
+
+    const contextValue = useMemo(() => ({
+        user,
+        signed,
+        loading,
+        login,
+        updateUser,
+        logout
+    }), [user, signed, loading, login, updateUser, logout]);
 
     return (
-        <AuthContext.Provider value={{
-            user,
-            signed,
-            loading,
-            login,
-            updateUser,
-            logout
-        }}>
+        <AuthContext.Provider value={contextValue}>
             {children}
         </AuthContext.Provider>
     );
