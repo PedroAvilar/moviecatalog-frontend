@@ -14,6 +14,13 @@ function Categories() {
     const [error, setError] = useState(null);
 
     const observerRef = useRef(null);
+    const loadingRef = useRef(false);
+    const hasMoreRef = useRef(true);
+    const errorRef = useRef(null);
+
+    const updateLoading = (val) => { setLoading(val); loadingRef.current = val; };
+    const updateHasMore = (val) => { setHasMore(val); hasMoreRef.current = val; };
+    const updateError = (val) => { setError(val); errorRef.current = val; };
 
     const location = useLocation();
     const displayTitle = location.state?.genreRealName ||
@@ -21,15 +28,16 @@ function Categories() {
             word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
 
     async function fetchMovies() {
-        if (loading || !hasMore) return;
+        if (loadingRef.current || !hasMoreRef.current) return;
 
         try {
-            setLoading(true);
-            setError(null);
+            updateLoading(true);
+            updateError(null);
+            
             const data = await getMoviesByGenre(genreId, page);
 
-            if (!data.results || data.results.length === 0 || data.page >= data.total_pages) {
-                setHasMore(false);
+            if (!data?.results?.length || data.page >= data.total_pages) {
+                updateHasMore(false);
             } else {
                 setMovies(prev => {
                     const ids = new Set(prev.map(m => m.id));
@@ -38,17 +46,17 @@ function Categories() {
                 });
             }
         } catch (e) {
-            setError(e.message)
+            updateError(e.message)
         } finally {
-            setLoading(false);
+            updateLoading(false);
         }
     }
 
     useEffect(() => {
         setMovies([]);
         setPage(1);
-        setHasMore(true);
-        setError(null);
+        updateHasMore(true);
+        updateError(null);
     }, [genreId]);
 
     useEffect(() => {
@@ -57,14 +65,15 @@ function Categories() {
 
     useEffect(() => {
         const observer = new IntersectionObserver(entries => {
-            if (entries[0].isIntersecting && hasMore && !loading && !error) {
+            if (entries[0].isIntersecting && hasMoreRef.current && !loadingRef.current && !errorRef.current) {
                 setPage(prev => prev + 1);
             }
-        });
+        }, { threshold: 0.1 });
+
         if (observerRef.current) observer.observe(observerRef.current);
 
         return () => observer.disconnect();
-    }, [hasMore, loading, error]);
+    }, []);
 
     if (error && page === 1) return <ErrorMessage message={error} onRetry={fetchMovies} />
 
