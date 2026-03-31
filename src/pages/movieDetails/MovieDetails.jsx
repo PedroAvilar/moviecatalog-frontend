@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { getMovieDetails } from "../../services/apiService";
 import CastList from "../../components/castList/CastList";
 import MovieDetailsSkeleton from "./MovieDetailsSkeleton";
@@ -16,7 +16,7 @@ function MovieDetails() {
     const [loading, setloading] = useState(true);
     const [error, setError] = useState(null);
 
-    async function fetchMovie() {
+    const fetchMovie = useCallback(async () => {
         try {
             setloading(true);
             setError(null);
@@ -28,11 +28,11 @@ function MovieDetails() {
         } finally {
             setloading(false);
         }
-    }
+    }, [id]);
 
     useEffect(() => {
         fetchMovie();
-    }, [id]);
+    }, [fetchMovie]);
 
     if (error) return <ErrorMessage message={error} onRetry={fetchMovie} />
 
