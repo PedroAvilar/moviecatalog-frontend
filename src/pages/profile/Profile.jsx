@@ -151,12 +151,21 @@ function Profile() {
                         placeholder="E-mail"
                         required 
                     />
-                    <Button 
-                        type="submit" 
-                        loading={loading}
-                    >
-                        Salvar
-                    </Button>
+                    
+                    <div className='modal-action'>
+                        <Button
+                            variant='secondary'
+                            onClick={closeEditModal}
+                        >
+                            Cancelar
+                        </Button>
+                        <Button
+                            type='submit'
+                            loading={loading}
+                        >
+                            Salvar
+                        </Button>
+                    </div>
                 </form>
             </Modal>
 
@@ -183,12 +192,21 @@ function Profile() {
                         onChange={(e) => setPassData({...passData, confirmPassword: e.target.value})}
                         required 
                     />
-                    <Button
-                        type='submit'
-                        loading={loading}
-                    >
-                        Salvar
-                    </Button>
+
+                    <div className='modal-action'>
+                        <Button
+                            variant='secondary'
+                            onClick={closePassModal}
+                        >
+                            Cancelar
+                        </Button>
+                        <Button
+                            type='submit'
+                            loading={loading}
+                        >
+                            Salvar
+                        </Button>
+                    </div>
                 </form>
             </Modal>
 
