@@ -15,8 +15,10 @@ function Home() {
             setLoading(true);
             setError(null);
 
-            const popularData = await getPopularMovies();
-            const topRatedData = await getTopRatedMovies();
+            const [popularData, topRatedData] = await Promise.all([
+                getPopularMovies(),
+                getTopRatedMovies()
+            ]);
 
             setPopular(popularData.results);
             setTopRated(topRatedData.results);
