@@ -1,4 +1,4 @@
-import { createContext, useState, useCallback, useContext } from 'react';
+import { createContext, useState, useCallback, useContext, useMemo } from 'react';
 import Toast from "../components/toast/Toast";
 
 const ToastContext = createContext({});
@@ -27,8 +27,10 @@ export function ToastProvider({ children }) {
         setToasts((prev) => prev.filter((toast) => toast.id !== id));
     }, []);
 
+    const contextValue = useMemo(() => ({ showToast }), [showToast]);
+
     return (
-        <ToastContext.Provider value={{ showToast }}>
+        <ToastContext.Provider value={contextValue}>
             {children}
             <div className="toast-wrapper">
                 {toasts.map((toast) => (
