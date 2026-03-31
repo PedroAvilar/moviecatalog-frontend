@@ -22,6 +22,16 @@ function Profile() {
         }
     }, [user]);
 
+    const closeEditModal = () => {
+        setIsEditModalOpen(false);
+        setEditData({ name: user?.name || '', email: user?.email || '' });
+    };
+
+    const closePassModal = () => {
+        setIsPassModalOpen(false);
+        setPassData({ currentPassword: '', newPassword: '', confirmPassword: '' });
+    };
+
     const handleUpdateProfile = async (e) => {
         e.preventDefault();
         if (!editData.name || !editData.email) {
@@ -33,7 +43,7 @@ function Profile() {
             const response = await updateProfile(editData);
             const freshUser = await getMe();
             updateUser(freshUser);
-            setIsEditModalOpen(false);
+            closeEditModal();
             showToast(response);
         } catch (err) {
             showToast(err);
@@ -55,9 +65,8 @@ function Profile() {
         try {
             setLoading(true);
             const response = await updatePassword(passData);
-            setIsPassModalOpen(false);
-            setPassData({ currentPassword: '', newPassword: '', confirmPassword: '' });
-            showToast(response)
+            closePassModal();
+            showToast(response);
         } catch (err) {
             showToast(err)
         } finally {
@@ -126,7 +135,7 @@ function Profile() {
                 </Button>
             </section>
 
-            <Modal isOpen={isEditModalOpen} onClose={() => setIsEditModalOpen(false)} title="Editar Perfil">
+            <Modal isOpen={isEditModalOpen} onClose={closeEditModal} title="Editar Perfil">
                 <form onSubmit={handleUpdateProfile}>
                     <input 
                         type="text" 
@@ -151,26 +160,25 @@ function Profile() {
                 </form>
             </Modal>
 
-            <Modal
-                isOpen={isPassModalOpen}
-                onClose={() => setIsPassModalOpen(false)}
-                title='Alterar senha'
-            >
+            <Modal isOpen={isPassModalOpen} onClose={closePassModal} title='Alterar senha'>
                 <form onSubmit={handleUpdatePassword}>
                     <input 
                         type="password" 
+                        value={passData.currentPassword}
                         placeholder='Senha atual'
                         onChange={(e) => setPassData({...passData, currentPassword: e.target.value})}
                         required
                     />
                     <input 
                         type="password" 
+                        value={passData.newPassword}
                         placeholder="Nova senha" 
                         onChange={(e) => setPassData({...passData, newPassword: e.target.value})}
                         required 
                     />
                     <input 
                         type="password" 
+                        value={passData.confirmPassword}
                         placeholder="Confirmar nova senha" 
                         onChange={(e) => setPassData({...passData, confirmPassword: e.target.value})}
                         required 
@@ -184,11 +192,7 @@ function Profile() {
                 </form>
             </Modal>
 
-            <Modal
-                isOpen={!!profileToDelete}
-                onClose={() => setProfileToDelete(null)}
-                title='Confirmar exclusão'
-            >
+            <Modal isOpen={!!profileToDelete} onClose={() => setProfileToDelete(null)} title='Confirmar exclusão'>
                 {user.name && (
                     <p><strong>{profileToDelete?.name}</strong></p>
                 )}
