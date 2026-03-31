@@ -80,7 +80,7 @@ function MyReviews() {
 
             <div className="reviews-grid">
                 {reviews.map(review => {
-                    const movie = review.movieId;
+                    const movie = review.movie;
 
                     return (
                         <article key={review.id} className="review-card">
@@ -146,7 +146,7 @@ function MyReviews() {
                 onClose={() => setReviewToDelete(null)}
                 title='Confirmar exclusão'
             >
-                <p>Tem certeza que deseja excluir sua avaliação de <strong>{reviewToDelete?.movieId?.title}</strong>?</p>
+                <p>Tem certeza que deseja excluir sua avaliação de <strong>{reviewToDelete?.movie?.title}</strong>?</p>
                 <p>Essa ação não poderá ser desfeita.</p>
 
                 <div className="modal-action">
