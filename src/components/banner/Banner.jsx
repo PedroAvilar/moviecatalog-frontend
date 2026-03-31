@@ -8,13 +8,11 @@ import '../../styles/transitions.css';
 import '../../styles/skeleton.css';
 
 function Banner({ movies }) {
-    const navigate = useNavigate();
-
     const [currentIndex, setCurrentIndex] = useState(0);
     const [touchStartX, setTouchStartX] = useState(null);
     const [touchEndX, setTouchEndX] = useState(null);
     const [imageLoaded, setImageLoaded] = useState(false);
-
+    const navigate = useNavigate();
     const intervalRef = useRef(null);
 
     function changeBanner(index) {
@@ -29,9 +27,11 @@ function Banner({ movies }) {
 
     function startAutoSlide() {
         clearInterval(intervalRef.current);
-
         intervalRef.current = setInterval(() => {
-            changeBanner(currentIndex + 1);
+            setCurrentIndex((prevIndex) => {
+                setImageLoaded(false);
+                return (prevIndex + 1) % movies.length;
+            });
         }, 8000)
     }
 
@@ -60,7 +60,7 @@ function Banner({ movies }) {
         startAutoSlide();
 
         return () => clearInterval(intervalRef.current);
-    }, [movies, currentIndex]);
+    }, [movies]);
 
     if (!movies?.length) return <BannerSkeleton />;
     
@@ -70,16 +70,17 @@ function Banner({ movies }) {
     return (
         <section 
             className='banner'
-            key={movie.id}
             onTouchStart={handleTouchStart}
             onTouchMove={handleTouchMove}
             onTouchEnd={handleTouchEnd}
         >
             <div 
+                key={`img${movie.id}`}
                 className={`banner-image fade fade-slow ${imageLoaded ? 'show' : 'skeleton-base'}`}
                 style={imageLoaded ? { backgroundImage: `url(${backdropUrl})`} : {}}
             />
             <img
+                key={backdropUrl}
                 src={backdropUrl}
                 alt=""
                 style={{ display: 'none' }}
@@ -90,7 +91,7 @@ function Banner({ movies }) {
                 className='banner-overlay'
                 onClick={() => navigate(`/filme/${movie.id}/${slugify(movie.title)}`)}
             >
-                <div className='banner-content'>
+                <div className='banner-content' key={movie.id}>
                     <h2>{movie.title}</h2>
                     <p>
                         {movie.overview?.length > 160 ? movie.overview.slice(0, 160) + '...' : movie.overview || 'Sem descrição.'}
