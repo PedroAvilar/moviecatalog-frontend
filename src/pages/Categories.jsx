@@ -94,7 +94,7 @@ function Categories() {
             )}
 
             {!error && hasMore && (
-                <div ref={observerRef} style={{ height: '1px' }}/>
+                <div ref={observerRef} style={{ height: '20px', margin: '20px 0' }}/>
             )}
         </section>
     )
