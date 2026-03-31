@@ -31,9 +31,9 @@ export function FavoritesProvider({ children }) {
         try {
             const response = await toggleFavorite(movie);
             if (response.data.isFavorite) {
-                setFavorites(prev => [{ ...movie, movieId: movie.id }, ...prev]);
+                setFavorites(prev => [movie, ...prev]);
             } else {
-                setFavorites(prev => prev.filter(fav => (fav.movieId || fav.id) !== movie.id));
+                setFavorites(prev => prev.filter(fav => fav.id !== movie.id));
             }
             return response;
         } catch (err) {
@@ -42,7 +42,7 @@ export function FavoritesProvider({ children }) {
     }, [user]);
 
     const isFavorite = useCallback((id) => {
-        return favorites.some(fav => (fav.movieId === id || fav.id === id));
+        return favorites.some(fav => fav.id === id);
     }, [favorites]);
 
     const contextValue = useMemo(() => ({
