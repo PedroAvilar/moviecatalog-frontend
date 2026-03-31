@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState, useMemo, useCallback } from "react";
 import { getFavorites, toggleFavorite } from "../services/apiService";
 import { useAuth } from './AuthContext';
 
@@ -25,7 +25,7 @@ export function FavoritesProvider({ children }) {
         loadFavorites();
     }, [user]);
 
-    async function handleToggleFavorite(movie) {
+    const handleToggleFavorite = useCallback(async (movie) => {
         if (!user) return { message: 'Faça login para favoritar' };
 
         try {
@@ -39,21 +39,21 @@ export function FavoritesProvider({ children }) {
         } catch (err) {
             return err;
         }
-    }
+    }, [user]);
 
-    function isFavorite(id) {
+    const isFavorite = useCallback((id) => {
         return favorites.some(fav => (fav.movieId === id || fav.id === id));
-    }
+    }, [favorites]);
+
+    const contextValue = useMemo(() => ({
+        favorites,
+        toggleFavorite: handleToggleFavorite,
+        isFavorite,
+        loading
+    }), [favorites, handleToggleFavorite, isFavorite, loading]);
 
     return (
-        <FavoritesContext.Provider
-            value={{
-                favorites,
-                toggleFavorite: handleToggleFavorite,
-                isFavorite,
-                loading
-            }}
-        >
+        <FavoritesContext.Provider value={contextValue}>
             {children}
         </FavoritesContext.Provider>
     );
