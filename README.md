@@ -20,6 +20,10 @@ The project is being developed with a strict focus on responsiveness and accessi
 This website uses TMDB data but is not endorsed, certified, or otherwise approved by TMDB.  
 <img src="src/assets/logotipo-tmdb.svg" alt="Logotipo TMDB." width="100px">
 
+## Deployment
+
+This frontend application is statically built and hosted on **GitHub Pages**, providing fast and secure delivery via HTTPS. It seamlessly communicates with the production BFF API (hosted on Render), ensuring proper CORS configuration and secure credential management.
+
 ## Technologies
 
 - [Vite](https://vitejs.dev/)
