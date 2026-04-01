@@ -1,7 +1,7 @@
 .skeleton-base {
     position: relative;
     overflow: hidden;
-    background-color: rgb(49, 49, 49);
+    background-color: var(--color-bg-muted);
 }
 
 .skeleton-base::after {
@@ -11,7 +11,7 @@
     background: linear-gradient(
         90deg,
         transparent,
-        rgba(255, 255, 255, 0.5),
+        var(--color-light-muted),
         transparent
     );
     transform: translateX(-100%);
