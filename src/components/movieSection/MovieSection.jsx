@@ -9,13 +9,7 @@ function MovieSection({ title, movies, loading }) {
 
             <div className='movie-grid'>
                 {movies.map(movie => (
-                    <MovieCard
-                        key={movie.id}
-                        id={movie.id}
-                        title={movie.title}
-                        poster_path={movie.poster_path}
-                        vote_average={movie.vote_average}
-                    />
+                    <MovieCard key={movie.id} {...movie}/>
                 ))}
 
                 {loading && 

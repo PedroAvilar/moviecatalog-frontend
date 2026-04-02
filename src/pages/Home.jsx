@@ -20,8 +20,8 @@ function Home() {
                 getTopRatedMovies()
             ]);
 
-            setPopular(popularData.results);
-            setTopRated(topRatedData.results);
+            setPopular(popularData);
+            setTopRated(topRatedData);
         } catch (e) {
             setError(e.message)
         } finally {
