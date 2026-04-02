@@ -36,12 +36,12 @@ function Categories() {
             
             const data = await getMoviesByGenre(genreId, page);
 
-            if (!data?.results?.length || data.page >= data.total_pages) {
+            if (!data?.length || data.page >= data.total_pages) {
                 updateHasMore(false);
             } else {
                 setMovies(prev => {
                     const ids = new Set(prev.map(m => m.id));
-                    const newMovies = data.results.filter(m => !ids.has(m.id));
+                    const newMovies = data.filter(m => !ids.has(m.id));
                     return [...prev, ...newMovies];
                 });
             }

@@ -15,8 +15,8 @@ function Header() {
     useEffect(() => {
         async function fetchGenres() {
             try {
-                const data = await getGenres();
-                setGenres(data.genres || []);
+                const genres = await getGenres();
+                setGenres(genres || []);
             } catch (error) {
                 console.error('Erro ao carregar gêneros no Header: ', error);
             }
