@@ -42,15 +42,19 @@ function Categories() {
 
             if (activeRequestRef.current !== currentReqId) return;
 
-            if (!data?.length || data.page >= data.total_pages) {
+            const movieResults = data?.results || [];
+            const currentPage = data?.page || 1;
+            const totalPages = data?.total_pages || 1;
+
+            if (movieResults.length === 0 || currentPage >= totalPages) {
                 updateHasMore(false);
-            } else {
-                setMovies(prev => {
-                    const ids = new Set(prev.map(m => m.id));
-                    const newMovies = data.filter(m => !ids.has(m.id));
-                    return [...prev, ...newMovies];
-                });
             }
+
+            setMovies(prev => {
+                const ids = new Set(prev.map(m => m.id));
+                const newMovies = movieResults.filter(m => !ids.has(m.id));
+                return [...prev, ...newMovies];
+            });
         } catch (e) {
             if (activeRequestRef.current !== currentReqId) return;
             updateError(e.message)
