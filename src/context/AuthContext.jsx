@@ -12,8 +12,8 @@ export function AuthProvider({ children }) {
     useEffect(() => {
         async function loadUser() {
             try {
-                const data = await getMe();
-                setUser(data);
+                const response = await getMe();
+                setUser(response.data.user);
             } catch {
                 setUser(null);
             } finally {
@@ -24,9 +24,9 @@ export function AuthProvider({ children }) {
     }, []);
 
     const login = useCallback(async (email, password) => {
-        const data = await loginApi(email, password);
-        setUser(data.data.user);
-        return data;
+        const response = await loginApi(email, password);
+        setUser(response.data.user);
+        return response;
     }, []);
 
     const updateUser = useCallback((userData) => {
