@@ -7,8 +7,12 @@ export function ToastProvider({ children }) {
     const [toasts, setToasts] = useState([]);
 
     const showToast = useCallback((data, fallbackType = 'info') => {
-        const message = typeof data === 'string' ? data : data.message;
-        const type = typeof data === 'string' ? fallbackType : data.type || fallbackType;
+        const message = typeof data === 'string' 
+            ? data 
+            : (data?.message || data?.error || 'Ocorreu um erro');
+        const type = typeof data === 'string' 
+            ? fallbackType 
+            : data.type || fallbackType;
 
         setToasts((prev) => {
             if (prev.length > 0 && prev[prev.length -1].message === message) {
