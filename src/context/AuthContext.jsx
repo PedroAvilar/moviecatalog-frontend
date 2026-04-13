@@ -13,7 +13,7 @@ export function AuthProvider({ children }) {
         async function loadUser() {
             try {
                 const response = await getMe();
-                setUser(response.data.user);
+                setUser(response.user);
             } catch {
                 setUser(null);
             } finally {
@@ -25,7 +25,7 @@ export function AuthProvider({ children }) {
 
     const login = useCallback(async (email, password) => {
         const response = await loginApi(email, password);
-        setUser(response.data.user);
+        setUser(response.user);
         return response;
     }, []);
 

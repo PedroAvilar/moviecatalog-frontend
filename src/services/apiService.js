@@ -6,13 +6,7 @@ const api = axios.create({
 });
 
 api.interceptors.response.use(
-    (response) => {
-        return {
-            message: response.data.message || 'Operação realizada com sucesso',
-            data: response.data,
-            type: 'success'
-        };
-    },
+    (response) => response,
     (error) => {
         return Promise.reject({
             message: error.response?.data?.error || 'Erro na comunicação com o servidor',
@@ -22,93 +16,93 @@ api.interceptors.response.use(
 );
 
 export const getPopularMovies = async () => {
-    const response = await api.get('/movie/popular');
-    return response.data;
+    const { data } = await api.get('/movie/popular');
+    return data;
 };
 
 export const getTopRatedMovies = async () => {
-    const response = await api.get('/movie/top_rated');
-    return response.data;
+    const { data } = await api.get('/movie/top_rated');
+    return data;
 };
 
 export const getMovieDetails = async (id) => {
-    const response = await api.get(`/movie/${id}/details`);
-    return response.data;
+    const { data } = await api.get(`/movie/${id}/details`);
+    return data;
 };
 
 export const getGenres = async () => {
-    const response = await api.get('/movie/genres');
-    return response.data;
+    const { data } = await api.get('/movie/genres');
+    return data;
 }
 
 export const getMoviesByGenre = async (genreId, page) => {
-    const response = await api.get('/movie/discover', {
+    const { data } = await api.get('/movie/discover', {
         params: {
             with_genres: genreId,
             page
         }
     });
-    return response.data;
+    return data;
 }
 
 export const login = async (email, password) => {
-    const response = await api.post('/auth/login', { email, password });
-    return response;
+    const { data } = await api.post('/auth/login', { email, password });
+    return data;
 }
 
 export const register = async (userData) => {
-    const response = await api.post('/auth/register', userData);
-    return response;
+    const { data } = await api.post('/auth/register', userData);
+    return data;
 };
 
 export const logout = async () => {
-    const response = await api.post('/auth/logout');
-    return response;
+    const { data } = await api.post('/auth/logout');
+    return data;
 };
 
 export const getMe = async () => {
-    const response = await api.get('/auth/me');
-    return response.data;
+    const { data } = await api.get('/auth/me');
+    return data;
 };
 
-export const updateProfile = async (data) => {
-    const response = await api.put('/auth/update-profile', data);
-    return response;
+export const updateProfile = async (payload) => {
+    const { data } = await api.put('/auth/update-profile', payload);
+    return data;
 };
 
-export const updatePassword = async (data) => {
-    const response = await api.put('/auth/update-password', data);
-    return response;
+export const updatePassword = async (payload) => {
+    const { data } = await api.put('/auth/update-password', payload);
+    return data;
 };
 
 export const deleteAccount =  async () => {
-    const response = await api.delete('/auth/delete-account');
-    return response;
+    const { data } = await api.delete('/auth/delete-account');
+    return data;
 };
 
 export const createReview = async (reviewData) => {
-    const response = await api.post('/review', reviewData);
-    return response;
+    const { data } = await api.post('/review', reviewData);
+    return data;
 };
 
 export const getMyReviews = async () => {
-    const response = await api.get('/review/me');
-    return response.data;
+    const { data } = await api.get('/review/me');
+    return data;
 };
 
 export const deleteReview = async (reviewId) => {
-    const response = await api.delete(`/review/${reviewId}`);
-    return response;
+    const { data } = await api.delete(`/review/${reviewId}`);
+    return data;
 };
 
-export const updateReview = async (reviewId, data) => {
-    const response = await api.put(`/review/${reviewId}`, data);
-    return response;
+export const updateReview = async (reviewId, payload) => {
+    const { data } = await api.put(`/review/${reviewId}`, payload);
+    return data;
 };
 
 export const getFavorites = async () => {
-    const response = await api.get('/favorite');
-    return response.data;
+    const { data } = await api.get('/favorite');
+    return data;
 }
 
 export const toggleFavorite = async (movie) => {
@@ -118,8 +112,8 @@ export const toggleFavorite = async (movie) => {
         poster_path: movie.poster_path,
         vote_average: movie.vote_average ? Number(Number(movie.vote_average).toFixed(1)) : 0
     };
-    const response = await api.post('/favorite/toggle', favoriteData);
-    return response;
+    const { data } = await api.post('/favorite/toggle', favoriteData);
+    return data;
 }
 
 export default api;

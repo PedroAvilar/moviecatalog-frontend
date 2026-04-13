@@ -42,7 +42,7 @@ function Profile() {
             setLoading(true);
             const response = await updateProfile(editData);
             const freshUser = await getMe();
-            updateUser(freshUser);
+            updateUser(freshUser.user);
             closeEditModal();
             showToast(response);
         } catch (err) {

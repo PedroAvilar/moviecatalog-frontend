@@ -30,7 +30,7 @@ export function FavoritesProvider({ children }) {
 
         try {
             const response = await toggleFavorite(movie);
-            if (response.data.isFavorite) {
+            if (response.isFavorite) {
                 setFavorites(prev => [movie, ...prev]);
             } else {
                 setFavorites(prev => prev.filter(fav => fav.id !== movie.id));
