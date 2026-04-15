@@ -9,7 +9,7 @@ api.interceptors.response.use(
     (response) => response,
     (error) => {
         return Promise.reject({
-            message: error.response?.data?.error || 'Erro na comunicação com o servidor',
+            message: error.response?.data?.message || 'Erro na comunicação com o servidor',
             type: 'error'
         });
     }
