@@ -29,12 +29,12 @@ function MovieReviews({ movieId, reviews, onReviewAdded }) {
         e.preventDefault();
 
         if (rating === '') {
-            showToast({ message: 'Insira uma nota na avaliação'});
+            showToast({ message: 'Insira uma nota na avaliação', type: 'error' });
             return;
         }
 
         if (rating < 0 || rating > 10) {
-            showToast({ message: "A nota deve ser entre 0 e 10"});
+            showToast({ message: "A nota deve ser entre 0 e 10", type: 'error' });
             return;
         }
 
