@@ -2,36 +2,37 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { register } from "../../services/apiService";
 import { useToast } from "../../context/ToastContext";
-import ErrorMessage from "../../components/errorMessage/ErrorMessage";
+import { useMutation } from "@tanstack/react-query";
 import Button from "../../components/button/Button";
 import '../../styles/auth.css';
 
 function Register() {
     const { showToast } = useToast();
     const [formData, setFormData] = useState({ name: '', email: '', password: ''});
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.id]: e.target.value });
     };
 
-    async function handleSubmit(e) {
-        e.preventDefault();
-        try {
-            setLoading(true);
-            setError(null);
-            const response = await register(formData);
+    const registerMutation = useMutation({
+        mutationFn: register,
+        onSuccess: (response) => {
             showToast(response);
             navigate('/login');
             showToast({ message: 'Faça o login!'})
-        } catch (err) {
-            showToast(err)
-        } finally {
-            setLoading(false);
+        },
+        onError: (err) => {
+            showToast(err);
         }
-    }
+    });
+
+    async function handleSubmit(e) {
+        e.preventDefault();
+        registerMutation.mutate(formData);
+    };
+
+    const isRegisterPending = registerMutation.isPending;
 
     return (
         <main>
@@ -46,9 +47,11 @@ function Register() {
                         <input 
                             type="text"
                             id="name"
+                            value={formData.name}
                             onChange={handleChange}
                             required
                             placeholder="Pedro"
+                            disabled={isRegisterPending}
                         />
                     </div>
 
@@ -57,9 +60,11 @@ function Register() {
                         <input 
                             type="email"
                             id="email"
+                            value={formData.email}
                             onChange={handleChange}
                             required
                             placeholder="pedro@exemplo.com"
+                            disabled={isRegisterPending}
                         />
                     </div>
 
@@ -68,27 +73,22 @@ function Register() {
                         <input 
                             type="password"
                             id="password"
+                            value={formData.password}
                             onChange={handleChange}
                             required
                             placeholder="••••••••"
+                            disabled={isRegisterPending}
                         />
                     </div>
 
                     <Button
                         type="submit"
-                        disabled={loading}
+                        loading={isRegisterPending}
                         variant="primary"
                     >
                         Cadastrar
                     </Button>
                 </div>
-
-                {error && (
-                    <ErrorMessage
-                        message={error}
-                        variant="compact"
-                    />
-                )}
             </form>
 
             <p>Já possui conta? <Link to='/login'>Fazer login</Link></p>
