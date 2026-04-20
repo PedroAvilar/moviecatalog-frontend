@@ -1,130 +1,63 @@
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import { getMoviesByGenre } from '../services/apiService';
+import { useInView } from "react-intersection-observer";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import MovieSection from "../components/movieSection/MovieSection";
 import ErrorMessage from "../components/errorMessage/ErrorMessage";
 
 function Categories() {
     const { genreId, genreName } = useParams();
-
-    const [movies, setMovies] = useState([]);
-    const [page, setPage] = useState(1);
-    const [loading, setLoading] = useState(false);
-    const [hasMore, setHasMore] = useState(true);
-    const [error, setError] = useState(null);
-    const [isIntersection, setIsIntersecting] = useState(false);
-
-    const loadingRef = useRef(false);
-    const hasMoreRef = useRef(true);
-    const errorRef = useRef(null);
-    const activeRequestRef = useRef(Date.now());
-
-    const updateLoading = (val) => { setLoading(val); loadingRef.current = val; };
-    const updateHasMore = (val) => { setHasMore(val); hasMoreRef.current = val; };
-    const updateError = (val) => { setError(val); errorRef.current = val; };
-
     const location = useLocation();
+
     const displayTitle = location.state?.genreRealName ||
         genreName.split('-').map(word =>
             word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
 
-    async function fetchMovies() {
-        if (loadingRef.current || !hasMoreRef.current) return;
+    const { ref: loadMoreRef, inView } = useInView({ threshold: 0.1 });
 
-        const currentReqId = Date.now();
-        activeRequestRef.current = currentReqId;
-
-        try {
-            updateLoading(true);
-            updateError(null);
-
-            const data = await getMoviesByGenre(genreId, page);
-
-            if (activeRequestRef.current !== currentReqId) return;
-
-            const movieResults = data?.results || [];
-            const currentPage = data?.page || 1;
-            const totalPages = data?.total_pages || 1;
-
-            if (movieResults.length === 0 || currentPage >= totalPages) {
-                updateHasMore(false);
-            }
-
-            setMovies(prev => {
-                const ids = new Set(prev.map(m => m.id));
-                const newMovies = movieResults.filter(m => !ids.has(m.id));
-                return [...prev, ...newMovies];
-            });
-        } catch (e) {
-            if (activeRequestRef.current !== currentReqId) return;
-            updateError(e.message)
-        } finally {
-            if (activeRequestRef.current === currentReqId) {
-                updateLoading(false);
-            }
-        }
-    }
+    const { data, error, fetchNextPage, hasNextPage, isFetchingNextPage, isFetchNextPageError, status, refetch } = useInfiniteQuery({
+        queryKey: ['movies', genreId],
+        queryFn: ({ pageParam = 1 }) => getMoviesByGenre(genreId, pageParam),
+        getNextPageParam: (lastPage) => {
+            return lastPage.page < lastPage.total_pages ? lastPage.page + 1 : undefined;
+        },
+        staleTime: 1000 * 60 * 5,
+        networkMode: 'always',
+    });
 
     useEffect(() => {
-        setMovies([]);
-        setPage(1);
-        updateHasMore(true);
-        updateError(null);
-        updateLoading(false);
-        activeRequestRef.current = Date.now();
-    }, [genreId]);
-
-    useEffect(() => {
-        fetchMovies();
-    }, [page, genreId]);
-
-    const observerInstanceRef = useRef(null);
-    const observerCallbackRef = useCallback((node) => {
-        if (!observerInstanceRef.current) {
-            observerInstanceRef.current = new IntersectionObserver(([entry]) => {
-                setIsIntersecting(entry.isIntersecting);
-            }, { threshold: 0.1 });
+        if (inView && hasNextPage && !isFetchingNextPage && !isFetchNextPageError) {
+            fetchNextPage();
         }
+    }, [inView, hasNextPage, isFetchingNextPage, isFetchNextPageError, fetchNextPage]);
 
-        observerInstanceRef.current.disconnect();
+    const rawMovies = data?.pages.flatMap(page => page.results) || [];
 
-        if (node) {
-            observerInstanceRef.current.observe(node);
-        }
-    }, []);
+    const allMovies = rawMovies.filter((movie, index, self) => 
+        index === self.findIndex(m => m.id === movie.id)
+    );
 
-    useEffect(() => {
-        return () => {
-            if (observerInstanceRef.current) observerInstanceRef.current.disconnect();
-        }
-    }, []);
-
-    useEffect(() => {
-        if (isIntersection && hasMore && !loading && !error) {
-            setPage(prev => prev + 1);
-        }
-    }, [isIntersection, loading, hasMore, error]);
-
-    if (error && page === 1) return <ErrorMessage message={error} onRetry={fetchMovies} />
+    if (status === 'error' && !allMovies.length) return <ErrorMessage message={error.message} onRetry={refetch} />;
 
     return (
         <section>
             <MovieSection
                 title={displayTitle}
-                movies={movies}
-                loading={loading}
+                movies={allMovies}
+                loading={status === 'pending' || isFetchingNextPage}
             />
 
-            {error && page > 1 && (
+            {isFetchNextPageError && allMovies.length > 0 && (
                 <ErrorMessage
-                    message={error}
-                    onRetry={fetchMovies}
+                    message={error.message}
+                    onRetry={fetchNextPage}
                     variant="compact"
                 />
             )}
 
-            {!error && hasMore && (
-                <div ref={observerCallbackRef} style={{ height: '20px', margin: '20px 0' }} />
+            {hasNextPage && !isFetchNextPageError && (
+                <div ref={loadMoreRef} style={{ height: '20px', margin: '20px 0' }} />
             )}
         </section>
     )
