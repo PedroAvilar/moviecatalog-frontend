@@ -3,6 +3,7 @@ import { getPopularMovies, getTopRatedMovies } from '../services/apiService';
 import Banner from '../components/banner/Banner';
 import MovieSection from '../components/movieSection/MovieSection';
 import ErrorMessage from '../components/errorMessage/ErrorMessage';
+import EmptyState from '../components/emptyState/EmptyState';
 
 function Home() {
     const { data: popular = [], isLoading: loadingPopular, error: errorPopular, refetch: refetchPopular } = useQuery({
@@ -20,15 +21,21 @@ function Home() {
     });
 
     const isLoading = loadingPopular || loadingTopRated;
-    const error = errorPopular || errorTopRated;
+
+    const hasError = errorPopular || errorTopRated;
+
+    const isEmpty = !isLoading && (popular.length === 0 || topRated.length === 0);
+
     const handleRetry = () => {
         refetchPopular();
         refetchTopRated();
     };
 
-    if (error) return <ErrorMessage message={error} onRetry={handleRetry} />;
+    if (hasError) return <ErrorMessage message={hasError.message} onRetry={handleRetry} />;
 
-    const bannerMovies = Array.isArray(popular) ? popular.slice(0, 5) : [];
+    if (isEmpty) return <EmptyState actionText='Recarregar' onAction={handleRetry}/>;
+
+    const bannerMovies = popular.slice(0, 5);
 
     return (
         <div>
