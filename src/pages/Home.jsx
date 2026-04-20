@@ -1,54 +1,49 @@
-import { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { getPopularMovies, getTopRatedMovies } from '../services/apiService';
 import Banner from '../components/banner/Banner';
 import MovieSection from '../components/movieSection/MovieSection';
 import ErrorMessage from '../components/errorMessage/ErrorMessage';
 
 function Home() {
-    const [popular, setPopular] = useState([]);
-    const [topRated, setTopRated] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const { data: popular = [], isLoading: loadingPopular, error: errorPopular, refetch: refetchPopular } = useQuery({
+        queryKey: ['movies', 'popular'],
+        queryFn: getPopularMovies,
+        staleTime: 1000 * 60 * 30,
+        networkMode: 'always',
+    });
 
-    async function loadData() {
-        try {
-            setLoading(true);
-            setError(null);
+    const { data: topRated = [], isLoading: loadingTopRated, error: errorTopRated, refetch: refetchTopRated } = useQuery({
+        queryKey: ['movies', 'top-rated'],
+        queryFn: getTopRatedMovies,
+        staleTime: 1000 * 60 * 60,
+        networkMode: 'always',
+    });
 
-            const [popularData, topRatedData] = await Promise.all([
-                getPopularMovies(),
-                getTopRatedMovies()
-            ]);
+    const isLoading = loadingPopular || loadingTopRated;
+    const error = errorPopular || errorTopRated;
+    const handleRetry = () => {
+        refetchPopular();
+        refetchTopRated();
+    };
 
-            setPopular(popularData);
-            setTopRated(topRatedData);
-        } catch (e) {
-            setError(e.message)
-        } finally {
-            setLoading(false);
-        }
-    }
+    if (error) return <ErrorMessage message={error} onRetry={handleRetry} />;
 
-    useEffect(() => {
-        loadData();
-    }, []);
-
-    if (error) return <ErrorMessage message={error} onRetry={loadData} />
+    const bannerMovies = Array.isArray(popular) ? popular.slice(0, 5) : [];
 
     return (
         <div>
-            <Banner movies={popular.slice(0, 5)} />
+            <Banner movies={bannerMovies} />
 
             <MovieSection 
                 title={'Populares'}
                 movies={popular}
-                loading={loading}
+                loading={isLoading}
             />
 
             <MovieSection 
                 title={'Melhores avaliados'}
                 movies={topRated}
-                loading={loading}
+                loading={isLoading}
             />
         </div>
     )
