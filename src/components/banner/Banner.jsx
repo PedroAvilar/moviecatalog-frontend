@@ -62,6 +62,12 @@ function Banner({ movies }) {
     if (!movies?.length) return <BannerSkeleton />;
     
     const movie = movies[currentIndex];
+
+    if (!movie) {
+        setCurrentIndex(0);
+        return <BannerSkeleton />;
+    }
+    
     const backdropUrl = getBackdropUrl(movie.backdrop_path, 'original');
 
     return (
