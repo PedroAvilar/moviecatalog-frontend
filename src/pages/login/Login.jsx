@@ -2,33 +2,39 @@ import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useToast } from "../../context/ToastContext";
+import { useMutation } from "@tanstack/react-query";
 import Button from "../../components/button/Button";
 import '../../styles/auth.css'
 
 function Login() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] =useState('');
-    const [loading, setLoading] = useState(false);
     const { login } = useAuth();
     const { showToast } = useToast();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] =useState('');
     const navigate = useNavigate();
     const location = useLocation();
 
     const from = location.state?.from?.pathname || '/';
 
+    const loginMutation = useMutation({
+        mutationFn: async ({ email, password }) => {
+            return await login(email, password);
+        },
+        onSuccess: (response)=> {
+            showToast(response);
+            navigate(from, { replace: true });
+        },
+        onError: (err) => {
+            showToast(err);
+        }
+    });
+
     async function handleSubmit(e) {
         e.preventDefault();
-        try {
-            setLoading(true);
-            const response = await login(email, password);
-            showToast(response)
-            navigate(from, { replace: true });
-        } catch (err) {
-            showToast(err)
-        } finally {
-            setLoading(false);
-        }
+        loginMutation.mutate({ email, password });
     }
+
+    const isLoginPending = loginMutation.isPending;
 
     return (
         <main>
@@ -47,6 +53,7 @@ function Login() {
                             onChange={(e) => setEmail(e.target.value)}
                             required
                             placeholder="seu@email.com"
+                            disabled={isLoginPending}
                         />
                     </div>
 
@@ -59,12 +66,13 @@ function Login() {
                             onChange={(e) => setPassword(e.target.value)}
                             required
                             placeholder="••••••••"
+                            disabled={isLoginPending}
                         />
                     </div>
                 
                     <Button
                         type="submit"
-                        disabled={loading}
+                        loading={isLoginPending}
                         variant="primary"
                     >
                         Entrar
