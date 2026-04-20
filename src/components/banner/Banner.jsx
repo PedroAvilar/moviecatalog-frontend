@@ -96,9 +96,7 @@ function Banner({ movies }) {
             >
                 <div className='banner-content' key={movie.id}>
                     <h2>{movie.title}</h2>
-                    <p>
-                        {movie.overview?.length > 160 ? movie.overview.slice(0, 160) + '...' : movie.overview || 'Sem descrição.'}
-                    </p>
+                    <p>{movie.overview || 'Sem descrição.'}</p>
                 </div>
 
                 <div className='banner-dots'>

@@ -39,6 +39,14 @@
     animation: textFadeUp 1s ease both;
 }
 
+.banner-content p {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 @media (max-width: 768px) {
     .banner {
         height: 50dvh;
