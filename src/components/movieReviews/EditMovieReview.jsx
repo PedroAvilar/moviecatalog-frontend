@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { updateReview } from "../../services/apiService";
 import { useToast } from "../../context/ToastContext";
 import Button from "../button/Button";
 import Modal from "../modal/Modal";
 
-function EditMovieReview({ isOpen, onClose, review, onUpdate }) {
+function EditMovieReview({ isOpen, onClose, review }) {
     const { showToast } = useToast();
     const [rating, setRating] = useState(review?.rating ?? 10);
     const [comment, setComment] = useState(review?.comment || '');
-    const [loading, setLoading] = useState(false);
+    const queryClient = useQueryClient();
 
     useEffect(() => {
         if (review) {
@@ -17,6 +18,24 @@ function EditMovieReview({ isOpen, onClose, review, onUpdate }) {
         }
     }, [review, isOpen]);
 
+    const mutation = useMutation({
+        mutationFn: (updatedData) => updateReview(review.id, updatedData),
+        onSuccess: (response) => {
+            showToast(response);
+            queryClient.invalidateQueries({ queryKey: ['my-reviews'] });
+
+            if (review?.movie?.id || review?.movieId) {
+                const mid = review.movie?.id || review.movieId;
+                queryClient.invalidateQueries({ queryKey: ['movie', mid] });
+            }
+            
+            onClose();
+        },
+        onError: (err) => {
+            showToast(err);
+        }
+    });
+
     const handleRatingChange = (e) => {
         const val = e.target.value;
         if (val === '') {
@@ -24,12 +43,12 @@ function EditMovieReview({ isOpen, onClose, review, onUpdate }) {
             return;
         }
         const numValue = Number(val);
-        if (numValue <= 10) {
+        if (numValue >= 0 && numValue <= 10) {
             setRating(numValue);
         }
     }
 
-    async function handleSubmit(e) {
+    function handleSubmit(e) {
         e.preventDefault();
 
         if (rating === '') {
@@ -42,21 +61,11 @@ function EditMovieReview({ isOpen, onClose, review, onUpdate }) {
             return;
         }
 
-        try {
-            setLoading(true);
-            const response = await updateReview(review.id, { rating, comment });
-            onUpdate();
-            onClose();
-            showToast(response);
-        } catch (err) {
-            showToast(err);
-        } finally {
-            setLoading(false);
-        }
+        mutation.mutate({ rating, comment });
     }
 
     return (
-        <Modal isOpen={isOpen} onClose={onClose} title={`Editar avaliação de ${review?.movieId?.title}`}>
+        <Modal isOpen={isOpen} onClose={onClose} title={`Editar avaliação de ${review?.movie?.title || 'Filme'}`}>
             <form onSubmit={handleSubmit}>
                 <div className="review-inputs">
                     <div className="review-rating">
@@ -84,10 +93,19 @@ function EditMovieReview({ isOpen, onClose, review, onUpdate }) {
                     />
                 </div>
                 <div className="modal-action">
-                    <Button type="button" variant="secondary" onClick={onClose}>
+                    <Button 
+                        type="button" 
+                        variant="secondary" 
+                        onClick={onClose}
+                        loading={mutation.isPending}
+                    >
                         Cancelar
                     </Button>
-                    <Button type="submit" variant="primary" loading={loading}>
+                    <Button 
+                        type="submit"
+                        variant="primary"
+                        loading={mutation.isPending}
+                    >
                         Salvar
                     </Button>
                 </div>

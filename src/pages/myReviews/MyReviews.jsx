@@ -3,6 +3,7 @@ import { deleteReview, getMyReviews } from "../../services/apiService";
 import { useToast } from "../../context/ToastContext";
 import { slugify } from "../../utils/slugify";
 import { useNavigate } from "react-router-dom";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import ErrorMessage from "../../components/errorMessage/ErrorMessage";
 import Button from "../../components/button/Button";
 import EmptyState from "../../components/emptyState/EmptyState";
@@ -13,57 +14,47 @@ import './myReviews.css';
 
 function MyReviews() {
     const { showToast } = useToast();
-    const [reviews, setReviews] = useState([]);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null);
     const [editingReview, setEditingReview] = useState(null);
     const [reviewToDelete, setReviewToDelete] = useState(null);
+    const queryClient = useQueryClient();
     const navigate = useNavigate();
 
-    async function fetchReviews() {
-        try {
-            setLoading(true);
-            const data = await getMyReviews();
-            setReviews(data);
-        } catch (err) {
-            setError(err.message);
-        } finally {
-            setLoading(false);
-        }
-    }
+    const { data: reviews = [], isLoading, error, refetch } = useQuery({
+        queryKey: ['my-reviews'],
+        queryFn: getMyReviews,
+        staleTime: 1000 * 60 * 5,
+        networkMode: 'always',
+    });
 
-    useEffect(() => {
-        fetchReviews();
-    }, []);
+    const deleteMutation = useMutation({
+        mutationFn: (id) => deleteReview(id),
+        onSuccess: (response) => {
+            showToast(response);
+            queryClient.invalidateQueries({ queryKey: ['my-reviews'] });
+
+            if (reviewToDelete?.movie?.id) {
+                queryClient.invalidateQueries({ queryKey: ['movie', String(reviewToDelete.movie.id)] });
+            }
+            
+            setReviewToDelete(null);
+        },
+        onError: (err) => {
+            showToast(err);
+        }
+    });
 
     const handleNavigate = (movie) => {
         if (!movie?.id) return;
         
         const titleSlug = slugify(movie.title);
         navigate(`/filme/${movie.id}/${encodeURIComponent(titleSlug)}`);
-    }
+    };
 
-    const confirmDelete = async () => {
-        if (!reviewToDelete) return;
+    if (error) return <ErrorMessage message={error.message} onRetry={refetch} />;
 
-        try {
-            setLoading(true);
-            const response = await deleteReview(reviewToDelete.id);
-            setReviews(prev => prev.filter(r => r.id !== reviewToDelete.id));
-            setReviewToDelete(null);
-            showToast(response);
-        } catch (err) {
-            showToast(err);
-        } finally {
-            setLoading(false);
-        }
-    }
+    if (isLoading) return null;
 
-    if (error) return <ErrorMessage message={error} onRetry={fetchReviews} />
-
-    if (loading) return null;
-
-    if (reviews.length === 0) {
+    if (!isLoading && reviews.length === 0) {
         return (
             <EmptyState 
                 icon="📝"
@@ -137,7 +128,7 @@ function MyReviews() {
                     isOpen={!!editingReview}
                     review={editingReview}
                     onClose={() => setEditingReview(null)}
-                    onUpdate={fetchReviews}
+                    onUpdate={() => queryClient.invalidateQueries({ queryKey: ['my-reviews'] })}
                 />
             )}
 
@@ -153,18 +144,17 @@ function MyReviews() {
                     <Button
                         variant="secondary"
                         onClick={() => setReviewToDelete(null)}
-                        disabled={loading}
+                        loading={deleteMutation.isPending}
                     >
                         Cancelar
                     </Button>
                     <Button
                         variant="danger"
-                        onClick={confirmDelete}
-                        loading={loading}
+                        onClick={() => deleteMutation.mutate(reviewToDelete.id)}
+                        loading={deleteMutation.isPending}
                     >
                         Excluir
                     </Button>
-                        
                 </div>
             </Modal>
         </main>
