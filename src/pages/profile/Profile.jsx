@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
+import { useMutation } from '@tanstack/react-query';
 import { useAuth } from '../../context/AuthContext';
-import { updatePassword, updateProfile, deleteAccount as apiDeleteAccount, getMe } from '../../services/apiService';
+import { updatePassword, updateProfile, deleteAccount as apiDeleteAccount } from '../../services/apiService';
 import { useToast } from '../../context/ToastContext';
 import Button from '../../components/button/Button';
 import Modal from '../../components/modal/Modal';
@@ -13,7 +14,6 @@ function Profile() {
     const [isPassModalOpen, setIsPassModalOpen] = useState(false);
     const [editData, setEditData] = useState({ name: user?.name || '', email: user?.email || '' });
     const [passData, setPassData] = useState({ currentPassword: '', newPassword: '', confirmPassword: '' });
-    const [loading, setLoading] = useState(false);
     const [profileToDelete, setProfileToDelete] = useState(null);
 
     useEffect(() => {
@@ -21,6 +21,41 @@ function Profile() {
             setEditData({ name: user.name, email: user.email });
         }
     }, [user]);
+
+    const profileMutation = useMutation({
+        mutationFn: updateProfile,
+        onSuccess: (response) => {
+            updateUser(response.user);
+            showToast(response);
+            setIsEditModalOpen(false);
+        },
+        onError: (err) => {
+            showToast(err);
+        }
+    });
+
+    const passwordMutation = useMutation({
+        mutationFn: updatePassword,
+        onSuccess: (response) => {
+            showToast(response);
+            closePassModal();
+        },
+        onError: (err) => {
+            showToast(err);
+        }
+    });
+
+    const deleteMutation = useMutation({
+        mutationFn: apiDeleteAccount,
+        onSuccess: (response) => {
+            showToast(response);
+            setProfileToDelete(null);
+            logout();
+        },
+        onError: (err) => {
+            showToast(err);
+        }
+    });
 
     const closeEditModal = () => {
         setIsEditModalOpen(false);
@@ -32,28 +67,17 @@ function Profile() {
         setPassData({ currentPassword: '', newPassword: '', confirmPassword: '' });
     };
 
-    const handleUpdateProfile = async (e) => {
+    const handleUpdateProfile = (e) => {
         e.preventDefault();
         if (!editData.name || !editData.email) {
-            return showToast({ message: 'Todos os campos são obrigatórios'})
+            return showToast({ message: 'Todos os campos são obrigatórios'});
         }
-
-        try {
-            setLoading(true);
-            const response = await updateProfile(editData);
-            const freshUser = await getMe();
-            updateUser(freshUser.user);
-            closeEditModal();
-            showToast(response);
-        } catch (err) {
-            showToast(err);
-        } finally {
-            setLoading(false);
-        }
+        profileMutation.mutate(editData);
     };
 
-    const handleUpdatePassword = async (e) => {
+    const handleUpdatePassword = (e) => {
         e.preventDefault();
+
         if (!passData.currentPassword || !passData.newPassword || !passData.confirmPassword) {
             return showToast({ message: 'Todos os campos são obrigatórios' });
         }
@@ -62,33 +86,12 @@ function Profile() {
             return showToast({ message: 'As senhas não correspondem' });
         }
 
-        try {
-            setLoading(true);
-            const response = await updatePassword(passData);
-            closePassModal();
-            showToast(response);
-        } catch (err) {
-            showToast(err)
-        } finally {
-            setLoading(false);
-        }
+        passwordMutation.mutate(passData);
     };
 
-    const confirmProfileDelete = async () => {
-        if (!profileToDelete) return;
-
-        try {
-            setLoading(true);
-            const response = await apiDeleteAccount();
-            setProfileToDelete(null);
-            showToast(response);
-            logout();
-        } catch (err) {
-            showToast(err);
-        } finally {
-            setLoading(false);
-        }
-    };
+    const isProfilePending = profileMutation.isPending;
+    const isPasswordPending = passwordMutation.isPending;
+    const isDeletePending = deleteMutation.isPending;
 
     return (
         <main>
@@ -104,6 +107,7 @@ function Profile() {
                     <Button 
                         variant='secondary'
                         onClick={() => setIsEditModalOpen(true)}
+                        loading={isProfilePending}
                     >
                         Editar
                     </Button>
@@ -117,6 +121,7 @@ function Profile() {
                 <Button
                     variant='secondary'
                     onClick={() => setIsPassModalOpen(true)}
+                    loading={isPasswordPending}
                 >
                     Alterar senha
                 </Button>
@@ -130,6 +135,7 @@ function Profile() {
                 <Button
                     variant='danger'
                     onClick={() => setProfileToDelete(user)}
+                    loading={isDeletePending}
                 >
                     Excluir conta
                 </Button>
@@ -142,26 +148,29 @@ function Profile() {
                         value={editData.name} 
                         onChange={(e) => setEditData({...editData, name: e.target.value})} 
                         placeholder="Nome"
-                        required 
+                        disabled={isProfilePending}
+                        required
                     />
                     <input 
                         type="email" 
                         value={editData.email} 
                         onChange={(e) => setEditData({...editData, email: e.target.value})} 
                         placeholder="E-mail"
-                        required 
+                        disabled={isProfilePending}
+                        required
                     />
                     
                     <div className='modal-action'>
                         <Button
                             variant='secondary'
                             onClick={closeEditModal}
+                            loading={isProfilePending}
                         >
                             Cancelar
                         </Button>
                         <Button
                             type='submit'
-                            loading={loading}
+                            loading={isProfilePending}
                         >
                             Salvar
                         </Button>
@@ -176,6 +185,7 @@ function Profile() {
                         value={passData.currentPassword}
                         placeholder='Senha atual'
                         onChange={(e) => setPassData({...passData, currentPassword: e.target.value})}
+                        disabled={isPasswordPending}
                         required
                     />
                     <input 
@@ -183,6 +193,7 @@ function Profile() {
                         value={passData.newPassword}
                         placeholder="Nova senha" 
                         onChange={(e) => setPassData({...passData, newPassword: e.target.value})}
+                        disabled={isPasswordPending}
                         required 
                     />
                     <input 
@@ -190,6 +201,7 @@ function Profile() {
                         value={passData.confirmPassword}
                         placeholder="Confirmar nova senha" 
                         onChange={(e) => setPassData({...passData, confirmPassword: e.target.value})}
+                        disabled={isPasswordPending}
                         required 
                     />
 
@@ -197,12 +209,13 @@ function Profile() {
                         <Button
                             variant='secondary'
                             onClick={closePassModal}
+                            loading={isPasswordPending}
                         >
                             Cancelar
                         </Button>
                         <Button
                             type='submit'
-                            loading={loading}
+                            loading={isPasswordPending}
                         >
                             Salvar
                         </Button>
@@ -211,7 +224,7 @@ function Profile() {
             </Modal>
 
             <Modal isOpen={!!profileToDelete} onClose={() => setProfileToDelete(null)} title='Confirmar exclusão'>
-                {user.name && (
+                {user?.name && (
                     <p><strong>{profileToDelete?.name}</strong></p>
                 )}
                 <p>Tem certeza que deseja excluir sua conta?</p>
@@ -221,14 +234,14 @@ function Profile() {
                     <Button
                         variant='secondary'
                         onClick={() => setProfileToDelete(null)}
-                        disabled={loading}
+                        loading={isDeletePending}
                     >
                         Cancelar
                     </Button>
                     <Button
                         variant='danger'
-                        onClick={confirmProfileDelete}
-                        disabled={loading}
+                        onClick={() => deleteMutation.mutate()}
+                        loading={isDeletePending}
                     >
                         Excluir
                     </Button>
