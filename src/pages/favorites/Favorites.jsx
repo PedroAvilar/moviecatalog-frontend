@@ -1,17 +1,28 @@
 import { useState } from 'react';
-import { useFavorites } from '../../context/FavoritesContext';
+import { useAuth } from '../../context/AuthContext';
+import { useQuery } from '@tanstack/react-query';
+import { getFavorites } from '../../services/apiService';
+import ErrorMessage from '../../components/errorMessage/ErrorMessage';
 import MovieSection from '../../components/movieSection/MovieSection';
 import Button from '../../components/button/Button';
 import EmptyState from '../../components/emptyState/EmptyState';
 import './favorites.css';
 
 function Favorites() {
-    const { favorites } = useFavorites();
+    const { user } = useAuth();
     const [visibleCount, setVisibleCount] = useState(18);
 
-    const displayFavorites = [...favorites].reverse();
+    const { data: favorites = [], isLoading, error, refetch } = useQuery({
+        queryKey: ['favorites', user?.id],
+        queryFn: getFavorites,
+        enabled: !!user,
+        staleTime: 1000 * 60 * 5,
+        networkMode: 'always',
+    });
 
-    if (favorites.length == 0) {
+    if (error) return <ErrorMessage message={error.message} onRetry={refetch} />;
+
+    if (!isLoading && favorites.length === 0) {
         return (
             <EmptyState 
                 icon='💔'
@@ -19,8 +30,10 @@ function Favorites() {
                 description='Adicione filmes aos favoritos para aparecerem aqui.'
                 actionText='Explorar filmes'
             />
-        )
+        );
     }
+
+    const displayFavorites = [...favorites].reverse();
 
     const visibleFavorites = displayFavorites.slice(0, visibleCount);
 
@@ -29,6 +42,7 @@ function Favorites() {
             <MovieSection
                 title={'Favoritos'}
                 movies={visibleFavorites}
+                loading={isLoading}
             />
 
             {visibleCount < favorites.length && (
