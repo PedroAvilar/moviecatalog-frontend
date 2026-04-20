@@ -58,14 +58,6 @@
     backdrop-filter: blur(4px);
 }
 
-.favorite-btn.loading {
-    pointer-events: none;
-}
-
-.favorite-btn.loading .heart-svg {
-    filter: grayscale(1);
-}
-
 .favorite-btn.floating.active { 
     background: var(--color-light-muted); 
 }

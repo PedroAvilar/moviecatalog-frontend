@@ -20,12 +20,27 @@ function FavoriteButton({ movie, size = 30, variant }) {
 
     const mutation = useMutation({
         mutationFn: () => toggleFavorite(movie),
-        onSuccess: (response) => {
-            showToast(response);
+        onMutate: async () => {
+            await queryClient.cancelQueries({ queryKey: ['favorites', user?.id] });
+            const previousFavorites = queryClient.getQueryData(['favorites', user?.id]);
+            queryClient.setQueryData(['favorites', user?.id], (old = []) => {
+                const alreadyExists = old.find(fav => fav.id === movie.id);
+                if (alreadyExists) {
+                    return old.filter(fav => fav.id !== movie.id);
+                }
+                return [...old, movie];
+            });
+            return { previousFavorites };
+        },
+        onError: (err, variables, context) => {
+            queryClient.setQueryData(['favorites', user?.id], context.previousFavorites);
+            showToast(err);
+        },
+        onSettled: () => {
             queryClient.invalidateQueries({ queryKey: ['favorites', user?.id] });
         },
-        onError: (err) => {
-            showToast(err);
+        onSuccess: (response) => {
+            showToast(response);
         }
     });
 
@@ -40,7 +55,7 @@ function FavoriteButton({ movie, size = 30, variant }) {
 
     return (
         <button
-            className={`favorite-btn ${variant === 'floating' ? 'floating' : ''} ${isFavorite ? 'active' : ''} ${mutation.isPending ? 'loading' : ''}`}
+            className={`favorite-btn ${variant === 'floating' ? 'floating' : ''} ${isFavorite ? 'active' : ''}`}
             onClick={handleClick}
             disabled={mutation.isPending}
             aria-label={isFavorite ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}
