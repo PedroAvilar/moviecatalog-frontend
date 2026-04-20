@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useEffect, useState, useCallback } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { getMovieDetails } from "../../services/apiService";
 import CastList from "../../components/castList/CastList";
 import MovieDetailsSkeleton from "./MovieDetailsSkeleton";
@@ -12,39 +12,25 @@ import './movieDetails.css';
 
 function MovieDetails() {
     const {id} = useParams();
-    const [movie, setMovie] = useState(null);
-    const [loading, setloading] = useState(true);
-    const [error, setError] = useState(null);
 
-    const fetchMovie = useCallback(async () => {
-        try {
-            setloading(true);
-            setError(null);
+    const { data: movie, isLoading, error, refetch } = useQuery({
+        queryKey: ['movie', id],
+        queryFn: () => getMovieDetails(id),
+        staleTime: 1000 * 60 * 10,
+        networkMode: 'always',
+    });
 
-            const data = await getMovieDetails(id);
-            setMovie(data);
-        } catch (e) {
-            setError(e.message);
-        } finally {
-            setloading(false);
-        }
-    }, [id]);
-
-    useEffect(() => {
-        fetchMovie();
-    }, [fetchMovie]);
-
-    if (error) return <ErrorMessage message={error} onRetry={fetchMovie} />
-
-    if (loading) {
+    if (isLoading) {
         return (
             <div>
                 <MovieDetailsSkeleton />
                 <CastListSkeleton />
             </div>
-        )
+        );
     }
 
+    if (error || !movie) return <ErrorMessage message={error?.message} onRetry={refetch} />;
+    
     return (
         <main>
             <article className="movie-details">
@@ -118,7 +104,6 @@ function MovieDetails() {
             <MovieReviews 
                 movieId={id}
                 reviews={movie.reviews}
-                onReviewAdded={fetchMovie}
             />
         </main>
     );
