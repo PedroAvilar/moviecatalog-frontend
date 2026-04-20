@@ -51,6 +51,19 @@
     .banner {
         height: 50dvh;
     }
+
+    .banner-overlay {
+        justify-content: center;
+        align-items: flex-end;
+    }
+
+    .banner-content {
+        text-align: center;
+    }
+
+    .banner-content p {
+        display: none;
+    }
 }
 
 .banner-dots {
