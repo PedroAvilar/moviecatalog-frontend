@@ -22,6 +22,7 @@ function MovieReviews({ movieId, reviews }) {
             setRating(10);
             showToast(response);
             queryClient.invalidateQueries({ queryKey: ['movie', movieId]});
+            queryClient.invalidateQueries({ queryKey: ['my-reviews'] });
         },
         onError: (err) => {
             showToast(err);
