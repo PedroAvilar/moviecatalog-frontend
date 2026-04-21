@@ -6,7 +6,6 @@ import ErrorMessage from '../../components/errorMessage/ErrorMessage';
 import MovieSection from '../../components/movieSection/MovieSection';
 import Button from '../../components/button/Button';
 import EmptyState from '../../components/emptyState/EmptyState';
-import './favorites.css';
 
 function Favorites() {
     const { user } = useAuth();
@@ -46,7 +45,7 @@ function Favorites() {
             />
 
             {visibleCount < favorites.length && (
-                <div className='favorite-more'>
+                <div style={{ display: 'flex', justifyContent: 'center', margin: '2rem 0' }}>
                     <Button
                         onClick={() => setVisibleCount(prev => prev + 18)}
                         variant='secondary'
