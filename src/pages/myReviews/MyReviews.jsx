@@ -10,6 +10,7 @@ import EmptyState from "../../components/emptyState/EmptyState";
 import EditMovieReview from "../../components/movieReviews/EditMovieReview";
 import Modal from "../../components/modal/Modal";
 import MoviePoster from "../../components/moviePoster/MoviePoster";
+import MyReviewsSkeleton from "./MyReviewsSkeleton";
 import './myReviews.css';
 
 function MyReviews() {
@@ -52,7 +53,7 @@ function MyReviews() {
 
     if (error) return <ErrorMessage message={error.message} onRetry={refetch} />;
 
-    if (isLoading) return null;
+    if (isLoading) return <MyReviewsSkeleton />;
 
     if (!isLoading && reviews.length === 0) {
         return (
