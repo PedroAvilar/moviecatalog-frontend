@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import { useParams, useLocation } from "react-router-dom";
-import { getMoviesByGenre } from '../services/apiService';
+import { getMoviesByGenre } from '../../services/apiService';
 import { useInView } from "react-intersection-observer";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import MovieSection from "../components/movieSection/MovieSection";
-import ErrorMessage from "../components/errorMessage/ErrorMessage";
+import MovieSection from "../../components/movieSection/MovieSection";
+import ErrorMessage from "../../components/errorMessage/ErrorMessage";
 
 function Categories() {
     const { genreId, genreName } = useParams();

@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
-import { getPopularMovies, getTopRatedMovies } from '../services/apiService';
-import Banner from '../components/banner/Banner';
-import MovieSection from '../components/movieSection/MovieSection';
-import ErrorMessage from '../components/errorMessage/ErrorMessage';
-import EmptyState from '../components/emptyState/EmptyState';
+import { getPopularMovies, getTopRatedMovies } from '../../services/apiService';
+import Banner from '../../components/banner/Banner';
+import MovieSection from '../../components/movieSection/MovieSection';
+import ErrorMessage from '../../components/errorMessage/ErrorMessage';
+import EmptyState from '../../components/emptyState/EmptyState';
 
 function Home() {
     const { data: popular = [], isLoading: loadingPopular, error: errorPopular, refetch: refetchPopular } = useQuery({
