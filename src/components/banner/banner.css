@@ -1,111 +1,111 @@
 .banner {
-    width: 100%;
-    height: 60dvh;
-    min-height: 320px;
-    position: relative;
-    margin-bottom: 2rem;
-    border-radius: 1rem;
-    overflow: hidden;
+	width: 100%;
+	height: 60dvh;
+	min-height: 320px;
+	position: relative;
+	margin-bottom: 2rem;
+	border-radius: 1rem;
+	overflow: hidden;
 }
 
 .banner-image {
-    position: absolute;
-    inset: 0;
-    background-position: center;
-    background-size: cover;
-    z-index: 1;
-    animation: zoomBg 10s ease-in-out infinite;
+	position: absolute;
+	inset: 0;
+	background-position: center;
+	background-size: cover;
+	z-index: 1;
+	animation: zoomBg 10s ease-in-out infinite;
 }
 
 .banner-overlay {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: flex-end;
-    cursor: pointer;
-    background: linear-gradient(
-        to top,
-        var(--color-overlay),
-        var(--color-overlay-low)
-    );
-    z-index: 2;
+	position: absolute;
+	inset: 0;
+	display: flex;
+	align-items: flex-end;
+	cursor: pointer;
+	background: linear-gradient(
+		to top,
+		var(--color-overlay),
+		var(--color-overlay-low)
+	);
+	z-index: 2;
 }
 
 .banner-content {
-    color: var(--color-text-white);
-    padding: 2rem;
-    max-width: 600px;
-    text-shadow: var(--color-box-shadow);
-    animation: textFadeUp 1s ease both;
+	color: var(--color-text-white);
+	padding: 2rem;
+	max-width: 600px;
+	text-shadow: var(--color-box-shadow);
+	animation: textFadeUp 1s ease both;
 }
 
 .banner-content p {
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 @media (max-width: 768px) {
-    .banner {
-        height: 50dvh;
-    }
+	.banner {
+		height: 50dvh;
+	}
 
-    .banner-overlay {
-        justify-content: center;
-        align-items: flex-end;
-    }
+	.banner-overlay {
+		justify-content: center;
+		align-items: flex-end;
+	}
 
-    .banner-content {
-        text-align: center;
-    }
+	.banner-content {
+		text-align: center;
+	}
 
-    .banner-content p {
-        display: none;
-    }
+	.banner-content p {
+		display: none;
+	}
 }
 
 .banner-dots {
-    position: absolute;
-    bottom: 1rem;
-    left: 50%;
-    border-radius: 0.4rem;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 0.5rem;
+	position: absolute;
+	bottom: 1rem;
+	left: 50%;
+	border-radius: 0.4rem;
+	transform: translateX(-50%);
+	display: flex;
+	gap: 0.5rem;
 }
 
 .dot {
-    width: 0.8rem;
-    height: 0.8rem;
-    background: var(--color-light-muted);
-    border-radius: 50%;
-    cursor: pointer;
-    transition: all 0.3s ease;
+	width: 0.8rem;
+	height: 0.8rem;
+	background: var(--color-light-muted);
+	border-radius: 50%;
+	cursor: pointer;
+	transition: all 0.3s ease;
 }
 
 .dot.active {
-    background: var(--color-bg-main);
-    transform: scale(1.3);
+	background: var(--color-bg-main);
+	transform: scale(1.3);
 }
 
 @keyframes textFadeUp {
-    from {
-        opacity: 0;
-        transform: translateY(3rem);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+	from {
+		opacity: 0;
+		transform: translateY(3rem);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
 }
 
 @keyframes zoomBg {
-    from {
-        transform: scale(1);
-    }
-    to {
-        transform: scale(1.15);
-    }
+	from {
+		transform: scale(1);
+	}
+	to {
+		transform: scale(1.15);
+	}
 }

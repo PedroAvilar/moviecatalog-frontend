@@ -1,15 +1,15 @@
 .empty-state {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    gap: 0.5rem;
-    min-height: 70dvh;
-    padding: 2rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	gap: 0.5rem;
+	min-height: 70dvh;
+	padding: 2rem;
 }
 
 .empty-state-icon {
-    display: block;
-    font-size: 5rem;
+	display: block;
+	font-size: 5rem;
 }

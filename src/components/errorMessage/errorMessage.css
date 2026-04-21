@@ -1,17 +1,17 @@
 .error-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    min-height: 70dvh;
-    padding: 2rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	text-align: center;
+	min-height: 70dvh;
+	padding: 2rem;
 }
 
 .error-wrapper.compact {
-    min-height: auto;
-    margin: 2rem 1rem;
-    padding: 3rem 1rem;
-    background: var(--color-border);
-    border-radius: 1rem;
+	min-height: auto;
+	margin: 2rem 1rem;
+	padding: 3rem 1rem;
+	background: var(--color-border);
+	border-radius: 1rem;
 }

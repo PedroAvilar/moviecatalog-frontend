@@ -1,29 +1,29 @@
 .profile-section {
-    margin: 2rem 0;
-    padding: 1rem;
-    border-radius: 1rem;
-    box-shadow: var(--color-box-shadow-low);
+	margin: 2rem 0;
+	padding: 1rem;
+	border-radius: 1rem;
+	box-shadow: var(--color-box-shadow-low);
 }
 
 .section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid var(--color-border);
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 1rem;
+	padding-bottom: 0.5rem;
+	border-bottom: 1px solid var(--color-border);
 }
 
 .profile-info button {
-    margin-top: 1rem;
-    align-self: flex-start;
+	margin-top: 1rem;
+	align-self: flex-start;
 }
 
 @media (max-width: 786px) {
-    .profile-section {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
+	.profile-section {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+	}
 }

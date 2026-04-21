@@ -1,59 +1,66 @@
 .cast-container {
-    width: 100%;
+	width: 100%;
 }
 
 .cast-scroll {
-    display: flex;
-    gap: 1.5rem;
-    overflow-x: auto;
-    padding: 1rem;
-    margin-left: -1rem;
-    margin-right: -1rem;
+	display: flex;
+	gap: 1.5rem;
+	overflow-x: auto;
+	padding: 1rem;
+	margin-left: -1rem;
+	margin-right: -1rem;
 }
 
 .cast-card {
-    flex: 0 0 8rem;
-    text-align: center;
+	flex: 0 0 8rem;
+	text-align: center;
 }
 
 .cast-image-wrapper {
-    width: 8rem;
-    height: 8rem;
-    overflow: hidden;
-    border-radius: 50%;
-    margin-bottom: 0.5rem;
-    display: flex; 
-    align-items: center;
-    justify-content: center;
+	width: 8rem;
+	height: 8rem;
+	overflow: hidden;
+	border-radius: 50%;
+	margin-bottom: 0.5rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .cast-image {
-    width: 100%;
-    object-fit: cover;
+	width: 100%;
+	object-fit: cover;
 }
 
 .cast-info {
-    display: flex;
-    flex-direction: column;
-    gap: 0.10rem;
-    padding: 0 0 0.25rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.1rem;
+	padding: 0 0 0.25rem;
 }
 
 .cast-name {
-    font-size: 0.9rem;
-    font-weight: bold;
-    margin: 0;
+	font-size: 0.9rem;
+	font-weight: bold;
+	margin: 0;
 }
 
 .cast-character {
-    font-size: 0.8rem;
-    margin-top: 0.5rem;
+	font-size: 0.8rem;
+	margin-top: 0.5rem;
 }
 
 @media (max-width: 768px) {
-    .cast-card { flex: 0 0 6rem; }
+	.cast-card {
+		flex: 0 0 6rem;
+	}
 
-    .cast-image-wrapper { width: 6rem; height: 6rem; }
+	.cast-image-wrapper {
+		width: 6rem;
+		height: 6rem;
+	}
 
-    .cast-container { text-align: center; }
+	.cast-container {
+		text-align: center;
+	}
 }

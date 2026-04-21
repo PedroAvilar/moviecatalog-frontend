@@ -1,28 +1,28 @@
 .auth-input-wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 2rem;
-    min-height: 30dvh;
-    margin: 2rem 1rem;
-    padding: 3rem 1rem;
-    border-radius: 1rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 2rem;
+	min-height: 30dvh;
+	margin: 2rem 1rem;
+	padding: 3rem 1rem;
+	border-radius: 1rem;
 }
 
 .auth-input-group {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 0.5rem;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 0.5rem;
 }
 
 .auth-input-group input {
-    width: 17rem;
+	width: 17rem;
 }
 
 @media (max-width: 768px) {
-    .auth-input-group {
-        flex-direction: column;
-    }
+	.auth-input-group {
+		flex-direction: column;
+	}
 }

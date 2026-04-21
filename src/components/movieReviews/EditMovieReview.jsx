@@ -1,117 +1,117 @@
-import { useEffect, useState } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { updateReview } from "../../services/apiService";
-import { useToast } from "../../context/ToastContext";
-import Button from "../button/Button";
-import Modal from "../modal/Modal";
+import { useEffect, useState } from 'react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { updateReview } from '../../services/apiService';
+import { useToast } from '../../context/ToastContext';
+import Button from '../button/Button';
+import Modal from '../modal/Modal';
 
 function EditMovieReview({ isOpen, onClose, review }) {
-    const { showToast } = useToast();
-    const [rating, setRating] = useState(review?.rating ?? 10);
-    const [comment, setComment] = useState(review?.comment || '');
-    const queryClient = useQueryClient();
+	const { showToast } = useToast();
+	const [rating, setRating] = useState(review?.rating ?? 10);
+	const [comment, setComment] = useState(review?.comment || '');
+	const queryClient = useQueryClient();
 
-    useEffect(() => {
-        if (review) {
-            setRating(review.rating);
-            setComment(review.comment);
-        }
-    }, [review, isOpen]);
+	useEffect(() => {
+		if (review) {
+			setRating(review.rating);
+			setComment(review.comment);
+		}
+	}, [review, isOpen]);
 
-    const mutation = useMutation({
-        mutationFn: (updatedData) => updateReview(review.id, updatedData),
-        onSuccess: (response) => {
-            showToast(response);
-            queryClient.invalidateQueries({ queryKey: ['my-reviews'] });
+	const mutation = useMutation({
+		mutationFn: (updatedData) => updateReview(review.id, updatedData),
+		onSuccess: (response) => {
+			showToast(response);
+			queryClient.invalidateQueries({ queryKey: ['my-reviews'] });
 
-            if (review?.movie?.id || review?.movieId) {
-                const mid = review.movie?.id || review.movieId;
-                queryClient.invalidateQueries({ queryKey: ['movie', mid] });
-            }
-            
-            onClose();
-        },
-        onError: (err) => {
-            showToast(err);
-        }
-    });
+			if (review?.movie?.id || review?.movieId) {
+				const mid = review.movie?.id || review.movieId;
+				queryClient.invalidateQueries({ queryKey: ['movie', mid] });
+			}
 
-    const handleRatingChange = (e) => {
-        const val = e.target.value;
-        if (val === '') {
-            setRating('');
-            return;
-        }
-        const numValue = Number(val);
-        if (numValue >= 0 && numValue <= 10) {
-            setRating(numValue);
-        }
-    }
+			onClose();
+		},
+		onError: (err) => {
+			showToast(err);
+		},
+	});
 
-    function handleSubmit(e) {
-        e.preventDefault();
+	const handleRatingChange = (e) => {
+		const val = e.target.value;
+		if (val === '') {
+			setRating('');
+			return;
+		}
+		const numValue = Number(val);
+		if (numValue >= 0 && numValue <= 10) {
+			setRating(numValue);
+		}
+	};
 
-        if (rating === '') {
-            showToast({ message: 'Insira uma nota na avaliação', type: 'error' });
-            return;
-        }
+	function handleSubmit(e) {
+		e.preventDefault();
 
-        if (rating < 0 || rating > 10) {
-            showToast({ message: "A nota deve ser entre 0 e 10", type: 'error' });
-            return;
-        }
+		if (rating === '') {
+			showToast({ message: 'Insira uma nota na avaliação', type: 'error' });
+			return;
+		}
 
-        mutation.mutate({ rating, comment });
-    }
+		if (rating < 0 || rating > 10) {
+			showToast({ message: 'A nota deve ser entre 0 e 10', type: 'error' });
+			return;
+		}
 
-    return (
-        <Modal isOpen={isOpen} onClose={onClose} title={`Editar avaliação de ${review?.movie?.title || 'Filme'}`}>
-            <form onSubmit={handleSubmit}>
-                <div className="review-inputs">
-                    <div className="review-rating">
-                        <p>Sua nota de 0 a 10</p>
-                        <div className="review-input-rating">
-                            <span>⭐</span>
-                            <input 
-                                type="number"
-                                min='0'
-                                max='10'
-                                step='1'
-                                value={rating}
-                                onChange={handleRatingChange}
-                                required
-                            />
-                            <span>/ 10</span>
-                        </div>
-                    </div>
+		mutation.mutate({ rating, comment });
+	}
 
-                    <textarea
-                        value={comment}
-                        onChange={(e) => setComment(e.target.value)}
-                        required
-                        placeholder="Edite seu comentário..."
-                    />
-                </div>
-                <div className="modal-action">
-                    <Button 
-                        type="button" 
-                        variant="secondary" 
-                        onClick={onClose}
-                        loading={mutation.isPending}
-                    >
-                        Cancelar
-                    </Button>
-                    <Button 
-                        type="submit"
-                        variant="primary"
-                        loading={mutation.isPending}
-                    >
-                        Salvar
-                    </Button>
-                </div>
-            </form>
-        </Modal>
-    );
+	return (
+		<Modal
+			isOpen={isOpen}
+			onClose={onClose}
+			title={`Editar avaliação de ${review?.movie?.title || 'Filme'}`}
+		>
+			<form onSubmit={handleSubmit}>
+				<div className="review-inputs">
+					<div className="review-rating">
+						<p>Sua nota de 0 a 10</p>
+						<div className="review-input-rating">
+							<span>⭐</span>
+							<input
+								type="number"
+								min="0"
+								max="10"
+								step="1"
+								value={rating}
+								onChange={handleRatingChange}
+								required
+							/>
+							<span>/ 10</span>
+						</div>
+					</div>
+
+					<textarea
+						value={comment}
+						onChange={(e) => setComment(e.target.value)}
+						required
+						placeholder="Edite seu comentário..."
+					/>
+				</div>
+				<div className="modal-action">
+					<Button
+						type="button"
+						variant="secondary"
+						onClick={onClose}
+						loading={mutation.isPending}
+					>
+						Cancelar
+					</Button>
+					<Button type="submit" variant="primary" loading={mutation.isPending}>
+						Salvar
+					</Button>
+				</div>
+			</form>
+		</Modal>
+	);
 }
 
 export default EditMovieReview;

@@ -1,71 +1,71 @@
 .reviews-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
 }
 
 .review-card {
-    display: flex;
-    align-items: stretch;
-    padding: 1rem;
-    gap: 1rem;
-    border-radius: 1rem;
-    box-shadow: var(--color-box-shadow-low);
+	display: flex;
+	align-items: stretch;
+	padding: 1rem;
+	gap: 1rem;
+	border-radius: 1rem;
+	box-shadow: var(--color-box-shadow-low);
 }
 
 .review-card-content {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
+	display: flex;
+	flex-direction: column;
+	flex: 1;
 }
 
 .review-card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin: 0;
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	margin: 0;
 }
 
 .review-year {
-    margin: 0;
-    font-size: 1.2rem;
-    font-weight: bold;
+	margin: 0;
+	font-size: 1.2rem;
+	font-weight: bold;
 }
 
 .review-card-date-rating {
-    margin: 0 0 1rem;
-    display: flex;
-    align-items: end;
-    gap: 1.5rem;
+	margin: 0 0 1rem;
+	display: flex;
+	align-items: end;
+	gap: 1.5rem;
 }
 
 .review-card-actions {
-    margin-top: auto;
-    display: flex;
-    gap: 1rem;
+	margin-top: auto;
+	display: flex;
+	gap: 1rem;
 }
 
 @media (pointer: fine) {
-    .review-title-clickable:hover {
-        cursor: pointer;
-        text-decoration: underline;
-    }
+	.review-title-clickable:hover {
+		cursor: pointer;
+		text-decoration: underline;
+	}
 }
 
 @media (max-width: 768px) {
-    .review-card {
-        flex-direction: column;
-        align-items: center;
-    }
+	.review-card {
+		flex-direction: column;
+		align-items: center;
+	}
 
-    .review-card-content,
-    .review-card-header {
-        align-items: center;
-        text-align: center;
-    }
+	.review-card-content,
+	.review-card-header {
+		align-items: center;
+		text-align: center;
+	}
 
-    .review-card-header {
-        flex-direction: column;
-        gap: 0.3rem;
-    }
+	.review-card-header {
+		flex-direction: column;
+		gap: 0.3rem;
+	}
 }

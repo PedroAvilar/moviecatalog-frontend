@@ -1,43 +1,43 @@
 .about-features {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
-    margin: 3rem 0;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+	gap: 1.5rem;
+	margin: 3rem 0;
 }
 
 .feature-card {
-    padding: 2rem;
-    border-radius: 1rem;
-    box-shadow: var(--color-box-shadow-low);
+	padding: 2rem;
+	border-radius: 1rem;
+	box-shadow: var(--color-box-shadow-low);
 }
 
 .divider {
-    width: 100%;
-    height: 0.25rem;
-    background: var(--color-bg-muted);
-    border-radius: 0.25rem;
-    margin: 2rem 0;
+	width: 100%;
+	height: 0.25rem;
+	background: var(--color-bg-muted);
+	border-radius: 0.25rem;
+	margin: 2rem 0;
 }
 
 .about-tmdb {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2rem;
-    margin: 2rem 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 2rem;
+	margin: 2rem 0;
 }
 
 .tmdb-atribution {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    padding: 1rem;
-    border-radius: 1rem;
-    box-shadow: var(--color-box-shadow);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1rem;
+	padding: 1rem;
+	border-radius: 1rem;
+	box-shadow: var(--color-box-shadow);
 }
 
 .tmdb-logo {
-    width: 10rem;
-    flex-shrink: 0;
+	width: 10rem;
+	flex-shrink: 0;
 }

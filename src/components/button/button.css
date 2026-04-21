@@ -1,77 +1,77 @@
 .btn {
-    display: inline-flex;
-    width: fit-content;
-    align-items: center;
-    justify-content: center;
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    font-size: 0.95rem;
-    text-decoration: none;
-    border: none;
-    background: none;
-    transition: all 0.3s ease;
+	display: inline-flex;
+	width: fit-content;
+	align-items: center;
+	justify-content: center;
+	padding: 0.5rem 1rem;
+	border-radius: 0.5rem;
+	cursor: pointer;
+	font-size: 0.95rem;
+	text-decoration: none;
+	border: none;
+	background: none;
+	transition: all 0.3s ease;
 }
 
-.btn:active { 
-    transform: scale(0.95); 
+.btn:active {
+	transform: scale(0.95);
 }
 
 .btn:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    transform: none;
+	opacity: 0.6;
+	cursor: not-allowed;
+	transform: none;
 }
 
 .btn:disabled:active {
-    transform: none;
+	transform: none;
 }
 
 .btn-primary {
-    background-color: var(--color-brand);
-    color: var(--color-text-white);
+	background-color: var(--color-brand);
+	color: var(--color-text-white);
 }
 
 .btn-secondary {
-    background: transparent;
-    border: 2px solid var(--color-primary);
-    color: var(--color-primary);
+	background: transparent;
+	border: 2px solid var(--color-primary);
+	color: var(--color-primary);
 }
 
 .btn-secondary:active {
-    background-color: var(--color-primary-hover);
+	background-color: var(--color-primary-hover);
 }
 
 .btn-danger {
-    background: transparent;
-    border: 2px solid var(--color-red);
-    color: var(--color-red);
+	background: transparent;
+	border: 2px solid var(--color-red);
+	color: var(--color-red);
 }
 
 .btn-danger:active {
-    background-color: var(--color-red-hover);
+	background-color: var(--color-red-hover);
 }
 
 @media (pointer: fine) {
-    .btn:hover {
-        box-shadow: var(--color-box-shadow);
-    }
-    .btn-primary:hover {
-        background-color: var(--color-brand-hover);
-    }
+	.btn:hover {
+		box-shadow: var(--color-box-shadow);
+	}
+	.btn-primary:hover {
+		background-color: var(--color-brand-hover);
+	}
 
-    .btn-secondary:hover {
-        background-color: var(--color-primary);
-        color: var(--color-text-white);
-    }
+	.btn-secondary:hover {
+		background-color: var(--color-primary);
+		color: var(--color-text-white);
+	}
 
-    .btn-danger:hover {
-        background-color: var(--color-red);
-        color: var(--color-text-white);
-    }
+	.btn-danger:hover {
+		background-color: var(--color-red);
+		color: var(--color-text-white);
+	}
 
-    .btn:disabled:hover {
-        background-color: inherit;
-        color: inherit;
-    }
+	.btn:disabled:hover {
+		background-color: inherit;
+		color: inherit;
+	}
 }

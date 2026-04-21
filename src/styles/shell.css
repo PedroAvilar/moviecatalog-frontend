@@ -3,51 +3,53 @@
     Before React mounts (slow user connection)
 */
 .app-shell {
-    padding: 0.5rem;
+	padding: 0.5rem;
 }
 
 .shell-header {
-    height: 4rem;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: var(--color-bg-muted);
-    z-index: 90;
+	height: 4rem;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background-color: var(--color-bg-muted);
+	z-index: 90;
 }
 
 .shell-banner {
-    width: 100%;
-    height: 60vh;
-    min-height: 320px;
-    margin-top: 4rem;
-    margin-bottom: 2rem;
-    border-radius: 1rem;
+	width: 100%;
+	height: 60vh;
+	min-height: 320px;
+	margin-top: 4rem;
+	margin-bottom: 2rem;
+	border-radius: 1rem;
 }
 
 .shell-section {
-    margin-bottom: 2rem;
+	margin-bottom: 2rem;
 }
 
 .shell-title {
-    width: 25%;
-    height: 2rem;
-    border-radius: 0.5rem;
-    margin-bottom: 1rem;
+	width: 25%;
+	height: 2rem;
+	border-radius: 0.5rem;
+	margin-bottom: 1rem;
 }
 
 .shell-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 1rem;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+	gap: 1rem;
 }
 
 .shell-card {
-    width: 100%;
-    aspect-ratio: 2 / 3;
-    border-radius: 0.5rem;
+	width: 100%;
+	aspect-ratio: 2 / 3;
+	border-radius: 0.5rem;
 }
 
 @media (max-width: 768px) {
-    .shell-banner { height: 50vh; }
+	.shell-banner {
+		height: 50vh;
+	}
 }

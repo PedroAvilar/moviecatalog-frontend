@@ -1,64 +1,64 @@
 .review-inputs,
 .review-list {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    gap: 1rem;
-    margin-bottom: 1rem;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	gap: 1rem;
+	margin-bottom: 1rem;
 }
 
 .review-rating {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 0.5rem;
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	padding: 0.5rem;
 }
 
 .review-input-rating {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
 }
 
 .review-info {
-    background: var(--color-bg-info);
-    padding: 1rem;
-    border-radius: 8px;
-    color: var(--color-text-info);
-    margin: 1rem;
-    font-size: 0.9rem;
+	background: var(--color-bg-info);
+	padding: 1rem;
+	border-radius: 8px;
+	color: var(--color-text-info);
+	margin: 1rem;
+	font-size: 0.9rem;
 }
 
 .review-item {
-    padding: 1rem;
-    border-left: 6px solid var(--color-bg-muted);
-    border-radius: 8px;
-    box-shadow: var(--color-box-shadow-low);
+	padding: 1rem;
+	border-left: 6px solid var(--color-bg-muted);
+	border-radius: 8px;
+	box-shadow: var(--color-box-shadow-low);
 }
 
 .review-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 0.8rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 0.8rem;
 }
 
 @media (max-width: 768px) {
-    .review-info {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        box-sizing: border-box;
-    }
+	.review-info {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		box-sizing: border-box;
+	}
 
-    .review-inputs {
-        width: 100%;
-    }
+	.review-inputs {
+		width: 100%;
+	}
 
-    .review-rating {
-        flex-direction: column;
-        justify-content: center;
-    }
+	.review-rating {
+		flex-direction: column;
+		justify-content: center;
+	}
 }

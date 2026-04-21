@@ -1,73 +1,75 @@
 .favorite-btn {
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    border: none;
-    background: transparent;
-    border-radius: 50%;
-    flex-shrink: 0;
-    flex-grow: 0;
-    transition: transform 0.3s ease, background 0.5s ease;
+	padding: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	border: none;
+	background: transparent;
+	border-radius: 50%;
+	flex-shrink: 0;
+	flex-grow: 0;
+	transition:
+		transform 0.3s ease,
+		background 0.5s ease;
 }
 
 .favorite-btn svg {
-    width: 65%;
-    height: 65%;
-    display: block;
+	width: 65%;
+	height: 65%;
+	display: block;
 }
 
 .heart-svg path {
-    stroke: var(--color-red);
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    transform-box: fill-box;
-    transform-origin: center;
-    transition: all 0.5s ease-in-out;
+	stroke: var(--color-red);
+	stroke-width: 2;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+	transform-box: fill-box;
+	transform-origin: center;
+	transition: all 0.5s ease-in-out;
 }
 
 .heart-outline {
-    fill: none;
-    opacity: 1;
-    transform: scale(1);
+	fill: none;
+	opacity: 1;
+	transform: scale(1);
 }
 
 .heart-fill {
-    fill: var(--color-red);
-    opacity: 0;
-    transform: scale(0);
+	fill: var(--color-red);
+	opacity: 0;
+	transform: scale(0);
 }
 
 .favorite-btn.active .heart-outline {
-    opacity: 0;
-    transform: scale(0);
+	opacity: 0;
+	transform: scale(0);
 }
 
 .favorite-btn.active .heart-fill {
-    opacity: 1;
-    transform: scale(1);
+	opacity: 1;
+	transform: scale(1);
 }
 
 .favorite-btn.floating {
-    position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
-    background: var(--color-overlay-low);
-    backdrop-filter: blur(4px);
+	position: absolute;
+	top: 0.5rem;
+	right: 0.5rem;
+	background: var(--color-overlay-low);
+	backdrop-filter: blur(4px);
 }
 
-.favorite-btn.floating.active { 
-    background: var(--color-light-muted); 
+.favorite-btn.floating.active {
+	background: var(--color-light-muted);
 }
 
 @media (pointer: fine) {
-    .favorite-btn.floating:not(.active):hover { 
-        background: var(--color-overlay);
-    }
+	.favorite-btn.floating:not(.active):hover {
+		background: var(--color-overlay);
+	}
 
-    .favorite-btn:hover {
-        transform: scale(1.15);
-    }
+	.favorite-btn:hover {
+		transform: scale(1.15);
+	}
 }

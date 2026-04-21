@@ -14,28 +14,54 @@ import Profile from './pages/profile/Profile.jsx';
 import './styles/App.css';
 
 function App() {
+	return (
+		<div className="app-layout">
+			<Header />
 
-  return (
-    <div className='app-layout'>
-      <Header />
+			<main className="content">
+				<Routes>
+					<Route path="/" element={<Home />} />
+					<Route
+						path="/categorias/:genreId/:genreName"
+						element={<Categories />}
+					/>
+					<Route
+						path="/favoritos"
+						element={
+							<ProtectedRoute>
+								{' '}
+								<Favorites />{' '}
+							</ProtectedRoute>
+						}
+					/>
+					<Route path="/sobre" element={<About />} />
+					<Route path="/filme/:id/:title?" element={<MovieDetails />} />
+					<Route path="/login" element={<Login />} />
+					<Route path="/cadastro" element={<Register />} />
+					<Route
+						path="/minhas-avaliacoes"
+						element={
+							<ProtectedRoute>
+								{' '}
+								<MyReviews />{' '}
+							</ProtectedRoute>
+						}
+					/>
+					<Route
+						path="/perfil"
+						element={
+							<ProtectedRoute>
+								{' '}
+								<Profile />{' '}
+							</ProtectedRoute>
+						}
+					/>
+				</Routes>
+			</main>
 
-      <main className='content'>
-        <Routes>
-          <Route path='/' element={<Home/>}/>
-          <Route path='/categorias/:genreId/:genreName' element={<Categories/>}/>
-          <Route path='/favoritos' element={<ProtectedRoute> <Favorites/> </ProtectedRoute>} />
-          <Route path='/sobre' element={<About/>}/>
-          <Route path='/filme/:id/:title?' element={<MovieDetails />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/cadastro' element={<Register />} />
-          <Route path='/minhas-avaliacoes' element={<ProtectedRoute> <MyReviews /> </ProtectedRoute>} />
-          <Route path='/perfil' element={<ProtectedRoute> <Profile /> </ProtectedRoute>} />
-        </Routes>
-      </main>
-
-      <Footer />
-    </div>
-  )
+			<Footer />
+		</div>
+	);
 }
 
 export default App;

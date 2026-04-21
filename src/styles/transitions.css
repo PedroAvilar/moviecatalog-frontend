@@ -1,12 +1,20 @@
 .fade {
-    opacity: 0;
-    transition: opacity 0.4s ease-in-out;
+	opacity: 0;
+	transition: opacity 0.4s ease-in-out;
 }
 
-.fade.show { opacity: 1; }
+.fade.show {
+	opacity: 1;
+}
 
-.fade.hide { opacity: 0; }
+.fade.hide {
+	opacity: 0;
+}
 
-.fade-fast { transition: opacity 0.2s ease-in-out; }
+.fade-fast {
+	transition: opacity 0.2s ease-in-out;
+}
 
-.fade-slow { transition: opacity 0.6s ease-in-out; }
+.fade-slow {
+	transition: opacity 0.6s ease-in-out;
+}
