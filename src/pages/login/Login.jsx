@@ -1,25 +1,36 @@
-import { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useToast } from '../../context/ToastContext';
 import { useMutation } from '@tanstack/react-query';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { loginSchema } from '../../schemas/authSchema';
 import Button from '../../components/button/Button';
 import '../../styles/auth.css';
 
 function Login() {
 	const { login } = useAuth();
 	const { showToast } = useToast();
-	const [email, setEmail] = useState('');
-	const [password, setPassword] = useState('');
 	const navigate = useNavigate();
 	const location = useLocation();
 
 	const from = location.state?.from?.pathname || '/';
 
-	const loginMutation = useMutation({
-		mutationFn: async ({ email, password }) => {
-			return await login(email, password);
+	const {
+		register: registerLogin,
+		handleSubmit,
+		formState: { errors },
+	} = useForm({
+		resolver: zodResolver(loginSchema),
+		mode: 'onBlur',
+		defaultValues: {
+			email: '',
+			password: '',
 		},
+	});
+
+	const loginMutation = useMutation({
+		mutationFn: async (data) => await login(data.email, data.password),
 		onSuccess: (response) => {
 			showToast(response);
 			navigate(from, { replace: true });
@@ -29,30 +40,30 @@ function Login() {
 		},
 	});
 
-	async function handleSubmit(e) {
-		e.preventDefault();
-		loginMutation.mutate({ email, password });
-	}
+	const onSubmit = (data) => {
+		loginMutation.mutate(data);
+	};
 
-	const isLoginPending = loginMutation.isPending;
+	const isPending = loginMutation.isPending;
 
 	return (
 		<main>
 			<h2>Entrar</h2>
 
-			<form onSubmit={handleSubmit}>
+			<form onSubmit={handleSubmit(onSubmit)}>
 				<div className="auth-input-wrapper">
 					<div className="auth-input-group">
 						<label htmlFor="email">E-mail</label>
 						<input
 							type="email"
 							id="email"
-							value={email}
-							onChange={(e) => setEmail(e.target.value)}
-							required
+							{...registerLogin('email')}
 							placeholder="seu@email.com"
-							disabled={isLoginPending}
+							disabled={isPending}
 						/>
+						{errors.email && (
+							<span className="error">{errors.email.message}</span>
+						)}
 					</div>
 
 					<div className="auth-input-group">
@@ -60,15 +71,16 @@ function Login() {
 						<input
 							type="password"
 							id="password"
-							value={password}
-							onChange={(e) => setPassword(e.target.value)}
-							required
+							{...registerLogin('password')}
 							placeholder="••••••••"
-							disabled={isLoginPending}
+							disabled={isPending}
 						/>
+						{errors.password && (
+							<span className="error">{errors.password.message}</span>
+						)}
 					</div>
 
-					<Button type="submit" loading={isLoginPending} variant="primary">
+					<Button type="submit" loading={isPending} variant="primary">
 						Entrar
 					</Button>
 				</div>

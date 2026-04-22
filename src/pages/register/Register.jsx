@@ -1,23 +1,30 @@
-import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { register } from '../../services/apiService';
 import { useToast } from '../../context/ToastContext';
 import { useMutation } from '@tanstack/react-query';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { registerSchema } from '../../schemas/authSchema';
 import Button from '../../components/button/Button';
 import '../../styles/auth.css';
 
 function Register() {
 	const { showToast } = useToast();
-	const [formData, setFormData] = useState({
-		name: '',
-		email: '',
-		password: '',
-	});
 	const navigate = useNavigate();
 
-	const handleChange = (e) => {
-		setFormData({ ...formData, [e.target.id]: e.target.value });
-	};
+	const {
+		register: registerInput,
+		handleSubmit,
+		formState: { errors },
+	} = useForm({
+		resolver: zodResolver(registerSchema),
+		mode: 'onBlur',
+		defaultValues: {
+			name: '',
+			email: '',
+			password: '',
+		},
+	});
 
 	const registerMutation = useMutation({
 		mutationFn: register,
@@ -31,30 +38,30 @@ function Register() {
 		},
 	});
 
-	async function handleSubmit(e) {
-		e.preventDefault();
-		registerMutation.mutate(formData);
-	}
+	const onSubmit = (data) => {
+		registerMutation.mutate(data);
+	};
 
-	const isRegisterPending = registerMutation.isPending;
+	const isPending = registerMutation.isPending;
 
 	return (
 		<main>
 			<h2>Criar conta</h2>
 
-			<form onSubmit={handleSubmit}>
+			<form onSubmit={handleSubmit(onSubmit)}>
 				<div className="auth-input-wrapper">
 					<div className="auth-input-group">
 						<label htmlFor="name">Nome</label>
 						<input
 							type="text"
 							id="name"
-							value={formData.name}
-							onChange={handleChange}
-							required
+							{...registerInput('name')}
 							placeholder="Pedro"
-							disabled={isRegisterPending}
+							disabled={isPending}
 						/>
+						{errors.name && (
+							<span className="error">{errors.name.message}</span>
+						)}
 					</div>
 
 					<div className="auth-input-group">
@@ -62,12 +69,13 @@ function Register() {
 						<input
 							type="email"
 							id="email"
-							value={formData.email}
-							onChange={handleChange}
-							required
+							{...registerInput('email')}
 							placeholder="pedro@exemplo.com"
-							disabled={isRegisterPending}
+							disabled={isPending}
 						/>
+						{errors.email && (
+							<span className="error">{errors.email.message}</span>
+						)}
 					</div>
 
 					<div className="auth-input-group">
@@ -75,15 +83,16 @@ function Register() {
 						<input
 							type="password"
 							id="password"
-							value={formData.password}
-							onChange={handleChange}
-							required
+							{...registerInput('password')}
 							placeholder="••••••••"
-							disabled={isRegisterPending}
+							disabled={isPending}
 						/>
+						{errors.password && (
+							<span className="error">{errors.password.message}</span>
+						)}
 					</div>
 
-					<Button type="submit" loading={isRegisterPending} variant="primary">
+					<Button type="submit" loading={isPending} variant="primary">
 						Cadastrar
 					</Button>
 				</div>

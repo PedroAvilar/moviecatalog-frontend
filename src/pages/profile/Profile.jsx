@@ -1,12 +1,18 @@
-import { useEffect, useState } from 'react';
-import { useMutation } from '@tanstack/react-query';
-import { useAuth } from '../../context/AuthContext';
 import {
 	updatePassword,
 	updateProfile,
 	deleteAccount as apiDeleteAccount,
 } from '../../services/apiService';
+import {
+	updateProfileSchema,
+	updatePasswordSchema,
+} from '../../schemas/authSchema';
+import { useEffect, useState } from 'react';
+import { useMutation } from '@tanstack/react-query';
+import { useAuth } from '../../context/AuthContext';
 import { useToast } from '../../context/ToastContext';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import Button from '../../components/button/Button';
 import Modal from '../../components/modal/Modal';
 import './profile.css';
@@ -16,22 +22,45 @@ function Profile() {
 	const { showToast } = useToast();
 	const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 	const [isPassModalOpen, setIsPassModalOpen] = useState(false);
-	const [editData, setEditData] = useState({
-		name: user?.name || '',
-		email: user?.email || '',
-	});
-	const [passData, setPassData] = useState({
-		currentPassword: '',
-		newPassword: '',
-		confirmPassword: '',
-	});
 	const [profileToDelete, setProfileToDelete] = useState(null);
+
+	const {
+		register: registerProfile,
+		handleSubmit: handleSubmitProfile,
+		reset: resetProfile,
+		formState: { errors: profileErrors },
+	} = useForm({
+		resolver: zodResolver(updateProfileSchema),
+		mode: 'onChange',
+		defaultValues: {
+			name: user?.name || '',
+			email: user?.email || '',
+		},
+	});
+
+	const {
+		register: registerPassword,
+		handleSubmit: handleSubmitPassword,
+		reset: resetPassword,
+		formState: { errors: passwordErrors },
+	} = useForm({
+		resolver: zodResolver(updatePasswordSchema),
+		mode: 'onChange',
+		defaultValues: {
+			currentPassword: '',
+			newPassword: '',
+			confirmPassword: '',
+		},
+	});
 
 	useEffect(() => {
 		if (user) {
-			setEditData({ name: user.name, email: user.email });
+			resetProfile({
+				name: user.name,
+				email: user.email,
+			});
 		}
-	}, [user]);
+	}, [user, resetProfile]);
 
 	const profileMutation = useMutation({
 		mutationFn: updateProfile,
@@ -70,38 +99,21 @@ function Profile() {
 
 	const closeEditModal = () => {
 		setIsEditModalOpen(false);
-		setEditData({ name: user?.name || '', email: user?.email || '' });
+		resetProfile();
 	};
 
 	const closePassModal = () => {
 		setIsPassModalOpen(false);
-		setPassData({ currentPassword: '', newPassword: '', confirmPassword: '' });
+		resetPassword();
 	};
 
-	const handleUpdateProfile = (e) => {
-		e.preventDefault();
-		if (!editData.name || !editData.email) {
-			return showToast({ message: 'Todos os campos são obrigatórios' });
-		}
-		profileMutation.mutate(editData);
+	const onSubmitProfile = (data) => {
+		profileMutation.mutate(data);
 	};
 
-	const handleUpdatePassword = (e) => {
-		e.preventDefault();
-
-		if (
-			!passData.currentPassword ||
-			!passData.newPassword ||
-			!passData.confirmPassword
-		) {
-			return showToast({ message: 'Todos os campos são obrigatórios' });
-		}
-
-		if (passData.newPassword !== passData.confirmPassword) {
-			return showToast({ message: 'As senhas não correspondem' });
-		}
-
-		passwordMutation.mutate(passData);
+	const onSubmitPassword = (data) => {
+		const { confirmPassword, ...payload } = data;
+		passwordMutation.mutate(payload);
 	};
 
 	const isProfilePending = profileMutation.isPending;
@@ -164,25 +176,27 @@ function Profile() {
 				onClose={closeEditModal}
 				title="Editar Perfil"
 			>
-				<form onSubmit={handleUpdateProfile}>
+				<form onSubmit={handleSubmitProfile(onSubmitProfile)}>
 					<input
 						type="text"
-						value={editData.name}
-						onChange={(e) => setEditData({ ...editData, name: e.target.value })}
+						id="name"
+						{...registerProfile('name')}
 						placeholder="Nome"
 						disabled={isProfilePending}
-						required
 					/>
+					{profileErrors.name && (
+						<span className="error">{profileErrors.name.message}</span>
+					)}
 					<input
 						type="email"
-						value={editData.email}
-						onChange={(e) =>
-							setEditData({ ...editData, email: e.target.value })
-						}
+						id="email"
+						{...registerProfile('email')}
 						placeholder="E-mail"
 						disabled={isProfilePending}
-						required
 					/>
+					{profileErrors.email && (
+						<span className="error">{profileErrors.email.message}</span>
+					)}
 
 					<div className="modal-action">
 						<Button
@@ -204,37 +218,41 @@ function Profile() {
 				onClose={closePassModal}
 				title="Alterar senha"
 			>
-				<form onSubmit={handleUpdatePassword}>
+				<form onSubmit={handleSubmitPassword(onSubmitPassword)}>
 					<input
 						type="password"
-						value={passData.currentPassword}
+						id="currentPassword"
+						{...registerPassword('currentPassword')}
 						placeholder="Senha atual"
-						onChange={(e) =>
-							setPassData({ ...passData, currentPassword: e.target.value })
-						}
 						disabled={isPasswordPending}
-						required
 					/>
+					{passwordErrors.currentPassword && (
+						<span className="error">
+							{passwordErrors.currentPassword.message}
+						</span>
+					)}
 					<input
 						type="password"
-						value={passData.newPassword}
+						id="newPassword"
+						{...registerPassword('newPassword')}
 						placeholder="Nova senha"
-						onChange={(e) =>
-							setPassData({ ...passData, newPassword: e.target.value })
-						}
 						disabled={isPasswordPending}
-						required
 					/>
+					{passwordErrors.newPassword && (
+						<span className="error">{passwordErrors.newPassword.message}</span>
+					)}
 					<input
 						type="password"
-						value={passData.confirmPassword}
+						id="confirmPassword"
+						{...registerPassword('confirmPassword')}
 						placeholder="Confirmar nova senha"
-						onChange={(e) =>
-							setPassData({ ...passData, confirmPassword: e.target.value })
-						}
 						disabled={isPasswordPending}
-						required
 					/>
+					{passwordErrors.confirmPassword && (
+						<span className="error">
+							{passwordErrors.confirmPassword.message}
+						</span>
+					)}
 
 					<div className="modal-action">
 						<Button
