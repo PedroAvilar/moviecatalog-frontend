@@ -2,19 +2,33 @@ import { useEffect, useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { updateReview } from '../../services/apiService';
 import { useToast } from '../../context/ToastContext';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { updateReviewSchema } from '../../schemas/reviewSchema';
 import Button from '../button/Button';
 import Modal from '../modal/Modal';
 
 function EditMovieReview({ isOpen, onClose, review }) {
 	const { showToast } = useToast();
-	const [rating, setRating] = useState(review?.rating ?? 10);
-	const [comment, setComment] = useState(review?.comment || '');
 	const queryClient = useQueryClient();
 
+	const {
+		register,
+		handleSubmit,
+		reset,
+		formState: { errors },
+	} = useForm({
+		resolver: zodResolver(updateReviewSchema),
+		mode: 'onChange',
+		defaultValues: {
+			rating: review?.rating ?? 10,
+			comment: review?.comment ?? '',
+		},
+	});
+
 	useEffect(() => {
-		if (review) {
-			setRating(review.rating);
-			setComment(review.comment);
+		if (review && isOpen) {
+			reset({ rating: review.rating, comment: review.comment });
 		}
 	}, [review, isOpen]);
 
@@ -36,33 +50,9 @@ function EditMovieReview({ isOpen, onClose, review }) {
 		},
 	});
 
-	const handleRatingChange = (e) => {
-		const val = e.target.value;
-		if (val === '') {
-			setRating('');
-			return;
-		}
-		const numValue = Number(val);
-		if (numValue >= 0 && numValue <= 10) {
-			setRating(numValue);
-		}
+	const onSubmit = (data) => {
+		mutation.mutate(data);
 	};
-
-	function handleSubmit(e) {
-		e.preventDefault();
-
-		if (rating === '') {
-			showToast({ message: 'Insira uma nota na avaliação', type: 'error' });
-			return;
-		}
-
-		if (rating < 0 || rating > 10) {
-			showToast({ message: 'A nota deve ser entre 0 e 10', type: 'error' });
-			return;
-		}
-
-		mutation.mutate({ rating, comment });
-	}
 
 	return (
 		<Modal
@@ -70,7 +60,7 @@ function EditMovieReview({ isOpen, onClose, review }) {
 			onClose={onClose}
 			title={`Editar avaliação de ${review?.movie?.title || 'Filme'}`}
 		>
-			<form onSubmit={handleSubmit}>
+			<form onSubmit={handleSubmit(onSubmit)}>
 				<div className="review-inputs">
 					<div className="review-rating">
 						<p>Sua nota de 0 a 10</p>
@@ -78,23 +68,30 @@ function EditMovieReview({ isOpen, onClose, review }) {
 							<span>⭐</span>
 							<input
 								type="number"
+								id="rating"
 								min="0"
 								max="10"
 								step="1"
-								value={rating}
-								onChange={handleRatingChange}
-								required
+								{...register('rating', { valueAsNumber: true })}
+								disabled={mutation.isPending}
 							/>
 							<span>/ 10</span>
+							{errors.rating && (
+								<span className="error">{errors.rating.message}</span>
+							)}
 						</div>
 					</div>
 
 					<textarea
-						value={comment}
-						onChange={(e) => setComment(e.target.value)}
-						required
+						id="comment"
+						maxLength={500}
 						placeholder="Edite seu comentário..."
+						{...register('comment')}
+						disabled={mutation.isPending}
 					/>
+					{errors.comment && (
+						<span className="error">{errors.comment.message}</span>
+					)}
 				</div>
 				<div className="modal-action">
 					<Button

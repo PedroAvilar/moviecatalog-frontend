@@ -3,23 +3,37 @@ import { useAuth } from '../../context/AuthContext';
 import { createReview } from '../../services/apiService';
 import { useToast } from '../../context/ToastContext';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { createReviewSchema } from '../../schemas/reviewSchema';
 import Button from '../button/Button';
 import './movieReviews.css';
 
 function MovieReviews({ movieId, reviews }) {
 	const { signed, user } = useAuth();
 	const { showToast } = useToast();
-	const [rating, setRating] = useState(10);
-	const [comment, setComment] = useState('');
 	const queryClient = useQueryClient();
 
 	const userAlreadyReviewed = reviews.some((r) => r.userId?.id === user?.id);
 
+	const {
+		register,
+		handleSubmit,
+		reset,
+		formState: { errors },
+	} = useForm({
+		resolver: zodResolver(createReviewSchema),
+		mode: 'onChange',
+		defaultValues: {
+			rating: 10,
+			comment: '',
+		},
+	});
+
 	const mutation = useMutation({
 		mutationFn: (newReview) => createReview(newReview),
 		onSuccess: (response) => {
-			setComment('');
-			setRating(10);
+			reset();
 			showToast(response);
 			queryClient.invalidateQueries({ queryKey: ['movie', movieId] });
 			queryClient.invalidateQueries({ queryKey: ['my-reviews'] });
@@ -29,33 +43,9 @@ function MovieReviews({ movieId, reviews }) {
 		},
 	});
 
-	const handleRatingChange = (e) => {
-		const val = e.target.value;
-		if (val === '') {
-			setRating('');
-			return;
-		}
-		const numVale = Number(val);
-		if (numVale >= 0 && numVale <= 10) {
-			setRating(numVale);
-		}
+	const onSubmit = (data) => {
+		mutation.mutate({ ...data, movieId });
 	};
-
-	function handleSubmit(e) {
-		e.preventDefault();
-
-		if (rating === '') {
-			showToast({ message: 'Insira uma nota na avaliação', type: 'error' });
-			return;
-		}
-
-		if (rating < 0 || rating > 10) {
-			showToast({ message: 'A nota deve ser entre 0 e 10', type: 'error' });
-			return;
-		}
-
-		mutation.mutate({ movieId, rating, comment });
-	}
 
 	return (
 		<section>
@@ -63,7 +53,7 @@ function MovieReviews({ movieId, reviews }) {
 
 			{signed ? (
 				!userAlreadyReviewed ? (
-					<form onSubmit={handleSubmit}>
+					<form onSubmit={handleSubmit(onSubmit)}>
 						<h3>Deixe sua avaliação</h3>
 
 						<div className="review-inputs">
@@ -73,24 +63,29 @@ function MovieReviews({ movieId, reviews }) {
 									<span>⭐</span>
 									<input
 										type="number"
+										id="rating"
 										min="0"
 										max="10"
 										step="1"
-										value={rating}
-										onChange={handleRatingChange}
+										{...register('rating', { valueAsNumber: true })}
 										disabled={mutation.isPending}
-										required
 									/>
 									<span>/ 10</span>
+									{errors.rating && (
+										<span className="error">{errors.rating.message}</span>
+									)}
 								</div>
 							</div>
 							<textarea
+								id="comment"
+								maxLength={500}
 								placeholder="O que você achou do filme?"
-								value={comment}
-								onChange={(e) => setComment(e.target.value)}
+								{...register('comment')}
 								disabled={mutation.isPending}
-								required
 							/>
+							{errors.comment && (
+								<span className="error">{errors.comment.message}</span>
+							)}
 						</div>
 
 						<Button
