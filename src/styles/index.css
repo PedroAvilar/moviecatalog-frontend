@@ -159,6 +159,10 @@ form {
 	gap: 1rem;
 }
 
+.error {
+	color: var(--color-red);
+}
+
 @media (max-width: 768px) {
 	textarea {
 		min-height: 14rem;
