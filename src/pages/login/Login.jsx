@@ -22,7 +22,7 @@ function Login() {
 		formState: { errors },
 	} = useForm({
 		resolver: zodResolver(loginSchema),
-		mode: 'onBlur',
+		mode: 'onChange',
 		defaultValues: {
 			email: '',
 			password: '',

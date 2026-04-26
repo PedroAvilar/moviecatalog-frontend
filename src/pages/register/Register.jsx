@@ -18,7 +18,7 @@ function Register() {
 		formState: { errors },
 	} = useForm({
 		resolver: zodResolver(registerSchema),
-		mode: 'onBlur',
+		mode: 'onChange',
 		defaultValues: {
 			name: '',
 			email: '',
