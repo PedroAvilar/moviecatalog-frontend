@@ -77,6 +77,7 @@ function Banner({ movies }) {
 	return (
 		<section
 			className="banner"
+			aria-label="Banner de filmes"
 			onTouchStart={handleTouchStart}
 			onTouchMove={handleTouchMove}
 			onTouchEnd={handleTouchEnd}
