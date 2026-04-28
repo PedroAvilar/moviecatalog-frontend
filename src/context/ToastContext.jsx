@@ -25,7 +25,7 @@ export function ToastProvider({ children }) {
 				return prev;
 			}
 
-			const newToast = [...prev, { id: Date.now(), message, type }];
+			const newToast = [...prev, { id: crypto.randomUUID(), message, type }];
 			if (newToast.length > 3) {
 				return newToast.slice(1);
 			}
