@@ -22,7 +22,6 @@ function Banner({ movies }) {
 
 		const newIndex = (index + movies.length) % movies.length;
 		setCurrentIndex(newIndex);
-		startAutoSlide();
 	}
 
 	function startAutoSlide() {
@@ -56,19 +55,26 @@ function Banner({ movies }) {
 	}
 
 	useEffect(() => {
-		if (!movies?.length) return;
+		if (!movies?.length) {
+			clearInterval(intervalRef.current);
+			return;
+		}
+
+		if (!movies[currentIndex]) {
+			setCurrentIndex(0);
+			return;
+		}
 
 		startAutoSlide();
 
 		return () => clearInterval(intervalRef.current);
-	}, [movies]);
+	}, [movies, currentIndex]);
 
 	if (!movies?.length) return <BannerSkeleton />;
 
-	const movie = movies[currentIndex];
+	const movie = movies[currentIndex] ?? null;
 
 	if (!movie) {
-		setCurrentIndex(0);
 		return <BannerSkeleton />;
 	}
 
