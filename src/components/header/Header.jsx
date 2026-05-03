@@ -99,7 +99,7 @@ function Header() {
 
 					{signed ? (
 						<NavDropdown
-							label={`Olá, ${user.name.split(' ')[0]}`}
+							label={`Olá, ${user?.name?.split(' ')?.[0] || 'Usuário'}`}
 							items={userItems}
 							isOpen={openDropdown === 'user'}
 							onToggle={(state) => setOpenDropdown(state ? 'user' : null)}
