@@ -25,6 +25,7 @@ function MovieReviews({ movieId, reviews }) {
 		resolver: zodResolver(createReviewSchema),
 		mode: 'onChange',
 		defaultValues: {
+			movieId: movieId,
 			rating: 10,
 			comment: '',
 		},
