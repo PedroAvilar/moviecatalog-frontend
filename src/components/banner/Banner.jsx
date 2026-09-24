@@ -90,11 +90,13 @@ function Banner({ movies }) {
 		>
 			<div
 				key={`img${movie.id}`}
+				data-testid="banner-background"
 				className={`banner-image fade fade-slow ${imageLoaded ? 'show' : 'skeleton-base'}`}
 				style={imageLoaded ? { backgroundImage: `url(${backdropUrl})` } : {}}
 			/>
 			<img
 				key={backdropUrl}
+				data-testid="hidden-image"
 				src={backdropUrl}
 				alt=""
 				style={{ display: 'none' }}
@@ -114,6 +116,8 @@ function Banner({ movies }) {
 					{movies.map((_, index) => (
 						<span
 							key={index}
+							role="button"
+							aria-label={`Ir para o slide ${index + 1}`}
 							className={`dot ${index === currentIndex ? 'active' : ''}`}
 							onClick={(e) => {
 								e.stopPropagation();
